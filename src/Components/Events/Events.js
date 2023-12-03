@@ -49,6 +49,8 @@ const Events = () => {
             value={newEvent.title}
             onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
           />
+                  <button onClick={handleCreateEvent}>Create Event</button>
+
         </div>
 
         <div className="form-group">
@@ -78,7 +80,6 @@ const Events = () => {
           />
         </div>
 
-        <button onClick={handleCreateEvent}>Create Event</button>
       </div>
 
       <table>

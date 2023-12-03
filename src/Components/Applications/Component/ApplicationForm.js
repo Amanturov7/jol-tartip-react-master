@@ -59,19 +59,27 @@ const ApplicationForm = ({ onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-group">
+        
         <label>Title:</label>
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
         
         <label>Description:</label>
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+        <button type="submit">Заявить</button>
+
+      </div>
+      <div className="form-group">
+        <label>Title:</label>
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+        
+        <label>Description:</label>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+     
       </div>
 
+      
 
 
-      <button type="submit">Submit</button>
-      <button type="button" onClick={onCancel}>
-        Закрыть форму
-      </button>
     </form>
   );
 };
