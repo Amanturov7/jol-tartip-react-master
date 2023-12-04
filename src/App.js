@@ -8,6 +8,8 @@ import ViolationsList from './Components/ViolationsList';
 import Tests from './Components/Tests';
 import Home from './Components/Home';
 import Navbar from './Components/Navbar';
+import Footer from './Components/Footer/Footer';
+
 import './App.css';
 
 export default function App() {
@@ -31,7 +33,10 @@ export default function App() {
               </div>
             }
           />
+          
         </Routes>
+        <Footer />
+
       </div>
     </Router>
   );
