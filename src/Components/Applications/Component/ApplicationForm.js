@@ -40,7 +40,7 @@ const ApplicationForm = ({ onCancel }) => {
   useEffect(() => {
     const fetchViolations = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/violations');
+        const response = await Axios.get('http://localhost:8080/rest/violations/all');
         setViolationsList(response.data);
       } catch (error) {
         console.error('Error fetching violations:', error.message);
