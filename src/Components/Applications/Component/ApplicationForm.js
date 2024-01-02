@@ -143,15 +143,15 @@ const ApplicationForm = ({ onCancel }) => {
   return (
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-group">
-        <label>Description:</label>
+        <label>Описание</label>
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
 
-        <label>Place:</label>
+        <label>Адрес</label>
         <input type="text" value={place} onChange={(e) => setPlace(e.target.value)} required />
 
-        <label>Region:</label>
+        <label>Область</label>
         <select value={regionId} onChange={(e) => setRegionId(e.target.value)} required>
-          <option value="">Select Region</option>
+          <option value="">Выберите область</option>
           {regions.map((region) => (
             <option key={region.id} value={region.id}>
               {region.title}
@@ -159,9 +159,9 @@ const ApplicationForm = ({ onCancel }) => {
           ))}
         </select>
 
-        <label>District:</label>
+        <label>Район</label>
         <select value={districtId} onChange={(e) => setDistrictId(e.target.value)} required>
-          <option value="">Select District</option>
+          <option value="">Выберите район</option>
           {districts.map((district) => (
             <option key={district.id} value={district.id}>
               {district.title}
@@ -171,15 +171,15 @@ const ApplicationForm = ({ onCancel }) => {
       </div>
 
       <div className="form-group">
-        <label>Longitude:</label>
+        {/* <label>Longitude:</label>
         <input type="number" value={lon} onChange={(e) => setLon(e.target.value)}  />
 
         <label>Latitude:</label>
-        <input type="number" value={lat} onChange={(e) => setLat(e.target.value)}  />
+        <input type="number" value={lat} onChange={(e) => setLat(e.target.value)}  /> */}
 
-        <label>Type Violations:</label>
+        <label>Тип нарушения</label>
         <select value={typeViolationsId} onChange={(e) => setTypeViolationsId(e.target.value)} required>
-          <option value="">Select Violation Type</option>
+          <option value="">Выберите тип нарушения </option>
           {violationsList.map((violation) => (
             <option key={violation.id} value={violation.id}>
               {violation.title}
@@ -187,7 +187,7 @@ const ApplicationForm = ({ onCancel }) => {
           ))}
         </select>
 
-        <label>Attach File:</label>
+        <label>Приложить Фото/Видео доказательство</label>
         <input type="file" onChange={handleFileChange} />
 
         <button type="submit">Submit</button>

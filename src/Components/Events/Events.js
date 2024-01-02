@@ -62,44 +62,23 @@ const Events = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label>Start Date:</label>
-          <input
-            type="date"
-            value={newEvent.startDate}
-            onChange={(e) => setNewEvent({ ...newEvent, startDate: e.target.value })}
-          />
-        </div>
-
-        <div className="form-group">
-          <label>End Date:</label>
-          <input
-            type="date"
-            value={newEvent.endDate}
-            onChange={(e) => setNewEvent({ ...newEvent, endDate: e.target.value })}
-          />
-        </div>
-
       </div>
 
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Title</th>
             <th>Description</th>
-            <th>Start Date</th>
-            <th>End Date</th>
+            <th>Date</th>
           </tr>
         </thead>
         <tbody>
           {events.map((event) => (
             <tr key={event.id}>
-              <td>{event.id}</td>
               <td>{event.title}</td>
               <td>{event.description}</td>
               <td>{event.startDate}</td>
-              <td>{event.endDate}</td>
+
             </tr>
           ))}
         </tbody>

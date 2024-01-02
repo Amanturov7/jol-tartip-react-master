@@ -9,7 +9,6 @@ const ApplicationSection = () => {
             <h2>Список заявлений</h2>
 
       <ApplicationForm />
-
       <ApplicationsList />
     </div>
   );

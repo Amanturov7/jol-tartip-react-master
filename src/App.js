@@ -9,14 +9,17 @@ import Tests from './Components/Tests';
 import Home from './Components/Home';
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer/Footer';
-
+import MapComponent from './MapComponent';
 import './App.css';
-
+import DetailedApplicationView from './Components/Applications/Component/DetailedApplicationView';
 export default function App() {
+
   return (
     <Router>
       <div>
         <Navbar />
+        
+
         <Routes>
           <Route path="/report" element={<ApplicationForm />} />
           <Route path="/events" element={<Events />} />
@@ -25,15 +28,14 @@ export default function App() {
           <Route path="/violations-list" element={<ViolationsList />} />
           <Route path="/tests" element={<Tests />} />
           <Route path="/" element={<Home />} />
-          <Route
-            path="*"
-            element={
+          <Route path="/maps" element={<MapComponent />} />
+          <Route path="/applications/:id" element={<DetailedApplicationView />} />
+          <Route path="*" element={
               <div>
                 <h2>404 Page not found etc</h2>
               </div>
             }
           />
-          
         </Routes>
         <Footer />
 

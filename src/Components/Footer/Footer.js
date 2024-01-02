@@ -1,5 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
   faYoutube,
   faFacebook,
@@ -8,7 +9,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 const Footer = () => {
   return (
-    <footer>
+    <footer >
       <div className="Footer-Main-Section-Container">
         <div className="Footer-Brand-Logo">
           <a href="https://www.youtube.com/c/jamesqquick">Jol Tartip</a>

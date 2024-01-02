@@ -26,6 +26,9 @@ Jol Tartip        </Link>
           <Link to="/tests" className="navbar-link">
             Тесты ПДД
           </Link>
+          <Link to="/maps" className="navbar-link">
+            Карты
+          </Link>
         </div>
       </div>
     </nav>
