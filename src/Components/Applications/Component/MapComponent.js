@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import Axios from 'axios';
@@ -19,10 +19,12 @@ const MapComponent = ({ onCoordinateSelect, setPlace }) => {
       leafletMap.off();
       leafletMap.remove();
     };
+    // eslint-disable-next-line
   }, []);
 
   const handleMapClick = async (e) => {
     const { lat, lng } = e.latlng;
+    
     let addressDetails;
 
     try {

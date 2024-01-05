@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import L from 'leaflet';
 import Axios from 'axios';
 
@@ -87,7 +87,7 @@ const dgis = L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}'
       if (lat && lon) {
         L.marker([lat, lon], { icon: blueIcon })
           .addTo(applicationLayer)
-          .bindPopup(`Application: ${app.id}`);
+          .bindPopup(`Нарушения: ${app.id}`);
       }
     });
 
@@ -97,13 +97,13 @@ const dgis = L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}'
       if (lat && lon) {
         L.marker([lat, lon], { icon: greenIcon })
           .addTo(reviewLayer)
-          .bindPopup(`Review: ${review.id}`);
+          .bindPopup(`Отзывы: ${review.id}`);
       }
     });
-
+    // eslint-disable-next-line
     const layerControl = L.control.layers(
       { 'Light Map': lightMap, 'Dark Map': darkMap, 'Base map': baseMap  , 'OpenStreetMapHot Map':  openStreetMapHot, '2ГИС' :dgis  },
-      { 'Applications': applicationLayer, 'Reviews': reviewLayer },
+      { 'Нарушения': applicationLayer, 'Отзывы': reviewLayer },
     ).addTo(map);
 
     return () => {
