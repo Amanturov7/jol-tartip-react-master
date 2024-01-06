@@ -187,7 +187,7 @@ const ApplicationForm = ({ onCancel }) => {
       <div className="form-group">
 
       <label>Адрес</label>
-        <input type="text" readonly='readonly' value={place} onChange={(e) => setPlace(e.target.value)} required />
+        <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
 
 
         <label>Долгота: {selectedCoordinate.lat}  </label>   
