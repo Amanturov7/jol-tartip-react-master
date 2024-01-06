@@ -30,6 +30,12 @@
   color: black !important;
 }
 
+
+.application-box img{
+
+  height: 200px;
+
+}
 .table-mode table {
   width: 100%;
   text-align: center;

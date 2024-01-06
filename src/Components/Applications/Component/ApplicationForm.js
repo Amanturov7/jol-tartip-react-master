@@ -51,7 +51,7 @@ const ApplicationForm = ({ onCancel }) => {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
-      const allowedFileTypes = ['image/jpeg', 'image/png'];
+      const allowedFileTypes = ['image/jpeg', 'image/png', 'video/mp4'];
 
       const fileType = selectedFile.type;
 

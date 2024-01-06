@@ -7,6 +7,28 @@ import { faTh, faList } from '@fortawesome/free-solid-svg-icons';
 import '../../../App.css'; // Import styles
 import './ApplicationList.css';
 
+
+const isImage = (id) => {
+  const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  const extension = getFileExtension(id);
+  return imageExtensions.includes(extension);
+};
+
+const isVideo = (id) => {
+  const videoExtensions = ['mp4', 'avi', 'mkv']; 
+  const extension = getFileExtension(id);
+  return videoExtensions.includes(extension);
+};
+
+const getFileExtension = (id) => {
+  const idString = id.toString();
+  const parts = idString.split('.');
+  return parts.length > 1 ? parts[parts.length - 1] : null;
+};
+
+
+
+
 const ApplicationsList = ({ onReportClick }) => {
   const [applications, setApplications] = useState([]);
   const [isGridMode, setIsGridMode] = useState(true);
@@ -32,9 +54,12 @@ const ApplicationsList = ({ onReportClick }) => {
     if (isGridMode) {
       return applications.map((application) => (
         <Link to={`/applications/${application.id}`} key={application.id} className="application-box">
-          <div>{application.id}</div>
-          <div>{application.title}</div>
-        </Link>
+        <div>{application.id}</div>
+        <div>{application.title}</div>
+          <img src={`http://localhost:8080/rest/attachments/download/applications/${application.id}`} alt={application.title} />
+
+      </Link>
+      
       ));
     } else {
       return (
