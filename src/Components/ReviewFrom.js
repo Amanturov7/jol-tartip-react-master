@@ -12,6 +12,7 @@ const ReviewForm = () => {
   const [userId, setUserId] = useState(0);
   const [reviewType, setReviewType] = useState('');
   const [options, setOptions] = useState([]);
+  const [file, setFile] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [selectedCoordinate, setSelectedCoordinate] = useState({ lat: 0, lon: 0 });
@@ -64,6 +65,25 @@ const ReviewForm = () => {
     }
   };
 
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const allowedFileTypes = ['image/jpeg', 'image/png', 'video/mp4'];
+
+      const fileType = selectedFile.type;
+
+      if (allowedFileTypes.includes(fileType)) {
+        setFile(selectedFile);
+      } else {
+        alert('Файл не поддерживается. Выберите jpeg, jpg, png, mp4');
+        e.target.value = null;
+        setFile(null);
+      }
+    }
+  };
+
   useEffect(() => {
     if (options.length > 0) {
       setSelectedOption(options[0]);
@@ -108,6 +128,26 @@ const ReviewForm = () => {
           'Content-Type': 'application/json',
         },
       });
+
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append(
+        'dto',
+        JSON.stringify({
+          type: 'application',
+          originName: file ? file.name : '',
+          description: 'File description',
+          userId: 1,
+          reviewsId: response.data.id,
+        })
+      );
+
+      await Axios.post('http://localhost:8080/rest/attachments/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
   
       console.log('Review created:', response.data);
       setLat(0);
@@ -122,6 +162,7 @@ const ReviewForm = () => {
       setLightId(0);
       setRoadSignId(0);
       setEcologicFactorsId(0);
+      setFile(null);
     } catch (error) {
       console.error('Error creating review:', error.message);
     }
@@ -138,6 +179,8 @@ const ReviewForm = () => {
           <option value="Дорожные условия">Дорожные условия</option>
           <option value="Экологические факторы">Экологические факторы</option>
         </select>
+  <label>Приложить Фото/Видео доказательство</label>
+        <input type="file" onChange={handleFileChange} />
 
         <label>Вид отзыва</label>
         <select
