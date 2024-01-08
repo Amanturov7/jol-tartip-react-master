@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const DetailedApplicationView = () => {
   const { id } = useParams();
@@ -34,9 +35,15 @@ const DetailedApplicationView = () => {
 
   return (
     <div className='container'>
-      <h2>Detailed View of Application {id}</h2>
-      <p>Нарушение {application.title}</p>
+      <h2>Нарушение № {id}</h2>
+      <p>Тип нарушение  пдд: {application.title}</p>
+      <p>Дата Нарушения: {application.dateOfViolation}</p>
+      <p>Гос номер: {application.numberAuto}</p>
       <p>Описание: {application.description}</p>
+      <p>Статус: {application.statusName}</p>
+      <p>Адрес: {application.place}</p>
+      <p>Дата создания заявления: {application.createdDate}</p>
+
 
       {attachmentUrl && (
         <div>
@@ -44,6 +51,17 @@ const DetailedApplicationView = () => {
           <img src={attachmentUrl} alt={`Attachment for application ${id}`} />
         </div>
       )}
+
+<Link to={`/report`}>
+<button type="button" className='button-green' >
+              Назад
+            </button>
+      </Link>
+      <Link to={`/`}>
+<button type="button" className='button-green' >
+              На главную
+            </button>
+      </Link>
     </div>
   );
 };

@@ -54,9 +54,9 @@ const ApplicationsList = ({ onReportClick }) => {
     if (isGridMode) {
       return applications.map((application) => (
         <Link to={`/applications/${application.id}`} key={application.id} className="application-box">
-        <div>{application.id}</div>
+          <img src={`http://localhost:8080/rest/attachments/download/applications/${application.id}`} />
+          <div> Нарушение № {application.id}</div>
         <div>{application.title}</div>
-          <img src={`http://localhost:8080/rest/attachments/download/applications/${application.id}`} alt={application.title} />
 
       </Link>
       

@@ -8,6 +8,8 @@ const ApplicationForm = ({ onCancel }) => {
   const [place, setPlace] = useState('');
   const [status, setStatus] = useState('');
   const [regionId, setRegionId] = useState('');
+  const [dateOfViolation, setDateOfViolation] = useState('');
+  const [numberAuto, setNumberAuto] = useState('');
   const [file, setFile] = useState(null);
   const [districtId, setDistrictId] = useState('');
   const [typeViolationsId, setTypeViolationsId] = useState('');
@@ -90,10 +92,12 @@ const ApplicationForm = ({ onCancel }) => {
       lat: selectedCoordinate.lat,
       lon: selectedCoordinate.lon,
       status,
+      dateOfViolation,
       regionId,
       districtId,
       typeViolationsId,
       userId,
+      numberAuto
     };
 
     try {
@@ -130,9 +134,11 @@ const ApplicationForm = ({ onCancel }) => {
       setTitle('');
       setDescription('');
       setPlace('');
+      setDateOfViolation('')
       setSelectedCoordinate({ lat: 0, lon: 0 });
       setStatus(0);
       setRegionId(0);
+      setNumberAuto('')
       setDistrictId(0);
       setTypeViolationsId(0);
       setUserId(0);
@@ -170,6 +176,16 @@ const ApplicationForm = ({ onCancel }) => {
       </div>
 
       <div className="form-group">
+
+      <label>Дата нарушения</label>
+        <input type="date"   onChange={(e) => setDateOfViolation(e.target.value)} required />
+
+
+        <label>Гос номер </label>
+        <input type="text"   onChange={(e) => setNumberAuto(e.target.value)} required />
+
+
+
         <label>Тип нарушения</label>
         <select value={typeViolationsId} onChange={(e) => setTypeViolationsId(e.target.value)} required>
           <option value="">Выберите тип нарушения</option>
@@ -188,6 +204,7 @@ const ApplicationForm = ({ onCancel }) => {
 
       <label>Адрес</label>
         <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
+
 
 
         <label>Долгота: {selectedCoordinate.lat}  </label>   
