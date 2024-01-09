@@ -62,6 +62,24 @@
 }
 
 
+
+.button-red {
+  width: 150px;
+  height: 30px;
+  background-color: #d32626;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-right: 20px;
+}
+
+.button-red :hover {
+  background-color: #aa0e0e;
+}
+
+
 .table-mode th,
 .table-mode td {
   padding: 8px;

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';  // Import useNavigate
 import Axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const DetailedApplicationView = () => {
   const { id } = useParams();
+  const navigate = useNavigate();  // Use useNavigate instead of useHistory
   const [application, setApplication] = useState(null);
   const [attachmentUrl, setAttachmentUrl] = useState(null);
 
@@ -29,22 +29,29 @@ const DetailedApplicationView = () => {
     fetchApplication();
   }, [id]);
 
+  const handleDelete = async () => {
+    try {
+      await Axios.delete(`http://localhost:8080/rest/applications/delete/${id}`);
+      navigate('/report'); // Use navigate to redirect
+    } catch (error) {
+      console.error('Error deleting application:', error.message);
+    }
+  };
+
   if (!application) {
     return <div className='container'>Loading...</div>;
   }
 
   return (
     <div className='container'>
-      <h2>Нарушение № {id}</h2>
-      <p>Тип нарушение  пдд: {application.title}</p>
-      <p>Дата Нарушения: {application.dateOfViolation}</p>
-      <p>Гос номер: {application.numberAuto}</p>
-      <p>Описание: {application.description}</p>
-      <p>Статус: {application.statusName}</p>
-      <p>Адрес: {application.place}</p>
-      <p>Дата создания заявления: {application.createdDate}</p>
-
-
+<h2>Нарушение № {id}</h2>
+<p>Тип нарушение  пдд: {application.title}</p>
+<p>Дата Нарушения: {application.dateOfViolation}</p>
+<p>Гос номер: {application.numberAuto}</p>
+<p>Описание: {application.description}</p>
+<p>Статус: {application.statusName}</p>
+<p>Адрес: {application.place}</p>
+<p>Дата создания заявления: {application.createdDate}</p>
       {attachmentUrl && (
         <div>
           <h3>Attachment</h3>
@@ -52,15 +59,19 @@ const DetailedApplicationView = () => {
         </div>
       )}
 
-<Link to={`/report`}>
-<button type="button" className='button-green' >
-              Назад
-            </button>
+      <button type="button" className='button-red' onClick={handleDelete}>
+        Удалить
+      </button>
+
+      <Link to="/report">
+        <button type="button" className='button-green'>
+          Назад
+        </button>
       </Link>
-      <Link to={`/`}>
-<button type="button" className='button-green' >
-              На главную
-            </button>
+      <Link to="/">
+        <button type="button" className='button-green'>
+          На главную
+        </button>
       </Link>
     </div>
   );
