@@ -1,4 +1,4 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import Axios from 'axios';
 
@@ -35,7 +35,6 @@ const MapComponent = () => {
 
     const map = L.map('map').setView([42.8746, 74.5698], 13);
 
-
     // Light Map Tile Layer
     const lightMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
       attribution: '© OpenStreetMap contributors',
@@ -51,15 +50,12 @@ const MapComponent = () => {
     }).addTo(map);
 
     const openStreetMapHot = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-  attribution: '© OpenStreetMap contributors'
-});
-const dgis = L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}', {
-  subdomains: '0123',
-  attribution: '© 2GIS'
-});
-
-
-    
+      attribution: '© OpenStreetMap contributors',
+    });
+    const dgis = L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}', {
+      subdomains: '0123',
+      attribution: '© 2GIS',
+    });
 
     lightMap.addTo(map);
 
@@ -82,27 +78,32 @@ const dgis = L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}'
     });
 
     const applicationLayer = L.layerGroup().addTo(map);
-    applications.forEach((app) => {
-      const { lat, lon } = app;
-      if (lat && lon) {
-        L.marker([lat, lon], { icon: blueIcon })
-          .addTo(applicationLayer)
-          .bindPopup(`Нарушения: ${app.id}`);
-      }
-    });
+    if (applications.length > 0) {
+      applications.forEach((app) => {
+        const { lat, lon } = app;
+        if (lat && lon) {
+          L.marker([lat, lon], { icon: blueIcon })
+            .addTo(applicationLayer)
+            .bindPopup(`Нарушения: ${app.id}`);
+        }
+      });
+    }
 
     const reviewLayer = L.layerGroup().addTo(map);
-    reviews.forEach((review) => {
-      const { lat, lon } = review;
-      if (lat && lon) {
-        L.marker([lat, lon], { icon: greenIcon })
-          .addTo(reviewLayer)
-          .bindPopup(`Отзывы: ${review.id}`);
-      }
-    });
+    if (reviews.length > 0) {
+      reviews.forEach((review) => {
+        const { lat, lon } = review;
+        if (lat && lon) {
+          L.marker([lat, lon], { icon: greenIcon })
+            .addTo(reviewLayer)
+            .bindPopup(`Отзывы: ${review.id}`);
+        }
+      });
+    }
+
     // eslint-disable-next-line
     const layerControl = L.control.layers(
-      { 'Light Map': lightMap, 'Dark Map': darkMap, 'Base map': baseMap  , 'OpenStreetMapHot Map':  openStreetMapHot, '2ГИС' :dgis  },
+      { 'Light Map': lightMap, 'Dark Map': darkMap, 'Base map': baseMap, 'OpenStreetMapHot Map': openStreetMapHot, '2ГИС': dgis },
       { 'Нарушения': applicationLayer, 'Отзывы': reviewLayer },
     ).addTo(map);
 
