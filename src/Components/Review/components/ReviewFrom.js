@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import MapComponent from '../Components/Applications/Component/MapComponent';
+import MapComponent from '../../Applications/Component/MapComponent';
 
 const ReviewForm = () => {
   // eslint-disable-next-line 

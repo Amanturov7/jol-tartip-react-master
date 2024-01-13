@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import ApplicationForm from './Components/Applications/ApplicationSection';
 import Events from './Components/Events/Events';
 import Notifications from './Components/Notifications';
-import Reviews from './Components/Reviews';
+import Reviews from './Components/Review/Reviews';
 import ViolationsList from './Components/ViolationsList';
 import Tests from './Components/Tests';
 import Home from './Components/Home';
@@ -12,6 +12,7 @@ import Footer from './Components/Footer/Footer';
 import MapComponent from './MapComponent';
 import './App.css';
 import DetailedApplicationView from './Components/Applications/Component/DetailedApplicationView';
+import DetailedReviewView from './Components/Review/components/DetailedReviewView';
 export default function App() {
 
   return (
@@ -30,6 +31,8 @@ export default function App() {
           <Route path="/" element={<Home />} />
           <Route path="/maps" element={<MapComponent />} />
           <Route path="/applications/:id" element={<DetailedApplicationView />} />
+          <Route path="/reviews/:id" element={<DetailedReviewView />} />
+
           <Route path="*" element={
               <div>
                 <h2>404 Page not found etc</h2>

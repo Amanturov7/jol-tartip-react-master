@@ -1,7 +1,7 @@
 
 import React from 'react';
-import ReviewForm from './ReviewFrom';
-import ReviewsList from './ReviewsList';
+import ReviewForm from './components/ReviewFrom';
+import ReviewsList from './components/ReviewsList';
 
 const Reviews = () => {
   return (
