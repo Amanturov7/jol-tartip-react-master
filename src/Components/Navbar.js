@@ -29,6 +29,9 @@ Jol Tartip        </Link>
           <Link to="/maps" className="navbar-link">
             Карты
           </Link>
+          <Link to="/about" className="navbar-link">
+            О нас
+          </Link>
         </div>
       </div>
     </nav>

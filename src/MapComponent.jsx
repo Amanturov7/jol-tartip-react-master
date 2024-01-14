@@ -11,10 +11,10 @@ const MapComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const applicationsResponse = await Axios.get('http://localhost:8080/rest/applications/all');
+        const applicationsResponse = await Axios.get('http://localhost:8080/rest/applications/points');
         setApplications(applicationsResponse.data);
 
-        const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/all');
+        const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/points');
         setReviews(reviewsResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error.message);

@@ -13,6 +13,7 @@ import MapComponent from './MapComponent';
 import './App.css';
 import DetailedApplicationView from './Components/Applications/Component/DetailedApplicationView';
 import DetailedReviewView from './Components/Review/components/DetailedReviewView';
+import About from './Components/About';
 export default function App() {
 
   return (
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/reviews" element={<Reviews />} />
           <Route path="/violations-list" element={<ViolationsList />} />
           <Route path="/tests" element={<Tests />} />
+          <Route path="/about" element={<About />} />
           <Route path="/" element={<Home />} />
           <Route path="/maps" element={<MapComponent />} />
           <Route path="/applications/:id" element={<DetailedApplicationView />} />

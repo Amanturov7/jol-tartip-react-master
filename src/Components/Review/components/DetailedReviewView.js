@@ -44,14 +44,10 @@ const DetailedReviewView = () => {
 
   return (
     <div className='container'>
-      <h2>Review ID {id}</h2>
-      <p>Latitude: {review.lat}</p>
-      <p>Longitude: {review.lon}</p>
-      <p>Address: {review.locationAddress}</p>
-      <p>Description: {review.description}</p>
-      <p>Road ID: {review.roadId}</p>
-      <p>Light ID: {review.lightId}</p>
-      <p>Road Sign ID: {review.roadSignId}</p>
+      <h2>Отзыв № {id}</h2>
+      <p>Адрес: {review.locationAddress}</p>
+      <p>Описание: {review.description}</p>
+      <p>Статус: {review.statusName}</p>
 
       {attachmentUrl && (
         <div>
