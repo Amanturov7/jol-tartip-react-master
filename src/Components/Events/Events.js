@@ -36,18 +36,10 @@ const Events = () => {
   };
 
   useEffect(() => {
-    // fetchEvents();
-    fetchEventTypes(); // Добавляем вызов для получения типов событий
+    fetchEventTypes(); 
   }, []);
 
-  // const fetchEvents = async () => {
-  //   try {
-  //     const response = await Axios.get('http://localhost:8080/rest/events/all');
-  //     setEvents(response.data);
-  //   } catch (error) {
-  //     console.error('Error fetching events:', error.message);
-  //   }
-  // };
+
 
   const fetchEventTypes = async () => {
     try {
@@ -77,6 +69,10 @@ const Events = () => {
     }
   };
 
+  const isUserAuthenticated = sessionStorage.getItem("token") !== null;
+  if (!isUserAuthenticated) {
+
+  }
   return (
     <div className="container">
       <h2>События</h2>
@@ -148,7 +144,7 @@ const Events = () => {
         </div>
       </div>
 
-      {/* <table>
+      <table>
         <thead>
           <tr>
             <th>Title</th>
@@ -169,7 +165,7 @@ const Events = () => {
             </tr>
           ))}
         </tbody>
-      </table> */}
+      </table>
     </div>
   );
 };
