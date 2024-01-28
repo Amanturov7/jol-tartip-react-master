@@ -7,6 +7,7 @@ import Reviews from './Components/Review/Reviews';
 import ViolationsList from './Components/ViolationsList';
 import Tests from './Components/Tests';
 import Home from './Components/Home';
+
 import Navbar from './Components/Navbar';
 import Footer from './Components/Footer/Footer';
 import MapComponent from './MapComponent';
@@ -14,6 +15,8 @@ import './App.css';
 import DetailedApplicationView from './Components/Applications/Component/DetailedApplicationView';
 import DetailedReviewView from './Components/Review/components/DetailedReviewView';
 import About from './Components/About';
+import LoginComponent from './Components/Auth/LoginComponent';
+import SignUpComponent from './Components/Auth/SignUpComponent';
 export default function App() {
 
   return (
@@ -30,6 +33,8 @@ export default function App() {
           <Route path="/violations-list" element={<ViolationsList />} />
           <Route path="/tests" element={<Tests />} />
           <Route path="/about" element={<About />} />
+          <Route path="/login" element={<LoginComponent />} />
+          <Route path="/signup" element={<SignUpComponent />} />
           <Route path="/" element={<Home />} />
           <Route path="/maps" element={<MapComponent />} />
           <Route path="/applications/:id" element={<DetailedApplicationView />} />

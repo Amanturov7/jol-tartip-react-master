@@ -21,6 +21,8 @@ const ApplicationForm = ({ onCancel }) => {
   const [isMapVisible, setIsMapVisible] = useState(false);
 
   useEffect(() => {
+
+ 
     const fetchRegionsAndDistricts = async () => {
       try {
         const regionsResponse = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
