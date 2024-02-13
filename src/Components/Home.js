@@ -4,7 +4,7 @@ import React from 'react';
 const Home = () => {
   
   return (
-    <div className="home">
+    <div className="container">
       <h1>Добро пожаловать на главную страницу</h1>
       {/* Здесь можете добавить другие разделы или информацию */}
     </div>
