@@ -1,12 +1,14 @@
 // Home.jsx
 import React from 'react';
+import ApplicationsList from './Applications/Component/ApplciationsList';
 
 const Home = () => {
   
   return (
-    <div className="home">
-      <h1>Добро пожаловать на главную страницу</h1>
-      {/* Здесь можете добавить другие разделы или информацию */}
+    <div className="container">
+      <h1>Последние нарушения</h1>
+      <ApplicationsList />
+
     </div>
   );
 };

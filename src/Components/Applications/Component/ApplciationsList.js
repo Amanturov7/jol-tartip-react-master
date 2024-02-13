@@ -120,15 +120,18 @@ const ApplicationsList = ({ onReportClick }) => {
   return (
     <div>
       <div className="search-bar">
-        <FontAwesomeIcon icon={faSearch} />
         <input
           type="text"
           placeholder="Поиск..."
           value={searchTerm}
           onChange={handleSearchTermChange}
-        />
+           icon={faSearch} />
+
+        
+                <FontAwesomeIcon icon={faSearch} />
+
       </div>
-      <div className="filter-dropdown">
+      {/* <div className="filter-dropdown">
         <select value={selectedFilter} onChange={handleFilterChange}>
           <option value="">Тип нарушения</option>
           {filterOptions.map((option) => (
@@ -137,7 +140,7 @@ const ApplicationsList = ({ onReportClick }) => {
             </option>
           ))}
         </select>
-        <button onClick={handleResetFilter}>&times;</button>
+        <button className="button-reset" onClick={handleResetFilter}>&times;</button>
       </div>
       <div>
         <input
@@ -151,13 +154,13 @@ const ApplicationsList = ({ onReportClick }) => {
       <button onClick={toggleViewMode} className="view-mode-toggle">
         {isGridMode ? <FontAwesomeIcon icon={faList} /> : <FontAwesomeIcon icon={faTh} />}
         {isGridMode ? 'Switch to Table View' : 'Switch to Grid View'}
-      </button>
+      </button> */}
       <div className="applications-list-container">
         {renderApplications()}
       </div>
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button key={page} onClick={() => handlePageChange(page)}>
+          <button  className="page" key={page} onClick={() => handlePageChange(page)}>
             {page}
           </button>
         ))}

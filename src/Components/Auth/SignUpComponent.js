@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './SignUpComponent.css'; // Подключаем файл стилей
 
 const SignUpComponent = () => {
   const [signUpData, setSignUpData] = useState({ login: '', password: '', inn: '', email: '' });
@@ -13,25 +14,24 @@ const SignUpComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:8080/auth/signup`, [signUpData]); // Оборачиваем signUpData в массив
+      const response = await axios.post(`http://localhost:8080/auth/signup`, signUpData);
       console.log('Sign up successful:', response.data);
-      // Добавьте логику для обработки успешной регистрации
     } catch (error) {
       console.error('Sign up error:', error);
-      // Добавьте логику для обработки ошибок регистрации
+      setError('Registration failed. Please try again.'); 
     }
   };
 
   return (
-    <div>
-      <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="login" placeholder="Login" value={signUpData.login} onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" value={signUpData.password} onChange={handleChange} />
-        <input type="number" name="inn" placeholder="INN" value={signUpData.inn} onChange={handleChange} />
+    <div className="signup-container"> {/* Обертка с пользовательским классом */}
+      <h2>Регистрация</h2>
+      <form onSubmit={handleSubmit} className="signup-form"> {/* Добавлен класс "signup-form" */}
+        <input type="text" name="login" placeholder="Логин" value={signUpData.login} onChange={handleChange} />
+        <input type="password" name="password" placeholder="Пароль" value={signUpData.password} onChange={handleChange} />
+        <input type="number" name="inn" placeholder="ИНН" value={signUpData.inn} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={signUpData.email} onChange={handleChange} />
-        <button type="submit">Sign Up</button>
-        {error && <div style={{ color: 'red' }}>{error}</div>} {/* Отображаем ошибку, если она есть */}
+        <button type="submit">Регистрация</button>
+        {error && <div className="error-message">{error}</div>} {/* Обертка с пользовательским классом для сообщения об ошибке */}
       </form>
     </div>
   );

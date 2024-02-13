@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './LoginComponent.css'; // Подключаем файл стилей
 
 const LoginComponent = () => {
   const [loginData, setLoginData] = useState({ login: '', password: '' });
-  const navigate = useNavigate(); // Используем useNavigate для перенаправления
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,12 +26,16 @@ const LoginComponent = () => {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="login-container"> {/* Обертка с пользовательским классом */}
+      <h2>Войти</h2>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="login" placeholder="Login" value={loginData.login} onChange={handleChange} />
-        <input type="password" name="password" placeholder="Password" value={loginData.password} onChange={handleChange} />
-        <button type="submit">Login</button>
+        <div className="input-container"> 
+          <input type="text" name="login" placeholder="Логин" value={loginData.login} onChange={handleChange} />
+        </div>
+        <div className="input-container">
+          <input type="password" name="password" placeholder="Пароль" value={loginData.password} onChange={handleChange} />
+        </div>
+        <button  className="submit" type="submit">Войти</button>
       </form>
     </div>
   );
