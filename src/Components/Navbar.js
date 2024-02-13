@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const NavbarComponent = () => {
   const navigate = useNavigate();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const isAuthenticated = () => {
@@ -13,9 +11,7 @@ const NavbarComponent = () => {
   };
 
   const handleSignOut = () => {
-    sessionStorage.removeItem('token');
-    navigate('/');
-    setIsMenuOpen(false); // Закрываем бургер-меню при выходе
+
     sessionStorage.removeItem('token');
     navigate('/');
     setIsMenuOpen(false); // Закрываем бургер-меню при выходе
