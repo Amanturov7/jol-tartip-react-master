@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-
 const NavbarComponent = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -36,9 +35,8 @@ const NavbarComponent = () => {
             <Link to="/events" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               События
             </Link>
-            <Link to="/notifications" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
-              №
-            </Link>
+           
+       
             <Link to="/reviews" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Отзывы и оценки
             </Link>
@@ -54,20 +52,73 @@ const NavbarComponent = () => {
             <Link to="/about" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               О нас
             </Link>
-            {isAuthenticated() ? (
-              <Link to="/" className="navbar-link" onClick={handleSignOut}>
-                Выйти
+            <Link
+                to="/notifications"
+                className="navbar-link"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  width="32"
+                  height="32"
+                  className="navbar-icon"
+                  style={{ verticalAlign: 'middle' }}
+                >
+                  <path
+                    fill="currentColor"
+                    fillRule="nonzero"
+                    d="M21.748 5.032a.998.998 0 0 0-.321.149L12 11.779 2.573 5.181a.998.998 0 0 0-.321-.15A2.005 2.005 0 0 1 4 4h16c.75 0 1.406.418 1.748 1.032zM22 7.22V18c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7.22l9.427 6.6a1 1 0 0 0 1.146 0L22 7.22z"
+                  ></path>
+                </svg>
               </Link>
-            ) : (
-              <>
-                <Link to="/login" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
-                  Войти
-                </Link>
-                <Link to="/signup" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
-                  Регистрация
-                </Link>
+
+            {isAuthenticated() ? (
+
+
+            <button
+              className="button-navbar navbar-link"
+
+              onClick={() => {
+                handleSignOut();
+                setIsMenuOpen(false);
+                navigate('/'); // Замените 'history' на ваш объект истории маршрутизации
+              }}
+            >
+              Выйти
+            </button>
+
+
+                
+                        ) : (
+                          <>
+                            <button
+              className="button-navbar navbar-link"
+
+              onClick={() => {
+                setIsMenuOpen(false);
+                navigate('/login'); // Замените 'history' на ваш объект истории маршрутизации
+              }}
+            >
+              Войти
+            </button>
+                            <button
+              className="button-navbar navbar-link"
+
+              onClick={() => {
+                setIsMenuOpen(false);
+                navigate('/signup'); // Замените 'history' на ваш объект истории маршрутизации
+              }}
+            >
+              Регистрация
+            </button>
+
+
+
               </>
             )}
+
+
           </div>
         </div>
       </div>

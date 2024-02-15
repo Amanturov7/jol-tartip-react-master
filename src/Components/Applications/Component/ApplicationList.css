@@ -28,7 +28,19 @@
   color: black !important;
   overflow: hidden;
   padding-bottom: 50px;
+  transition: all 0.2s ease;
+  border: 1px solid transparent; /* Прозрачный бордер */
+  border-radius: 5px;
+
 }
+
+.application-box:hover {
+  border-color: #0056b3; /* Изменение цвета бордера при наведении */
+  border-width: 1px; /* Увеличение толщины бордера при наведении */
+  border-radius: 5px;
+  transform: scale(1.02);
+}
+
 
 .application-box img {
   border-radius: 5px;

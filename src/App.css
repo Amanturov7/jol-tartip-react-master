@@ -242,13 +242,28 @@ th {
   padding-right: 10px;
 }
 
-.navbar-link:hover{
+.navbar-link:hover .navbar-icon {
   color: #0056b3;
-
 }
+
+
 /* Добавляем отступ для элементов, следующих за навбаром */
 body {
   padding-top: 70px; /* Высота навбара */
+}
+
+.button-navbar {
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  margin-right: 5px;
+  margin-left: 10px;
+}
+
+.button-navbar:hover {
+  background-color: #0056b3;
+  color: white;
 }
 
 

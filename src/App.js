@@ -9,7 +9,6 @@ import Tests from './Components/Tests';
 import Home from './Components/Home';
 
 import Navbar from './Components/Navbar';
-import Footer from './Components/Footer/Footer';
 import MapComponent from './Components/Maps/MapComponent';
 import './App.css';
 import DetailedApplicationView from './Components/Applications/Component/DetailedApplicationView';
@@ -46,6 +45,7 @@ export default function App() {
             </div>
           } />
         </Routes>
+
       </div>
     </Router>
   );
