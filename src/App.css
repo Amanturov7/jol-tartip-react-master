@@ -169,6 +169,7 @@ th {
   height: 20px;
 }
 
+
 .burger span {
   display: block;
   width: 100%;
@@ -178,6 +179,10 @@ th {
   transition: background-color 0.3s ease;
 }
 
+
+.leaflet-top {
+  z-index: 999;
+}
 .navbar-links.open .navbar-links-container {
   display: flex;
   flex-direction: column;

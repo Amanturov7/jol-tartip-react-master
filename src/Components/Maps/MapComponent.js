@@ -105,15 +105,18 @@ const MapComponent = () => {
         'Отзывы': reviewLayer
       }
     ).addTo(map);
-
+    layerControl.setPosition('topright'); // Установите позицию слоя в правый верхний угол
     return () => {
       map.remove();
     };
   }, [applications, reviews]);
 
   return (
-    <div id="map" style={{ height: '500px' }}></div>
-  );
+ <div style={{ position: 'relative', height: '95vh', width: '100%' }}>
+      <div id="map" style={{ height: '100%', width: '100%' }}></div>
+    </div> 
+    
+    );
 };
 
 export default MapComponent;
