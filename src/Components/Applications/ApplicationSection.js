@@ -7,14 +7,14 @@ const ApplicationSection = () => {
   if (!isUserAuthenticated) {
     return (
       <div className='container'>
-              <h2>Список заявлений</h2>
+              <h2>Реестр нарушений</h2>
         <ApplicationsList />
       </div>
     );
   }
   return (
     <div className='container'>
-            <h2>Список заявлений</h2>
+            <h2>Реестр нарушений</h2>
 
       <ApplicationForm />
       <ApplicationsList />

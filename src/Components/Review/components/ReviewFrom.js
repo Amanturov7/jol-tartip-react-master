@@ -172,7 +172,7 @@ const ReviewForm = () => {
     <form onSubmit={handleSubmit} className="form-container">
       <div className="form-group">
         <label>Тип отзыва</label>
-        <select value={reviewType} onChange={handleReviewTypeChange} required>
+        <select value={reviewType}  className="dropdown-filter" onChange={handleReviewTypeChange} required>
           <option value="">Выберите тип отзыва</option>
           <option value="Дорожный знак">Дорожный знак</option>
           <option value="Освещение">Освещение</option>
@@ -185,7 +185,7 @@ const ReviewForm = () => {
         <label>Вид отзыва</label>
         <select
           value={selectedOption ? selectedOption.id : ''}
-          onChange={(e) => setSelectedOption(options.find((opt) => opt.id === parseInt(e.target.value, 10)))}
+          className="dropdown-filter" onChange={(e) => setSelectedOption(options.find((opt) => opt.id === parseInt(e.target.value, 10)))}
           required
         >
           <option value="" disabled>

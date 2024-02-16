@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTh, faList, faSearch } from '@fortawesome/free-solid-svg-icons';
-// import '../../../App.css'; // Import styles
-// import './ApplicationList.css'; // Import specific styles for ApplicationList
+import '../../../App.css'; // Import styles
 
 const ReviewsList = () => {
   const [reviews, setReviews] = useState([]);
@@ -43,90 +42,55 @@ const ReviewsList = () => {
     }
   };
 
-  const toggleViewMode = () => {
-    setIsGridMode(!isGridMode);
-  };
-
   const renderReviews = () => {
-    if (isGridMode) {
+ 
       return reviews.map((review) => (
         <Link to={`/reviews/${review.id}`} key={review.id} className="application-box">
           <img src={`http://localhost:8080/rest/attachments/download/reviews/${review.id}`} alt={`Review ${review.id}`} />
           <div>Отзыв №: {review.id}</div>
         </Link>
       ));
-    } else {
-      return (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Latitude</th>
-              {/* Other table headers based on your Review model */}
-            </tr>
-          </thead>
-          <tbody>
-            {reviews.map((review) => (
-              <tr key={review.id}>
-                <td>{review.id}</td>
-                <td>{review.lat}</td>
-                {/* Other table data based on your Review model */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      );
-    }
+
   };
 
   return (
     <div>
-      <div className="search-bar">
-        <FontAwesomeIcon icon={faSearch} />
+      <div className="filters-container">
+        <div className="filter">
+          <input
+            type="text"
+            placeholder="Экологические факторы..."
+            value={ecologicFactors}
+            onChange={(e) => setEcologicFactors(e.target.value)}
+          />
+        </div>
+        <div className="filter">
+          <input
+            type="text"
+            placeholder="Дорожные знаки..."
+            value={roadSign}
+            onChange={(e) => setRoadSign(e.target.value)}
+          />
+        </div>
+        <div className="filter">
+          <input
+            type="text"
+            placeholder="Светофоры..."
+            value={lights}
+            onChange={(e) => setLights(e.target.value)}
+          />
+        </div>
       </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Экологические факторы..."
-          value={ecologicFactors}
-          onChange={(e) => setEcologicFactors(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Дорожные знаки..."
-          value={roadSign}
-          onChange={(e) => setRoadSign(e.target.value)}
-        />
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Светофоры..."
-          value={lights}
-          onChange={(e) => setLights(e.target.value)}
-        />
-      </div>
-      <button
-        onClick={() => {
-          fetchReviews();
-          setPageNumber(1);
-          toggleViewMode();
-        }}
-        className="view-mode-toggle"
-      >
-        {isGridMode ? <FontAwesomeIcon icon={faList} /> : <FontAwesomeIcon icon={faTh} />}
-        {isGridMode ? 'Switch to Table View' : 'Switch to Grid View'}
-      </button>
 
-      {/* Render reviews using the same structure as ApplicationsList */}
+   
+    
+
       <div className="applications-list-container">
         {renderReviews()}
       </div>
       <div className="pagination">
         {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button key={page} onClick={() => setPageNumber(page)}>
+          <button key={page}  className="page"onClick={() => setPageNumber(page)}>
             {page}
           </button>
         ))}

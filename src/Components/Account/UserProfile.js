@@ -35,6 +35,8 @@ function UserProfile() {
       {userData ? (
         <div className='container'>
           <p>Имя: {userData.username}</p>
+          <p>Роль: {userData.role}</p>
+          <p>№: {userData.id}</p>
 
         </div>
       ) : (

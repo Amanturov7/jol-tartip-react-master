@@ -82,12 +82,9 @@ const ApplicationsList = ({ onReportClick }) => {
     setPageNumber(1); // Reset page number when title is cleared
   };
 
-  const toggleViewMode = () => {
-    setIsGridMode(!isGridMode);
-  };
+
 
   const renderApplications = () => {
-    if (isGridMode) {
       return applications.map((application) => (
         <Link to={`/applications/${application.id}`} key={application.id} className="application-box">
           <img src={`http://localhost:8080/rest/attachments/download/applications/${application.id}`} alt={`Application ${application.id}`} />
@@ -95,78 +92,62 @@ const ApplicationsList = ({ onReportClick }) => {
           <div>{application.title}</div>
         </Link>
       ));
-    } else {
-      return (
-        <table>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-            </tr>
-          </thead>
-          <tbody>
-            {applications.map((application) => (
-              <tr key={application.id}>
-                <td>{application.id}</td>
-                <td>{application.title}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      );
-    }
+    
   };
 
   return (
     <div>
-      <div className="search-bar">
-        <input
-          type="text"
-          placeholder="Поиск..."
-          value={searchTerm}
-          onChange={handleSearchTermChange}
-           icon={faSearch} />
+   
+        <div className="filters-container">
+        <div className="filter">
+            <input
+                type="text"
+                placeholder="№"
+                value={searchTerm}
+                onChange={handleSearchTermChange}
+            />
+        </div>
+        <div className="filter">
+            <input
+                type="text"
+                placeholder="Гос номер"
+                value={searchTerm}
+                onChange={handleSearchTermChange}
+            />
+        </div>
+            <div className="filter">
+                <select value={selectedFilter} className='dropdown-filter' onChange={handleFilterChange}>
+                    <option value="">Тип нарушения</option>
+                    {filterOptions.map((option) => (
+                        <option key={option.id} value={option.id}>
+                            {option.title}
+                        </option>
+                    ))}
+                </select>
+                {/* <button className="button-reset" onClick={handleResetFilter}>&times;</button> */}
+            </div>
+            <div className="filter">
+                <input
+                    type="text"
+                    placeholder="Описание"
+                    value={title}
+                    onChange={handleTitleChange}
+                />
+                {title && <button onClick={handleClearTitle}>&times;</button>}
+            </div>
+        </div>
 
-        
-                <FontAwesomeIcon icon={faSearch} />
-
-      </div>
-      {/* <div className="filter-dropdown">
-        <select value={selectedFilter} onChange={handleFilterChange}>
-          <option value="">Тип нарушения</option>
-          {filterOptions.map((option) => (
-            <option key={option.id} value={option.id}>
-              {option.title}
-            </option>
-          ))}
-        </select>
-        <button className="button-reset" onClick={handleResetFilter}>&times;</button>
-      </div>
-      <div>
-        <input
-          type="text"
-          placeholder="Заголовок..."
-          value={title}
-          onChange={handleTitleChange}
-        />
-        {title && <button onClick={handleClearTitle}>&times;</button>}
-      </div>
-      <button onClick={toggleViewMode} className="view-mode-toggle">
-        {isGridMode ? <FontAwesomeIcon icon={faList} /> : <FontAwesomeIcon icon={faTh} />}
-        {isGridMode ? 'Switch to Table View' : 'Switch to Grid View'}
-      </button> */}
-      <div className="applications-list-container">
-        {renderApplications()}
-      </div>
-      <div className="pagination">
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
-          <button  className="page" key={page} onClick={() => handlePageChange(page)}>
-            {page}
-          </button>
-        ))}
-      </div>
+        <div className="applications-list-container">
+            {renderApplications()}
+        </div>
+        <div className="pagination">
+            {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
+                <button className="page" key={page} onClick={() => handlePageChange(page)}>
+                    {page}
+                </button>
+            ))}
+        </div>
     </div>
-  );
-};
-
+);
+            }
 export default ApplicationsList;

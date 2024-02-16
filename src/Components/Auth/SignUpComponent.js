@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './SignUpComponent.css'; // Подключаем файл стилей
 
 const SignUpComponent = () => {
   const [signUpData, setSignUpData] = useState({ login: '', password: '', inn: '', email: '' });
   const [error, setError] = useState('');
+  const navigate = useNavigate(); // Получаем объект history
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -16,6 +18,8 @@ const SignUpComponent = () => {
     try {
       const response = await axios.post(`http://localhost:8080/auth/signup`, signUpData);
       console.log('Sign up successful:', response.data);
+      // Перенаправляем пользователя на страницу авторизации
+      navigate('/login'); // Перенаправляем на страницу с маршрутом '/login'
     } catch (error) {
       console.error('Sign up error:', error);
       setError('Registration failed. Please try again.'); 

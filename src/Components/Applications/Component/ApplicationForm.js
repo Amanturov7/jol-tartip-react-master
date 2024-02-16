@@ -157,7 +157,7 @@ const ApplicationForm = ({ onCancel }) => {
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
 
         <label>Область</label>
-        <select value={regionId} onChange={(e) => setRegionId(e.target.value)} required>
+        <select value={regionId} className='dropdown-filter' onChange={(e) => setRegionId(e.target.value)} required>
           <option value="">Выберите область</option>
           {regions.map((region) => (
             <option key={region.id} value={region.id}>
@@ -167,7 +167,7 @@ const ApplicationForm = ({ onCancel }) => {
         </select>
 
         <label>Район</label>
-        <select value={districtId} onChange={(e) => setDistrictId(e.target.value)} required>
+        <select value={districtId}  className="dropdown-filter" onChange={(e) => setDistrictId(e.target.value)} required>
           <option value="">Выберите район</option>
           {districts.map((district) => (
             <option key={district.id} value={district.id}>
@@ -189,7 +189,7 @@ const ApplicationForm = ({ onCancel }) => {
 
 
         <label>Тип нарушения</label>
-        <select value={typeViolationsId} onChange={(e) => setTypeViolationsId(e.target.value)} required>
+        <select value={typeViolationsId} className="dropdown-filter" onChange={(e) => setTypeViolationsId(e.target.value)} required>
           <option value="">Выберите тип нарушения</option>
           {violationsList.map((violation) => (
             <option key={violation.id} value={violation.id}>
