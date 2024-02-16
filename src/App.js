@@ -16,6 +16,7 @@ import DetailedReviewView from './Components/Review/components/DetailedReviewVie
 import About from './Components/About';
 import LoginComponent from './Components/Auth/LoginComponent';
 import SignUpComponent from './Components/Auth/SignUpComponent';
+import UserProfile from './Components/Account/UserProfile';
 
 export default function App() {
   return (
@@ -36,6 +37,8 @@ export default function App() {
             <Route path="/signup" element={<SignUpComponent />} />
             <Route path="/applications/:id" element={<DetailedApplicationView />} />
             <Route path="/reviews/:id" element={<DetailedReviewView />} />
+            <Route path="/account" element={<UserProfile />} />
+
           </Route>
           <Route path="/maps/*" element={<MapComponent />} />
 

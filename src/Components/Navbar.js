@@ -52,6 +52,9 @@ const NavbarComponent = () => {
             <Link to="/about" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               О нас
             </Link>
+            <Link to="/account" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
+              Аккаунт
+            </Link>
             <Link
                 to="/notifications"
                 className="navbar-link"

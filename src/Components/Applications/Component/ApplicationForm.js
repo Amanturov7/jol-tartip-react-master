@@ -184,7 +184,7 @@ const ApplicationForm = ({ onCancel }) => {
 
 
         <label>Гос номер </label>
-        <input type="text"   onChange={(e) => setNumberAuto(e.target.value)} required />
+        <input type="text" style={{textTransform: "uppercase"}} onChange={(e) => setNumberAuto(e.target.value)} required />
 
 
 
