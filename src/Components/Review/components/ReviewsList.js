@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTh, faList, faSearch } from '@fortawesome/free-solid-svg-icons';
 import '../../../App.css'; // Import styles
 
 const ReviewsList = () => {
   const [reviews, setReviews] = useState([]);
-  const [isGridMode, setIsGridMode] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [ecologicFactors, setEcologicFactors] = useState('');

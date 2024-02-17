@@ -16,26 +16,21 @@ const ApplicationForm = ({ onCancel }) => {
   const [userId, setUserId] = useState(1);
   const [violationsList, setViolationsList] = useState([]);
   const [regions, setRegions] = useState([]);
-  const [districts, setDistricts] = useState([]);
+  const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [selectedCoordinate, setSelectedCoordinate] = useState({ lat: 0, lon: 0 });
   const [isMapVisible, setIsMapVisible] = useState(false);
 
   useEffect(() => {
-
- 
-    const fetchRegionsAndDistricts = async () => {
+    const fetchRegions = async () => {
       try {
-        const regionsResponse = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
-        const districtsResponse = await Axios.get('http://localhost:8080/rest/common-reference/by-type/002');
-
-        setRegions(regionsResponse.data);
-        setDistricts(districtsResponse.data);
+        const response = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
+        setRegions(response.data);
       } catch (error) {
-        console.error('Error fetching regions and districts:', error.message);
+        console.error('Error fetching regions:', error.message);
       }
     };
 
-    fetchRegionsAndDistricts();
+    fetchRegions();
   }, []);
 
   useEffect(() => {
@@ -51,12 +46,27 @@ const ApplicationForm = ({ onCancel }) => {
     fetchViolations();
   }, []);
 
+  useEffect(() => {
+    // Фильтруем районы по выбранной области
+    const fetchDistrictsByRegionId = async () => {
+      try {
+        const response = await Axios.get(`http://localhost:8080/rest/common-reference/parent/${regionId}`);
+        setFilteredDistricts(response.data);
+      } catch (error) {
+        console.error('Error fetching districts:', error.message);
+      }
+    };
+
+    if (regionId) {
+      fetchDistrictsByRegionId();
+    }
+  }, [regionId]);
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
       const allowedFileTypes = ['image/jpeg', 'image/png', 'video/mp4'];
-
       const fileType = selectedFile.type;
 
       if (allowedFileTypes.includes(fileType)) {
@@ -167,9 +177,9 @@ const ApplicationForm = ({ onCancel }) => {
         </select>
 
         <label>Район</label>
-        <select value={districtId}  className="dropdown-filter" onChange={(e) => setDistrictId(e.target.value)} required>
+        <select value={districtId} className="dropdown-filter" onChange={(e) => setDistrictId(e.target.value)} required>
           <option value="">Выберите район</option>
-          {districts.map((district) => (
+          {filteredDistricts.map((district) => (
             <option key={district.id} value={district.id}>
               {district.title}
             </option>
@@ -178,15 +188,11 @@ const ApplicationForm = ({ onCancel }) => {
       </div>
 
       <div className="form-group">
-
-      <label>Дата нарушения</label>
-        <input type="date"   onChange={(e) => setDateOfViolation(e.target.value)} required />
-
+        <label>Дата нарушения</label>
+        <input type="date" onChange={(e) => setDateOfViolation(e.target.value)} required />
 
         <label>Гос номер </label>
         <input type="text" style={{textTransform: "uppercase"}} onChange={(e) => setNumberAuto(e.target.value)} required />
-
-
 
         <label>Тип нарушения</label>
         <select value={typeViolationsId} className="dropdown-filter" onChange={(e) => setTypeViolationsId(e.target.value)} required>
@@ -203,25 +209,18 @@ const ApplicationForm = ({ onCancel }) => {
       </div>
 
       <div className="form-group">
-
-      <label>Адрес</label>
+        <label>Адрес</label>
         <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
 
-
-
-        <label>Долгота: {selectedCoordinate.lat}  </label>   
-        <label>Широта: {selectedCoordinate.lon}  </label>   
+        <label>Долгота: {selectedCoordinate.lat}</label>
+        <label>Широта: {selectedCoordinate.lon}</label>
         {isMapVisible ? (
           <>
             <MapComponent onCoordinateSelect={handleCoordinateSelect} setPlace={setPlace} />
-            <button type="button" onClick={handleSaveCoordinates}>
-              Сохранить
-            </button>
+            <button type="button" onClick={handleSaveCoordinates}>Сохранить</button>
           </>
         ) : (
-          <button type="button" onClick={handleShowMap}>
-            Указать адрес
-          </button>
+          <button type="button" onClick={handleShowMap}>Указать адрес</button>
         )}
       </div>
 

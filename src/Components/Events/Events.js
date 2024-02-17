@@ -110,7 +110,7 @@ const Events = () => {
           <label>Тип события:</label>
           <select
             value={newEvent.typeEventId}
-            onChange={(e) => setNewEvent({ ...newEvent, typeEventId: e.target.value })}
+           className='dropdown-filter' onChange={(e) => setNewEvent({ ...newEvent, typeEventId: e.target.value })}
           >
             <option value="">Выберите тип события</option>
             {eventTypes.map((typeEventId) => (

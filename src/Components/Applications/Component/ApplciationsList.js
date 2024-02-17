@@ -1,33 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTh, faList, faSearch } from '@fortawesome/free-solid-svg-icons';
+
 import '../../../App.css'; // Import styles
 import './ApplicationList.css';
 
 const ApplicationsList = ({ onReportClick }) => {
   const [applications, setApplications] = useState([]);
-  const [isGridMode, setIsGridMode] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [searchTerm, setSearchTerm] = useState('');
   const [filterOptions, setFilterOptions] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
   const [title, setTitle] = useState('');
+  const [id, setId] = useState('');
+  const [numberAuto, setNumberAuto] = useState('');
 
   useEffect(() => {
     fetchApplications();
     fetchFilterOptions();
-  }, [pageNumber, searchTerm, selectedFilter, title]);
+  }, [pageNumber, id, selectedFilter, title, numberAuto]);
 
   const fetchApplications = async () => {
     try {
       let url = `http://localhost:8080/rest/applications/all?page=${pageNumber}`;
 
-      if (searchTerm) {
-        url += `&searchTerm=${searchTerm}`;
-      }
 
       if (selectedFilter) {
         url += `&typeViolations=${selectedFilter}`;
@@ -35,6 +31,15 @@ const ApplicationsList = ({ onReportClick }) => {
 
       if (title) {
         url += `&title=${title}`;
+      }
+
+      
+      if (id) {
+        url += `&id=${id}`;
+      }
+
+      if (numberAuto) {
+        url += `&numberAuto=${numberAuto}`;
       }
 
       const response = await Axios.get(url);
@@ -58,9 +63,7 @@ const ApplicationsList = ({ onReportClick }) => {
     setPageNumber(newPageNumber);
   };
 
-  const handleSearchTermChange = (event) => {
-    setSearchTerm(event.target.value);
-  };
+
 
   const handleFilterChange = (event) => {
     const value = event.target.value;
@@ -68,15 +71,21 @@ const ApplicationsList = ({ onReportClick }) => {
     setPageNumber(1); // Reset page number when filter changes
   };
 
-  const handleResetFilter = () => {
-    setSelectedFilter('');
-    setPageNumber(1); // Reset page number when filter is reset
-  };
+  // const handleResetFilter = () => {
+  //   setSelectedFilter('');
+  //   setPageNumber(1); // Reset page number when filter is reset
+  // };
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
   };
 
+  const handleIdChange = (event) => {
+    setId(event.target.value);
+  };
+  const handleNumberAutoChange = (event) => {
+    setNumberAuto(event.target.value);
+  };
   const handleClearTitle = () => {
     setTitle('');
     setPageNumber(1); // Reset page number when title is cleared
@@ -103,17 +112,17 @@ const ApplicationsList = ({ onReportClick }) => {
             <input
                 type="text"
                 placeholder="№"
-                value={searchTerm}
-                onChange={handleSearchTermChange}
-            />
+                value={id}              
+                onChange={handleIdChange}
+                />
         </div>
         <div className="filter">
             <input
                 type="text"
                 placeholder="Гос номер"
-                value={searchTerm}
-                onChange={handleSearchTermChange}
-            />
+                value={numberAuto}
+                onChange={handleNumberAutoChange}
+                />
         </div>
             <div className="filter">
                 <select value={selectedFilter} className='dropdown-filter' onChange={handleFilterChange}>
