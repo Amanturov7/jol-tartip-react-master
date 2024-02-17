@@ -52,7 +52,7 @@ const NavbarComponent = () => {
             <Link to="/about" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               О нас
             </Link>
-          
+            {isAuthenticated() ? (
             <Link
                 to="/notifications"
                 className="navbar-link"
@@ -73,6 +73,8 @@ const NavbarComponent = () => {
                   ></path>
                 </svg>
               </Link>
+            ): null}
+
               {isAuthenticated() ? (
   <Link to="/account" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
 <svg
