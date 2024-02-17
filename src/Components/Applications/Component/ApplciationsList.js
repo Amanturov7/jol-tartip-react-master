@@ -88,7 +88,16 @@ const ApplicationsList = ({ onReportClick }) => {
   };
   const handleClearTitle = () => {
     setTitle('');
-    setPageNumber(1); // Reset page number when title is cleared
+    setPageNumber(1);
+  };
+  const handleClearId = () => {
+    setId('');
+    setPageNumber(1);
+  };
+
+  const handleClearNumberAuto = () => {
+    setNumberAuto('');
+    setPageNumber(1);
   };
 
 
@@ -115,6 +124,8 @@ const ApplicationsList = ({ onReportClick }) => {
                 value={id}              
                 onChange={handleIdChange}
                 />
+                {id && <button onClick={handleClearId}>&times;</button>}
+
         </div>
         <div className="filter">
             <input
@@ -123,6 +134,8 @@ const ApplicationsList = ({ onReportClick }) => {
                 value={numberAuto}
                 onChange={handleNumberAutoChange}
                 />
+               {numberAuto && <button onClick={handleClearNumberAuto}>&times;</button>}
+
         </div>
             <div className="filter">
                 <select value={selectedFilter} className='dropdown-filter' onChange={handleFilterChange}>

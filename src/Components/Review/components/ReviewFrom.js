@@ -65,6 +65,25 @@ const ReviewForm = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+            params: {
+              'token': `${token}`
+            }
+          });
+          setUserId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -223,10 +242,6 @@ const ReviewForm = () => {
 
         <label>Описание:</label>
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-
-        <label>ID пользователя:</label>
-        <input type="number" value={userId} onChange={(e) => setUserId(parseInt(e.target.value, 10))} required />
-
 
         <button type="submit">Оставить отзыв</button>
       </div>

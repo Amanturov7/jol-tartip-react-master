@@ -13,7 +13,7 @@ const ApplicationForm = ({ onCancel }) => {
   const [file, setFile] = useState(null);
   const [districtId, setDistrictId] = useState('');
   const [typeViolationsId, setTypeViolationsId] = useState('');
-  const [userId, setUserId] = useState(1);
+  const [userId, setUserId] = useState(1); // Установка userId по умолчанию
   const [violationsList, setViolationsList] = useState([]);
   const [regions, setRegions] = useState([]);
   const [filteredDistricts, setFilteredDistricts] = useState([]);
@@ -62,6 +62,29 @@ const ApplicationForm = ({ onCancel }) => {
     }
   }, [regionId]);
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        // Загрузка данных пользователя для установки userId
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          // Устанавливаем JWT токен в заголовок Authorization
+          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+            params: {
+              'token': `${token}` // Передача токена в заголовке запроса
+            }
+          });
+          setUserId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
+
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -97,6 +120,12 @@ const ApplicationForm = ({ onCancel }) => {
       alert('Please select a file.');
       return;
     }
+
+    if (!userId) {
+      console.error('User data not loaded yet. Unable to create application.');
+      return;
+    }
+
     const newApplication = {
       title,
       description,
@@ -131,7 +160,7 @@ const ApplicationForm = ({ onCancel }) => {
           type: 'application',
           originName: file ? file.name : '',
           description: 'File description',
-          userId: 1,
+          userId: userId,
           applicationsId: applicationResponse.data.id,
         })
       );

@@ -34,6 +34,7 @@ function UserProfile() {
     <div>
       {userData ? (
         <div className='container'>
+          <h2>Профиль</h2>
           <p>Имя: {userData.username}</p>
           <p>Роль: {userData.role}</p>
           <p>№: {userData.id}</p>
