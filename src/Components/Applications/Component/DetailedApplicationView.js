@@ -56,6 +56,29 @@ const DetailedApplicationView = () => {
     }
   };
 
+  const handleStatusAccept = async () => {
+    try {
+      await Axios.put(`http://localhost:8080/rest/applications/update/status/accept/${id}`);
+      // Обновляем информацию о заявлении после изменения статуса
+      const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
+      setApplication(response.data);
+    } catch (error) {
+      console.error('Error updating status:', error.message);
+    }
+  };
+
+  
+  const handleStatusProtocol = async () => {
+    try {
+      await Axios.put(`http://localhost:8080/rest/applications/update/status/protocol/${id}`);
+      // Обновляем информацию о заявлении после изменения статуса
+      const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
+      setApplication(response.data);
+    } catch (error) {
+      console.error('Error updating status:', error.message);
+    }
+  };
+
   if (!application) {
     return <div className='container'>Loading...</div>;
   }
@@ -63,11 +86,14 @@ const DetailedApplicationView = () => {
   // Проверяем, является ли пользователь владельцем записи
   const isOwner = userData && userData.id === application.userId;
 
+  // Проверяем роль пользователя
+  const isEmployee = userData && userData.role === 'EMPLOYEE';
+
   return (
     <div className='container'>
       <div className='attributes'>
         <h2>Нарушение № {id}</h2>
-        <p>Тип нарушение пдд: {application.title}</p>
+        <p>Тип нарушения пдд: {application.title}</p>
         <p>Дата Нарушения: {application.dateOfViolation}</p>
         <p>Гос номер: {application.numberAuto}</p>
         <p>Описание: {application.description}</p>
@@ -89,14 +115,27 @@ const DetailedApplicationView = () => {
         </button>
       )}
 
+      {isEmployee && application.statusName === 'Принят на рассмотрение' && (
+        <button type="button" className='submit' onClick={handleStatusAccept}>
+          Рассмотрение
+        </button>
+      )}
+
+{isEmployee && application.statusName === 'На рассмотрении' && (
+        <button type="button" className='submit' onClick={handleStatusProtocol}>
+          Протокол
+        </button>
+      )}
+
+
       <Link to="/report">
-        <button type="button" className='button-green'>
+        <button type="button" className='submit'>
           Назад
         </button>
       </Link>
 
       <Link to="/">
-        <button type="button" className='button-green'>
+        <button type="button" className='submit'>
           На главную
         </button>
       </Link>
