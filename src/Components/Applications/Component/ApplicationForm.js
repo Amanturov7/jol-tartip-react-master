@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MapComponent from './MapComponent';
+import Modal from '../../Modal'; // Импортируем компонент модального окна
 
 const ApplicationForm = ({ onCancel }) => {
   const [title, setTitle] = useState('');
@@ -19,8 +20,10 @@ const ApplicationForm = ({ onCancel }) => {
   const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [selectedCoordinate, setSelectedCoordinate] = useState({ lat: 0, lon: 0 });
   const [isMapVisible, setIsMapVisible] = useState(false);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   useEffect(() => {
+    // Загрузка регионов при монтировании компонента
     const fetchRegions = async () => {
       try {
         const response = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
@@ -33,6 +36,7 @@ const ApplicationForm = ({ onCancel }) => {
     fetchRegions();
   }, []);
 
+  // Загрузка списка нарушений при монтировании компонента
   useEffect(() => {
     const fetchViolations = async () => {
       try {
@@ -46,8 +50,8 @@ const ApplicationForm = ({ onCancel }) => {
     fetchViolations();
   }, []);
 
+  // Фильтрация районов по выбранному региону
   useEffect(() => {
-    // Фильтруем районы по выбранной области
     const fetchDistrictsByRegionId = async () => {
       try {
         const response = await Axios.get(`http://localhost:8080/rest/common-reference/parent/${regionId}`);
@@ -62,16 +66,15 @@ const ApplicationForm = ({ onCancel }) => {
     }
   }, [regionId]);
 
+  // Загрузка данных пользователя при монтировании компонента
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // Загрузка данных пользователя для установки userId
         const token = sessionStorage.getItem('token');
         if (token) {
-          // Устанавливаем JWT токен в заголовок Authorization
           const response = await Axios.get('http://localhost:8080/rest/user/user', {
             params: {
-              'token': `${token}` // Передача токена в заголовке запроса
+              'token': `${token}`
             }
           });
           setUserId(response.data.id);
@@ -83,8 +86,9 @@ const ApplicationForm = ({ onCancel }) => {
   
     fetchUserData();
   }, []);
-  
 
+
+  // Обработчик выбора файла
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -102,18 +106,29 @@ const ApplicationForm = ({ onCancel }) => {
     }
   };
 
+  // Обработчик открытия модального окна для карты
+  const handleShowMapModal = () => {
+    setIsMapModalOpen(true);
+  };
+
+  // Обработчик закрытия модального окна для карты
+  const handleCloseMapModal = () => {
+    setIsMapModalOpen(false);
+  };
+
+  // Обработчик выбора координат на карте
   const handleCoordinateSelect = ({ lat, lon }) => {
     setSelectedCoordinate({ lat, lon });
   };
 
-  const handleShowMap = () => {
-    setIsMapVisible(true);
-  };
-
+  // Обработчик сохранения выбранных координат
   const handleSaveCoordinates = () => {
     setIsMapVisible(false);
+    handleCloseMapModal(); // Закрываем модальное окно после сохранения координат
+
   };
 
+  // Обработчик отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
@@ -194,34 +209,18 @@ const ApplicationForm = ({ onCancel }) => {
       <div className="form-group">
         <label>Описание</label>
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-
-        <label>Область</label>
-        <select value={regionId} className='dropdown-filter' onChange={(e) => setRegionId(e.target.value)} required>
-          <option value="">Выберите область</option>
-          {regions.map((region) => (
-            <option key={region.id} value={region.id}>
-              {region.title}
-            </option>
-          ))}
-        </select>
-
-        <label>Район</label>
-        <select value={districtId} className="dropdown-filter" onChange={(e) => setDistrictId(e.target.value)} required>
-          <option value="">Выберите район</option>
-          {filteredDistricts.map((district) => (
-            <option key={district.id} value={district.id}>
-              {district.title}
-            </option>
-          ))}
-        </select>
       </div>
 
       <div className="form-group">
-        <label>Дата нарушения</label>
-        <input type="date" onChange={(e) => setDateOfViolation(e.target.value)} required />
+        <label>Заголовок</label>
+        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
 
-        <label>Гос номер </label>
-        <input type="text" style={{textTransform: "uppercase"}} onChange={(e) => setNumberAuto(e.target.value)} required />
+        <label>Дата нарушения</label>
+        <input type="date" value={dateOfViolation} onChange={(e) => setDateOfViolation(e.target.value)} required />
+
+        <label>Гос номер</label>
+        <input type="text" value={numberAuto} onChange={(e) => setNumberAuto(e.target.value)} required />
+
 
         <label>Тип нарушения</label>
         <select value={typeViolationsId} className="dropdown-filter" onChange={(e) => setTypeViolationsId(e.target.value)} required>
@@ -241,19 +240,21 @@ const ApplicationForm = ({ onCancel }) => {
         <label>Адрес</label>
         <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
 
-        <label>Долгота: {selectedCoordinate.lat}</label>
-        <label>Широта: {selectedCoordinate.lon}</label>
-        {isMapVisible ? (
-          <>
-            <MapComponent onCoordinateSelect={handleCoordinateSelect} setPlace={setPlace} />
-            <button type="button" onClick={handleSaveCoordinates}>Сохранить</button>
-          </>
-        ) : (
-          <button type="button" onClick={handleShowMap}>Указать адрес</button>
-        )}
+        <label>Долгота: {selectedCoordinate.lat} </label>
+          <label>Широта: {selectedCoordinate.lon} </label>
+        <button type="button" onClick={handleShowMapModal}>Указать адрес</button>
       </div>
 
       <button type="submit">Submit</button>
+
+      {/* Модальное окно для карты */}
+      <Modal isOpen={isMapModalOpen} onClose={handleCloseMapModal}>
+  <div>
+    <h2>Геопозиция</h2>
+    <MapComponent onCoordinateSelect={handleCoordinateSelect} setPlace={setPlace} />
+    <button type="button" onClick={handleSaveCoordinates}>Сохранить</button>
+  </div>
+</Modal>
     </form>
   );
 };
