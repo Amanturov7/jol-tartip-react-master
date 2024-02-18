@@ -15,7 +15,6 @@ const NavbarComponent = () => {
     navigate('/');
     setIsMenuOpen(false); // Закрываем бургер-меню при выходе
   };
-
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -32,14 +31,14 @@ const NavbarComponent = () => {
             <Link to="/report" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Нарушения
             </Link>
-            <Link to="/events" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
-              События
-            </Link>
-           
-       
             <Link to="/reviews" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Отзывы
             </Link>
+
+            <Link to="/events" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
+              События
+            </Link>      
+      
             <Link to="/violations-list" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Штрафы
             </Link>

@@ -528,6 +528,53 @@ border-radius: 5px;
  border-color: #3bb5e9;
 }
 
+:root {
+  --background-color-light: #ffffff;
+  --text-color-light: #000000;
+  --link-color-light: #007bff;
+
+  --background-color-dark: #343a40;
+  --text-color-dark: #ffffff;
+  --link-color-dark: #66afe9;
+}
+
+body {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+}
+
+/* Дополнительные стили для ссылок и других элементов */
+a {
+  color: var(--link-color-light);
+}
+
+/* Дополнительные стили для темного режима */
+.dark-mode {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --link-color: var(--link-color-dark);
+}
+
+
+
+
+.dark-mode {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --link-color: var(--link-color-dark);
+}
+
+.dark-mode body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.dark-mode a {
+  color: var(--link-color);
+}
+
+
+
 
 
 

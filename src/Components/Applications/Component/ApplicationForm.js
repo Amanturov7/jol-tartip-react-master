@@ -206,22 +206,10 @@ const ApplicationForm = ({ onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
-      <div className="form-group">
-        <label>Описание</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-      </div>
+
 
       <div className="form-group">
-        <label>Заголовок</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
-
-        <label>Дата нарушения</label>
-        <input type="date" value={dateOfViolation} onChange={(e) => setDateOfViolation(e.target.value)} required />
-
-        <label>Гос номер</label>
-        <input type="text" value={numberAuto} onChange={(e) => setNumberAuto(e.target.value)} required />
-
-
+   
         <label>Тип нарушения</label>
         <select value={typeViolationsId} className="dropdown-filter" onChange={(e) => setTypeViolationsId(e.target.value)} required>
           <option value="">Выберите тип нарушения</option>
@@ -231,26 +219,42 @@ const ApplicationForm = ({ onCancel }) => {
             </option>
           ))}
         </select>
+        <label>Гос номер</label>
+        <input type="text" value={numberAuto} onChange={(e) => setNumberAuto(e.target.value)} required />
 
-        <label>Приложить Фото/Видео доказательство</label>
-        <input type="file" onChange={handleFileChange} />
+
+      
       </div>
+      <div className="form-group">
+        <label>Описание</label>
+        <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+        <label>Дата нарушения</label>
+        <input type="date" value={dateOfViolation} onChange={(e) => setDateOfViolation(e.target.value)} required />
 
+      </div>
       <div className="form-group">
         <label>Адрес</label>
         <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
-
-        <label>Долгота: {selectedCoordinate.lat} </label>
-          <label>Широта: {selectedCoordinate.lon} </label>
         <button type="button" onClick={handleShowMapModal}>Указать адрес</button>
+
+        <label>Приложить фото доказательство</label>
+        <input type="file" onChange={handleFileChange} />
+
+        <button type="submut">Сохранить</button>
+
+
       </div>
 
-      <button type="submit">Submit</button>
 
       {/* Модальное окно для карты */}
       <Modal isOpen={isMapModalOpen} onClose={handleCloseMapModal}>
   <div>
     <h2>Геопозиция</h2>
+    
+    <label>Долгота: {selectedCoordinate.lat} </label>
+          <label>Широта: {selectedCoordinate.lon} </label>
+          <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
+
     <MapComponent onCoordinateSelect={handleCoordinateSelect} setPlace={setPlace} />
     <button type="button" onClick={handleSaveCoordinates}>Сохранить</button>
   </div>

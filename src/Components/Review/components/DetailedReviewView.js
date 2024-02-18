@@ -46,6 +46,30 @@ const DetailedReviewView = () => {
     }
   }, [id]);
 
+
+  const handleStatusAccept = async () => {
+    try {
+      await Axios.put(`http://localhost:8080/rest/reviews/update/status/accept/${id}`);
+      // Обновляем информацию о заявлении после изменения статуса
+      const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
+      setReview(response.data);
+    } catch (error) {
+      console.error('Error updating status:', error.message);
+    }
+  };
+
+  
+  const handleStatusProtocol = async () => {
+    try {
+      await Axios.put(`http://localhost:8080/rest/reviews/update/status/protocol/${id}`);
+      // Обновляем информацию о заявлении после изменения статуса
+      const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
+      setReview(response.data);
+    } catch (error) {
+      console.error('Error updating status:', error.message);
+    }
+  };
+
   const handleDelete = async () => {
     try {
       await Axios.delete(`http://localhost:8080/rest/reviews/delete/${id}`);
@@ -62,13 +86,19 @@ const DetailedReviewView = () => {
   // Проверка, является ли текущий пользователь владельцем отзыва
   const isOwner = userData && userData.id === review.userId;
 
+
+    // Проверяем роль пользователя
+    const isEmployee = userData && userData.role === 'EMPLOYEE';
+
   return (
     <div className='container'>
-      <h2>Отзыв № {id}</h2>
-      <p>Адрес: {review.locationAddress}</p>
-      <p>Описание: {review.description}</p>
-      <p>Статус: {review.statusName}</p>
-
+         <h2>Нарушение № {id}</h2>
+        <p>Тип нарушения пдд: {review.title}</p>
+        <p>Дата Нарушения: {review.dateOfViolation}</p>
+        <p>Описание: {review.description}</p>
+        <p>Статус: {review.statusName}</p>
+        <p>Адрес: {review.locationAddress}</p>
+        <p>Дата создания заявления: {review.createdDate}</p>
       {attachmentUrl && (
         <div>
           <h3>Attachment</h3>
@@ -83,14 +113,25 @@ const DetailedReviewView = () => {
           Удалить
         </button>
       )}
+            {isEmployee && review.statusName === 'Принят на рассмотрение' && (
+        <button type="button" className='submit' onClick={handleStatusAccept}>
+          Рассмотрение
+        </button>
+      )}
+
+{isEmployee && review.statusName === 'На рассмотрении' && (
+        <button type="button" className='submit' onClick={handleStatusProtocol}>
+          Протокол
+        </button>
+      )}
 
       <Link to="/reviews">
-        <button type="button" className='button-green'>
+        <button type="button" className='submit'>
           Назад
         </button>
       </Link>
       <Link to="/">
-        <button type="button" className='button-green'>
+        <button type="button" className='submit'>
           На главную
         </button>
       </Link>
