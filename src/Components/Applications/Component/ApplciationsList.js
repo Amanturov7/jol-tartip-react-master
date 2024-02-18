@@ -14,10 +14,10 @@ const ApplicationsList = ({ onReportClick }) => {
   const [title, setTitle] = useState('');
   const [id, setId] = useState('');
   const [numberAuto, setNumberAuto] = useState('');
-
   useEffect(() => {
     fetchApplications();
     fetchFilterOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageNumber, id, selectedFilter, title, numberAuto]);
 
   const fetchApplications = async () => {

@@ -16,9 +16,12 @@ const ApplicationForm = ({ onCancel }) => {
   const [typeViolationsId, setTypeViolationsId] = useState('');
   const [userId, setUserId] = useState(1); // Установка userId по умолчанию
   const [violationsList, setViolationsList] = useState([]);
+    // eslint-disable-next-line 
   const [regions, setRegions] = useState([]);
+    // eslint-disable-next-line 
   const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [selectedCoordinate, setSelectedCoordinate] = useState({ lat: 0, lon: 0 });
+    // eslint-disable-next-line 
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 

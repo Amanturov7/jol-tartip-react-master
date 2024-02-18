@@ -10,7 +10,7 @@ const Reviews = () => {
     return (
       <div className='container'>
           
-      <h2>Отзывы</h2>
+      <h2>Реестр отзывов</h2>
       <ReviewsList />
       </div>
         )
@@ -21,7 +21,7 @@ const Reviews = () => {
   return (
     <div className='container'>
         
-    <h2>Отзывы</h2>
+    <h2>Реестр отзывов</h2>
     <ReviewForm />
     <ReviewsList />
     </div>

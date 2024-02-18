@@ -7,6 +7,7 @@ const MapDetailedView = ({ lat, lon }) => {
     const map = L.map('map').setView([lat, lon], 13);
 
     // Инициализация слоев карты и маркеров
+      // eslint-disable-next-line 
     const baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',
     }).addTo(map);
@@ -19,7 +20,7 @@ const MapDetailedView = ({ lat, lon }) => {
       popupAnchor: [1, -34],
       shadowSize: [41, 41],
     });
-
+  // eslint-disable-next-line 
     const marker = L.marker([lat, lon], { icon: blueIcon }).addTo(map);
 
     return () => {

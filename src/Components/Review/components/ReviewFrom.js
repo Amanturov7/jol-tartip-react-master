@@ -14,6 +14,7 @@ const ReviewForm = () => {
   const [options, setOptions] = useState([]);
   const [file, setFile] = useState(null);
   const [selectedOption, setSelectedOption] = useState(null);
+    // eslint-disable-next-line 
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [selectedCoordinate, setSelectedCoordinate] = useState({ lat: 0, lon: 0 });
   // eslint-disable-next-line 
@@ -28,7 +29,7 @@ const ReviewForm = () => {
   const handleCoordinateSelect = ({ lat, lon }) => {
     setSelectedCoordinate({ lat, lon });
   };
-
+  // eslint-disable-next-line 
   const handleShowMap = () => {
     setIsMapVisible(true);
   };

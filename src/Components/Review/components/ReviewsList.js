@@ -20,6 +20,7 @@ const ReviewsList = () => {
   useEffect(() => {
     fetchReviews();
     fetchFilterOptions();
+    // eslint-disable-next-line
   }, [pageNumber, selectedEcologicFactor, selectedRoadSign, selectedLight, selectedRoad]);
 
   const fetchReviews = async () => {
