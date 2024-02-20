@@ -85,12 +85,20 @@ const MapComponent = () => {
     });
 
     const reviewLayer = L.layerGroup().addTo(map);
-    reviews.forEach((review) => {
-      const { lat, lon } = review;
-      if (lat && lon) {
-        L.marker([lat, lon], { icon: greenIcon }).addTo(reviewLayer).bindPopup(`Отзывы: ${review.id}`);
-      }
-    });
+reviews.forEach((review) => {
+  const { lat, lon } = review;
+  if (lat && lon) {
+    const popupContent = Object.entries(review)
+      .filter(([key, value]) => value !== null) // Фильтруем только не null значения
+      .map(([key, value]) => `${key}: ${value}`) // Преобразуем в массив строк вида "ключ: значение"
+      .join('<br>'); // Объединяем строки с помощью тега <br> для форматирования в столбик
+
+    L.marker([lat, lon], { icon: greenIcon })
+      .addTo(reviewLayer)
+      .bindPopup(`Отзывы:<br>${popupContent}`);
+  }
+});
+
 
     const layerControl = L.control.layers(
       {
