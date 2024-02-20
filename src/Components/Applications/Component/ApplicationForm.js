@@ -135,17 +135,17 @@ const ApplicationForm = ({ onCancel }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
-      alert('Please select a file.');
+      alert('Пожалуйста выберите файл');
       return;
     }
 
     if (!place) {
-      alert('Пожалуйста, укажите адрес перед сохранением заявки.');
+      alert('Пожалуйста, укажите адрес перед сохранением заявки');
       return;
     }
 
     if (!userId) {
-      console.error('User data not loaded yet. Unable to create application.');
+      console.error('Пользователь не авторизован');
       return;
     }
 
