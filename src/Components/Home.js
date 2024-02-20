@@ -56,7 +56,7 @@ const Home = () => {
 
   return (
     <div className="container">
-      <h2>Проверка нарушений по Гос номеру</h2>
+      <h2>Проверка нарушений по Гос номеру в системе Jol Tartip</h2>
 
       <div className="search-container">
         
