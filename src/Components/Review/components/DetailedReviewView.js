@@ -95,7 +95,7 @@ const DetailedReviewView = () => {
 
   return (
     <div className='container'>
-         <h2>Нарушение № {id}</h2>
+         <h2>Отзыв № {id}</h2>
         <p>Тип нарушения пдд: {review.title}</p>
         <p>Дата Нарушения: {review.dateOfViolation}</p>
         <p>Описание: {review.description}</p>

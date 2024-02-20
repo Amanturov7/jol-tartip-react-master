@@ -257,6 +257,8 @@ const ReviewForm = () => {
         <h2>Геопозиция</h2>
         <label>Долгота: {selectedCoordinate.lat} </label>
         <label>Широта: {selectedCoordinate.lon} </label>
+        <input type="text" disabled value={locationAddress} onChange={(e) => setLocationAddress(e.target.value)} required />
+
         <MapComponent onCoordinateSelect={handleCoordinateSelect} setPlace={setLocationAddress} />
         <button type="button" onClick={handleSaveCoordinates}>Сохранить</button>
       </div>

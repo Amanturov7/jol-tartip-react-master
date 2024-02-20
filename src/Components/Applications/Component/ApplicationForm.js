@@ -259,7 +259,7 @@ const ApplicationForm = ({ onCancel }) => {
   <div>
     <h2>Геопозиция</h2>
     
-    <label>Долгота: {selectedCoordinate.lat} </label>
+          <label>Долгота: {selectedCoordinate.lat} </label>
           <label>Широта: {selectedCoordinate.lon} </label>
           <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
 

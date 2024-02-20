@@ -86,7 +86,10 @@ const MapComponent = () => {
         const popupContent = `
           Описание: ${app.description}<br>
           Дата: ${app.createdDate}<br>
-          Статус: ${app.statusName}<br>`;
+          Статус: ${app.statusName}<br>
+          <br>
+          нажмите чтобы перейти к нарушению
+          `;
        
         const marker = L.marker([lat, lon], { icon: blueIcon }).addTo(applicationLayer).bindPopup(`Нарушение №  ${app.id} <br>${popupContent}`);
     
@@ -111,7 +114,10 @@ const MapComponent = () => {
         const popupContent = `
           Описание: ${review.description}<br>
           Дата: ${review.createdDate}<br>
-          Статус: ${review.statusName}<br>`;
+          Статус: ${review.statusName}<br>
+          <br>
+          нажмите чтобы перейти к отзыву
+          `;
       
         const marker = L.marker([lat, lon], { icon: greenIcon })
           .addTo(reviewLayer)
