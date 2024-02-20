@@ -613,3 +613,45 @@ a {
   font-size: 18px;
   color: #333;
 }
+
+
+
+.search-container {
+  position: relative; /* Позиционирование относительно контейнера */
+  display: flex;
+  align-items: center;
+  align-items: center;
+}
+
+.search-content {
+  display: flex;
+  align-items: center;
+
+}
+
+.gosnomer-image {
+  width: 200px;
+  height: auto;
+  margin-left: 50px; /* Изменено на margin-left */
+}
+
+.search-input {
+  width: 300px; /* Увеличение ширины поля ввода */
+  height: 30px; /* Увеличение ширины поля ввода */
+
+  padding: 15px; /* Увеличение отступов внутри поля ввода */
+  font-size: 30px!important; /* Увеличение размера шрифта */
+  text-transform: uppercase;
+}
+
+
+.submit {
+  margin-left: 10px;
+  height: 50px; /* Увеличение ширины поля ввода */
+
+}
+
+.search-label {
+  margin-left: 30px; /* Расстояние между изображением и текстом */
+  width: 500px;
+}
