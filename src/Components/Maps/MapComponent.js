@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
 import Axios from 'axios';
 import 'leaflet/dist/leaflet.css';
+import { useNavigate   } from 'react-router-dom';
 
 const MapComponent = () => {
   const [applications, setApplications] = useState([]);
   const [reviews, setReviews] = useState([]);
-
+  const navigate = useNavigate();
   const fetchData = async () => {
     try {
       const applicationsResponse = await Axios.get('http://localhost:8080/rest/applications/points');
@@ -53,6 +54,8 @@ const MapComponent = () => {
       attribution: '© 2GIS',
     });
 
+
+
     lightMap.addTo(map);
     darkMap.addTo(map);
     openStreetMapHot.addTo(map);
@@ -80,24 +83,54 @@ const MapComponent = () => {
     applications.forEach((app) => {
       const { lat, lon } = app;
       if (lat && lon) {
-        L.marker([lat, lon], { icon: blueIcon }).addTo(applicationLayer).bindPopup(`Нарушения: ${app.id}`);
+        const popupContent = `
+          Описание: ${app.description}<br>
+          Дата: ${app.createdDate}<br>
+          Статус: ${app.statusName}<br>`;
+       
+        const marker = L.marker([lat, lon], { icon: blueIcon }).addTo(applicationLayer).bindPopup(`Нарушение №  ${app.id} <br>${popupContent}`);
+    
+        marker.on('mouseover', function(e) {
+          this.openPopup();
+        });
+    
+        marker.on('mouseout', function(e) {
+          this.closePopup();
+        });
+
+        marker.on('click', () => {
+          navigate(`/applications/${app.id}`);
+        });
       }
     });
-
+    
     const reviewLayer = L.layerGroup().addTo(map);
-reviews.forEach((review) => {
-  const { lat, lon } = review;
-  if (lat && lon) {
-    const popupContent = Object.entries(review)
-      .filter(([key, value]) => value !== null) // Фильтруем только не null значения
-      .map(([key, value]) => `${key}: ${value}`) // Преобразуем в массив строк вида "ключ: значение"
-      .join('<br>'); // Объединяем строки с помощью тега <br> для форматирования в столбик
+    reviews.forEach((review) => {
+      const { lat, lon } = review;
+      if (lat && lon) {
+        const popupContent = `
+          Описание: ${review.description}<br>
+          Дата: ${review.createdDate}<br>
+          Статус: ${review.statusName}<br>`;
+      
+        const marker = L.marker([lat, lon], { icon: greenIcon })
+          .addTo(reviewLayer)
+          .bindPopup(`Отзыв №  ${review.id} <br>${popupContent}`);
+    
+        marker.on('mouseover', function(e) {
+          this.openPopup();
+        });
+    
+        marker.on('mouseout', function(e) {
+          this.closePopup();
+        });
 
-    L.marker([lat, lon], { icon: greenIcon })
-      .addTo(reviewLayer)
-      .bindPopup(`Отзывы:<br>${popupContent}`);
-  }
-});
+        marker.on('click', () => {
+          navigate(`/reviews/${review.id}`);
+        });
+      }
+    });
+    
 
 
     const layerControl = L.control.layers(
@@ -114,6 +147,7 @@ reviews.forEach((review) => {
       }
     ).addTo(map);
     layerControl.setPosition('topright'); // Установите позицию слоя в правый верхний угол
+   
     return () => {
       map.remove();
     };

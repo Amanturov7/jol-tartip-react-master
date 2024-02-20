@@ -6,10 +6,14 @@ import MapDetailedView from '../../Maps/MapDetailedView';
 const DetailedApplicationView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+
   const [application, setApplication] = useState(null);
   const [attachmentUrl, setAttachmentUrl] = useState(null);
   const [userData, setUserData] = useState(null);
-
+  const handleGoBack = () => {
+    // Использование объекта navigate для перехода назад
+    navigate(-1);
+  };
   useEffect(() => {
     const fetchApplication = async () => {
       try {
@@ -29,7 +33,7 @@ const DetailedApplicationView = () => {
 
     fetchApplication();
 
-    // Получение JWT токена из sessionStorage
+   
     const token = sessionStorage.getItem('token');
     if (token) {
       Axios.defaults.headers.common['Authorization'] = token;
@@ -103,7 +107,6 @@ const DetailedApplicationView = () => {
       </div>
 
       <div className='img-box'>
-        <h3>Attachment</h3>
         <img src={attachmentUrl} alt={`Attachment for application ${id}`} />
       </div>
 
@@ -128,11 +131,9 @@ const DetailedApplicationView = () => {
       )}
 
 
-      <Link to="/report">
-        <button type="button" className='submit'>
-          Назад
-        </button>
-      </Link>
+  <button type="button" className='submit' onClick={handleGoBack}>
+    Назад
+  </button>
 
       <Link to="/">
         <button type="button" className='submit'>

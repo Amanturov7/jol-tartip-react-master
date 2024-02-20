@@ -9,7 +9,10 @@ const DetailedReviewView = () => {
   const [review, setReview] = useState(null);
   const [attachmentUrl, setAttachmentUrl] = useState(null);
   const [userData, setUserData] = useState(null); // Состояние для хранения данных о текущем пользователе
-
+  const handleGoBack = () => {
+    // Использование объекта navigate для перехода назад
+    navigate(-1);
+  };
   useEffect(() => {
     const fetchReview = async () => {
       try {
@@ -100,8 +103,7 @@ const DetailedReviewView = () => {
         <p>Адрес: {review.locationAddress}</p>
         <p>Дата создания заявления: {review.createdDate}</p>
       {attachmentUrl && (
-        <div>
-          <h3>Attachment</h3>
+        <div className='img-box'>
           <img src={attachmentUrl} alt={`Attachment for review ${id}`} />
         </div>
       )}
@@ -125,11 +127,9 @@ const DetailedReviewView = () => {
         </button>
       )}
 
-      <Link to="/reviews">
-        <button type="button" className='submit'>
-          Назад
-        </button>
-      </Link>
+<button type="button" className='submit' onClick={handleGoBack}>
+    Назад
+  </button>
       <Link to="/">
         <button type="button" className='submit'>
           На главную
