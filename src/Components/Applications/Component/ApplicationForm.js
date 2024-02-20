@@ -139,6 +139,11 @@ const ApplicationForm = ({ onCancel }) => {
       return;
     }
 
+    if (!place) {
+      alert('Пожалуйста, укажите адрес перед сохранением заявки.');
+      return;
+    }
+
     if (!userId) {
       console.error('User data not loaded yet. Unable to create application.');
       return;

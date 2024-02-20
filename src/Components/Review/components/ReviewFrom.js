@@ -122,6 +122,16 @@ const ReviewForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
+    if (!file) {
+      alert('Пожалуйста, прикрепите фотографию перед созданием отзыва.');
+      return;
+    }
+
+    if (!locationAddress) {
+      alert('Пожалуйста, укажите адрес перед сохранением заявки.');
+      return;
+    }
+
     let reviewTypeFields;
     switch (reviewType) {
       case 'Дорожный знак':
