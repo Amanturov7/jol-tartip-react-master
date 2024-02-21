@@ -1,13 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 const NavbarComponent = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userName, setUserName] = useState(false);
 
   const isAuthenticated = () => {
     const accessToken = sessionStorage.getItem('token');
     return accessToken !== null && accessToken !== undefined;
   };
+
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+            params: {
+              'token': `${token}`
+            }
+          });
+          setUserName(response.data.username);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+
 
   const handleSignOut = () => {
 
@@ -117,6 +141,7 @@ l0 -337 33 -34 c18 -18 37 -49 42 -68 12 -42 13 -350 1 -403 -12 -48 -52 -91
 0 382 63 503 95 180 288 282 602 319 67 7 235 5 320 -4z"/>
 </g>
           </svg>
+          {userName}
           </Link>
 
         ) : null}
