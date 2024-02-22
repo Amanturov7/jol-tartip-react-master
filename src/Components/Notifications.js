@@ -7,7 +7,7 @@ const Notifications = () => {
   useEffect(() => {
     const fetchApplications = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/notifications/all');
+        const response = await Axios.get('https://jortartip.onrender.com:8080/rest/notifications/all');
         setNotifications(response.data);
       } catch (error) {
         console.error('Error fetching applications:', error.message);

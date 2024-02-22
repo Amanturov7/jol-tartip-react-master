@@ -29,7 +29,7 @@ const Events = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get('https://jortartip.onrender.com:8080/rest/user/user', {
             params: {
               'token': `${token}`
             }
@@ -77,7 +77,7 @@ const Events = () => {
 
   const fetchEventTypes = async () => {
     try {
-      const eventTypeResponse = await Axios.get('http://localhost:8080/rest/common-reference/by-type/006');
+      const eventTypeResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/common-reference/by-type/006');
       setEventTypes(eventTypeResponse.data);
     } catch (error) {
       console.error('Error fetching event types:', error.message);
@@ -92,7 +92,7 @@ const Events = () => {
   
 
     try {
-      const response = await Axios.post('http://localhost:8080/rest/events/create', {
+      const response = await Axios.post('https://jortartip.onrender.com:8080/rest/events/create', {
         ...newEvent,
         userId: userId // Включаем userId в теле запроса
       });

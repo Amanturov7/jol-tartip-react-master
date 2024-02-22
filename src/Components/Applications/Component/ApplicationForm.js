@@ -29,7 +29,7 @@ const ApplicationForm = ({ onCancel }) => {
     // Загрузка регионов при монтировании компонента
     const fetchRegions = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
+        const response = await Axios.get('https://jortartip.onrender.com:8080/rest/common-reference/by-type/001');
         setRegions(response.data);
       } catch (error) {
         console.error('Error fetching regions:', error.message);
@@ -43,7 +43,7 @@ const ApplicationForm = ({ onCancel }) => {
   useEffect(() => {
     const fetchViolations = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/violations/all');
+        const response = await Axios.get('https://jortartip.onrender.com:8080/rest/violations/all');
         setViolationsList(response.data);
       } catch (error) {
         console.error('Error fetching violations:', error.message);
@@ -57,7 +57,7 @@ const ApplicationForm = ({ onCancel }) => {
   useEffect(() => {
     const fetchDistrictsByRegionId = async () => {
       try {
-        const response = await Axios.get(`http://localhost:8080/rest/common-reference/parent/${regionId}`);
+        const response = await Axios.get(`https://jortartip.onrender.com:8080/rest/common-reference/parent/${regionId}`);
         setFilteredDistricts(response.data);
       } catch (error) {
         console.error('Error fetching districts:', error.message);
@@ -75,7 +75,7 @@ const ApplicationForm = ({ onCancel }) => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get('https://jortartip.onrender.com:8080/rest/user/user', {
             params: {
               'token': `${token}`
             }
@@ -166,7 +166,7 @@ const ApplicationForm = ({ onCancel }) => {
 
     try {
       const applicationResponse = await Axios.post(
-        'http://localhost:8080/rest/applications/create',
+        'https://jortartip.onrender.com:8080/rest/applications/create',
         newApplication,
         {
           headers: {
@@ -188,7 +188,7 @@ const ApplicationForm = ({ onCancel }) => {
         })
       );
 
-      await Axios.post('http://localhost:8080/rest/attachments/upload', formData, {
+      await Axios.post('https://jortartip.onrender.com:8080/rest/attachments/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

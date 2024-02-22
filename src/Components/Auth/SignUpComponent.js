@@ -16,7 +16,7 @@ const SignUpComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:8080/auth/signup`, signUpData);
+      const response = await axios.post(`https://jortartip.onrender.com:8080/auth/signup`, signUpData);
       console.log('Sign up successful:', response.data);
       // Перенаправляем пользователя на страницу авторизации
       navigate('/login'); // Перенаправляем на страницу с маршрутом '/login'
