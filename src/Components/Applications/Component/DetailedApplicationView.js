@@ -17,10 +17,10 @@ const DetailedApplicationView = () => {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const response = await Axios.get(`https://jortartip.onrender.com:8080/rest/applications/${id}`);
+        const response = await Axios.get(`https://jortartip.onrender.com/rest/applications/${id}`);
         setApplication(response.data);
 
-        const attachmentResponse = await Axios.get(`https://jortartip.onrender.com:8080/rest/attachments/download/applications/${id}`, {
+        const attachmentResponse = await Axios.get(`https://jortartip.onrender.com/rest/attachments/download/applications/${id}`, {
           responseType: 'blob',
         });
         const blob = new Blob([attachmentResponse.data]);
@@ -39,7 +39,7 @@ const DetailedApplicationView = () => {
       Axios.defaults.headers.common['Authorization'] = token;
 
       // Отправляем запрос к серверу для получения данных о пользователе
-      Axios.get('https://jortartip.onrender.com:8080/rest/user/user', {
+      Axios.get('https://jortartip.onrender.com/rest/user/user', {
         params: { token: token }
       })
         .then(response => {
@@ -53,7 +53,7 @@ const DetailedApplicationView = () => {
 
   const handleDelete = async () => {
     try {
-      await Axios.delete(`https://jortartip.onrender.com:8080/rest/applications/delete/${id}`);
+      await Axios.delete(`https://jortartip.onrender.com/rest/applications/delete/${id}`);
       navigate('/report');
     } catch (error) {
       console.error('Error deleting application:', error.message);
@@ -62,9 +62,9 @@ const DetailedApplicationView = () => {
 
   const handleStatusAccept = async () => {
     try {
-      await Axios.put(`https://jortartip.onrender.com:8080/rest/applications/update/status/accept/${id}`);
+      await Axios.put(`https://jortartip.onrender.com/rest/applications/update/status/accept/${id}`);
       // Обновляем информацию о заявлении после изменения статуса
-      const response = await Axios.get(`https://jortartip.onrender.com:8080/rest/applications/${id}`);
+      const response = await Axios.get(`https://jortartip.onrender.com/rest/applications/${id}`);
       setApplication(response.data);
     } catch (error) {
       console.error('Error updating status:', error.message);
@@ -74,9 +74,9 @@ const DetailedApplicationView = () => {
   
   const handleStatusProtocol = async () => {
     try {
-      await Axios.put(`https://jortartip.onrender.com:8080/rest/applications/update/status/protocol/${id}`);
+      await Axios.put(`https://jortartip.onrender.com/rest/applications/update/status/protocol/${id}`);
       // Обновляем информацию о заявлении после изменения статуса
-      const response = await Axios.get(`https://jortartip.onrender.com:8080/rest/applications/${id}`);
+      const response = await Axios.get(`https://jortartip.onrender.com/rest/applications/${id}`);
       setApplication(response.data);
     } catch (error) {
       console.error('Error updating status:', error.message);

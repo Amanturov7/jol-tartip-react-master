@@ -15,7 +15,7 @@ const LoginComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://jortartip.onrender.com:8080/auth/authenticate', loginData);
+      const response = await axios.post('https://jortartip.onrender.com/auth/authenticate', loginData);
       console.log('Login successful:', response.data);
 
       sessionStorage.setItem("token", response.data.token);

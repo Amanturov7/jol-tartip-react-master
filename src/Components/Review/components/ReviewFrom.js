@@ -43,7 +43,7 @@ const ReviewForm = () => {
     const type = e.target.value;
     setReviewType(type);
 
-    Axios.get(`https://jortartip.onrender.com:8080/rest/common-reference/by-type/${getTypeReferenceType(type)}`)
+    Axios.get(`https://jortartip.onrender.com/rest/common-reference/by-type/${getTypeReferenceType(type)}`)
       .then((response) => {
         setOptions(response.data);
       })
@@ -72,7 +72,7 @@ const ReviewForm = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('https://jortartip.onrender.com:8080/rest/user/user', {
+          const response = await Axios.get('https://jortartip.onrender.com/rest/user/user', {
             params: {
               'token': `${token}`
             }
@@ -162,7 +162,7 @@ const ReviewForm = () => {
     };
   
     try {
-      const response = await Axios.post('https://jortartip.onrender.com:8080/rest/reviews/create', { ...newReview, ...reviewTypeFields }, {
+      const response = await Axios.post('https://jortartip.onrender.com/rest/reviews/create', { ...newReview, ...reviewTypeFields }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -181,7 +181,7 @@ const ReviewForm = () => {
         })
       );
 
-      await Axios.post('https://jortartip.onrender.com:8080/rest/attachments/upload', formData, {
+      await Axios.post('https://jortartip.onrender.com/rest/attachments/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

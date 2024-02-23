@@ -10,10 +10,10 @@ const MapComponent = () => {
   const navigate = useNavigate();
   const fetchData = async () => {
     try {
-      const applicationsResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/applications/points');
+      const applicationsResponse = await Axios.get('https://jortartip.onrender.com/rest/applications/points');
       setApplications(applicationsResponse.data);
 
-      const reviewsResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/reviews/points');
+      const reviewsResponse = await Axios.get('https://jortartip.onrender.com/rest/reviews/points');
       setReviews(reviewsResponse.data);
     } catch (error) {
       console.error('Error fetching data:', error.message);

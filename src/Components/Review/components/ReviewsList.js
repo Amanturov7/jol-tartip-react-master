@@ -25,7 +25,7 @@ const ReviewsList = () => {
 
   const fetchReviews = async () => {
     try {
-      let url = `https://jortartip.onrender.com:8080/rest/reviews/all?page=${pageNumber}`;
+      let url = `https://jortartip.onrender.com/rest/reviews/all?page=${pageNumber}`;
 
       if (selectedEcologicFactor) {
         url += `&ecologicFactorId=${selectedEcologicFactor}`;
@@ -53,16 +53,16 @@ const ReviewsList = () => {
 
   const fetchFilterOptions = async () => {
     try {
-      const ecologicFactorsResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/common-reference/by-type/007');
+      const ecologicFactorsResponse = await Axios.get('https://jortartip.onrender.com/rest/common-reference/by-type/007');
       setEcologicFactors(ecologicFactorsResponse.data);
 
-      const roadSignsResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/common-reference/by-type/003');
+      const roadSignsResponse = await Axios.get('https://jortartip.onrender.com/rest/common-reference/by-type/003');
       setRoadSigns(roadSignsResponse.data);
 
-      const lightsResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/common-reference/by-type/004');
+      const lightsResponse = await Axios.get('https://jortartip.onrender.com/rest/common-reference/by-type/004');
       setLights(lightsResponse.data);
 
-      const roadsResponse = await Axios.get('https://jortartip.onrender.com:8080/rest/common-reference/by-type/005');
+      const roadsResponse = await Axios.get('https://jortartip.onrender.com/rest/common-reference/by-type/005');
       setRoads(roadsResponse.data);
     } catch (error) {
       console.error('Ошибка при получении списков:', error.message);
@@ -72,7 +72,7 @@ const ReviewsList = () => {
   const renderReviews = () => {
     return reviews.map((review) => (
       <Link to={`/reviews/${review.id}`} key={review.id} className="application-box">
-        <img src={`https://jortartip.onrender.com:8080/rest/attachments/download/reviews/${review.id}`} alt={`Review ${review.id}`} />
+        <img src={`https://jortartip.onrender.com/rest/attachments/download/reviews/${review.id}`} alt={`Review ${review.id}`} />
         <div>Отзыв №: {review.id}</div>
       </Link>
     ));

@@ -7,7 +7,7 @@ const ViolationsList = () => {
   useEffect(() => {
     const fetchViolations = async () => {
       try {
-        const response = await Axios.get('https://jortartip.onrender.com:8080/rest/violations/all');
+        const response = await Axios.get('https://jortartip.onrender.com/rest/violations/all');
         setViolations(response.data);
       } catch (error) {
         console.error('Error fetching violations:', error.message);

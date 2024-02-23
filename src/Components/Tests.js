@@ -7,7 +7,7 @@ const Tests = () => {
   useEffect(() => {
     const fetchTests = async () => {
       try {
-        const response = await Axios.get('https://jortartip.onrender.com:8080/rest/tickets');
+        const response = await Axios.get('https://jortartip.onrender.com/rest/tickets');
         setTests(response.data);
       } catch (error) {
         console.error('Error fetching reviews:', error.message);

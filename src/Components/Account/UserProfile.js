@@ -13,7 +13,7 @@ function UserProfile() {
         axios.defaults.headers.common['Authorization'] = `${token}`;
 
         // Отправляем запрос к серверу для получения данных о пользователе
-        axios.get('https://jortartip.onrender.com:8080/rest/user/user', {
+        axios.get('https://jortartip.onrender.com/rest/user/user', {
     params: {
         token: token
     }

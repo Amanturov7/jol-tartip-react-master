@@ -17,7 +17,7 @@ const NavbarComponent = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('https://jortartip.onrender.com:8080/rest/user/user', {
+          const response = await Axios.get('https://jortartip.onrender.com/rest/user/user', {
             params: {
               'token': `${token}`
             }
