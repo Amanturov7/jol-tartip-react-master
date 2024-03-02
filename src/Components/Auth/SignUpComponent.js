@@ -32,8 +32,11 @@ const SignUpComponent = () => {
       <form onSubmit={handleSubmit} className="signup-form"> {/* Добавлен класс "signup-form" */}
         <input type="text" name="login" placeholder="Логин" value={signUpData.login} onChange={handleChange} />
         <input type="password" name="password" placeholder="Пароль" value={signUpData.password} onChange={handleChange} />
-        <input type="number" name="inn" placeholder="ИНН" value={signUpData.inn} onChange={handleChange} />
         <input type="email" name="email" placeholder="Email" value={signUpData.email} onChange={handleChange} />
+        <input type="phone" name="phone" placeholder="Телефон" value={signUpData.phone} onChange={handleChange} />
+        <input type="text" name="address" placeholder="Адрес" value={signUpData.address} onChange={handleChange} />
+        <input type="phone" name="inn" placeholder="ИНН" value={signUpData.inn} onChange={handleChange} />
+        <input type="text" name="passport" placeholder="Пасспорт Серия №" value={signUpData.passportSerial} onChange={handleChange} />
         <button type="submit">Регистрация</button>
         {error && <div className="error-message">{error}</div>} {/* Обертка с пользовательским классом для сообщения об ошибке */}
       </form>

@@ -6,9 +6,6 @@ function UserProfile() {
   const [avatar, setAvatar] = useState(null);
   const [loading, setLoading] = useState(true);
   const [newAvatar, setNewAvatar] = useState(null);
-  const [uploadMessage, setUploadMessage] = useState('');
-  const [deleteMessage, setDeleteMessage] = useState('');
-
   useEffect(() => {
     const token = sessionStorage.getItem('token');
 
@@ -67,7 +64,6 @@ function UserProfile() {
         },
       });
 
-      setUploadMessage('Аватар успешно загружен');
       fetchAvatar(userData.id); // Обновляем аватар после успешной загрузки
     } catch (error) {
       console.error('Ошибка при загрузке аватара:', error);
@@ -77,7 +73,6 @@ function UserProfile() {
   const handleAvatarDelete = async () => {
     try {
       await axios.delete(`http://localhost:8080/rest/user/${userData.id}/avatar`);
-      setDeleteMessage('Аватар успешно удален');
       setAvatar(null); // Удаляем текущий аватар изображения после успешного удаления
     } catch (error) {
       console.error('Ошибка при удалении аватара:', error);
@@ -93,15 +88,20 @@ function UserProfile() {
       {userData ? (
         <div className='container'>
           <h2>Профиль</h2>
-          <p>Имя: {userData.username}</p>
-          <p>Роль: {userData.role}</p>
-          <p>№: {userData.id}</p>
-          {avatar && <img src={avatar} alt="Аватар пользователя" />}
+          <p>Аватар</p>
+
+          <div className='img-box'>
+           {avatar && <img src={avatar} alt="Аватар пользователя" />}
+          </div>
           <input type="file" accept="image/*" onChange={handleAvatarChange} />
           <button onClick={handleAvatarUpload}>Загрузить аватарку</button>
           <button onClick={handleAvatarDelete}>Удалить аватарку</button>
-          {uploadMessage && <p>{uploadMessage}</p>}
-          {deleteMessage && <p>{deleteMessage}</p>}
+          <p>Имя {userData.username}</p>
+          <p>Роль {userData.role}</p>
+          <p>№ {userData.id}</p>
+  
+    
+
         </div>
       ) : (
         <p>Данные пользователя не найдены.</p>

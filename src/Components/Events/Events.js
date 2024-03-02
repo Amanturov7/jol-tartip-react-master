@@ -128,7 +128,7 @@ const Events = () => {
 
       <div className="form-container">
         <div className="form-group">
-          <label>Тип событи:</label>
+          <label>Тип события</label>
           <select
             value={newEvent.typeEventId}
             className='dropdown-filter' 
