@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import Axios from 'axios';
+import axios from 'axios';
 
 const ViolationsList = () => {
   const [violations, setViolations] = useState([]);
+  const [isAdmin, setIsAdmin] = useState(false); // Флаг для определения роли SUPER_ADMIN
+
+  // Переменные состояния для полей создания нарушения
+  const [title, setTitle] = useState('');
+  const [statya, setStatya] = useState('');
+  const [part, setPart] = useState('');
+  const [description, setDescription] = useState('');
+  const [costFiz, setCostFiz] = useState('');
+  const [costUr, setCostUr] = useState('');
+  const [organId, setOrganId] = useState('');
 
   useEffect(() => {
     const fetchViolations = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/violations/all');
+        const response = await axios.get('http://localhost:8080/rest/violations/all');
         setViolations(response.data);
       } catch (error) {
         console.error('Error fetching violations:', error.message);
@@ -15,11 +25,120 @@ const ViolationsList = () => {
     };
 
     fetchViolations();
+
+    // Получение информации о текущем пользователе
+    const fetchUserData = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          const response = await axios.get('http://localhost:8080/rest/user/user', {
+            params: {
+              'token': `${token}`
+            }
+          });
+
+          // Получаем данные о пользователе из ответа
+          const userData = response.data;
+
+          // Проверяем роль пользователя
+          if (userData.role === 'SUPER_ADMIN') {
+            // Устанавливаем флаг isAdmin в true
+            setIsAdmin(true);
+          } else {
+            // Устанавливаем флаг isAdmin в false
+            setIsAdmin(false);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+      }
+    };
+
+    fetchUserData();
+
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const token = sessionStorage.getItem('token');
+      if (token) {
+        const response = await axios.post('http://localhost:8080/rest/violations/create', {
+          title,
+          statya,
+          part,
+          description,
+          costFiz,
+          costUr,
+          organId
+        }, {
+          headers: {
+            'Authorization': token
+          }
+        });
+
+        // Обработка успешного создания нарушения
+        console.log('Нарушение успешно создано:', response.data);
+      }
+    } catch (error) {
+      console.error('Ошибка при создании нарушения:', error.message);
+    }
+  };
 
   return (
     <div className='container'>
       <h2>Список штрафов ПДД</h2>
+      {isAdmin && (
+        <div>
+                     <h4> Создать тип нарушения</h4> 
+
+          <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-group">
+
+              <label>Наименование</label>
+              <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+  
+              <label>Статья</label>
+              <input type="text"  onKeyPress={(event) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault();
+        }
+      }}value={statya} onChange={(e) => setStatya(e.target.value)} required />
+         
+              <label>Часть</label>
+              <input type="text" onKeyPress={(event) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault();
+        }
+      }} value={part} onChange={(e) => setPart(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label>Описание</label>
+              <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+            </div>
+            <div className="form-group">
+              <label>Цена физ. лицо</label>
+              <input type="text" onKeyPress={(event) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault();
+        }
+      }} value={costFiz} onChange={(e) => setCostFiz(e.target.value)} required />
+          
+              <label>Цена юр. лицо</label>
+              <input type="text"  onKeyPress={(event) => {
+        if (!/[0-9]/.test(event.key)) {
+          event.preventDefault();
+        }
+      }} value={costUr} onChange={(e) => setCostUr(e.target.value)} required />
+              <button type="submit">Создать</button>
+
+            </div>
+          </form>
+
+  
+        </div>
+      )}
       <table>
         <thead>
           <tr>

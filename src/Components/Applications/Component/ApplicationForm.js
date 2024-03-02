@@ -228,7 +228,12 @@ const ApplicationForm = ({ onCancel }) => {
           ))}
         </select>
         <label>Гос номер</label>
-        <input type="text" value={numberAuto} onChange={(e) => setNumberAuto(e.target.value)} required />
+        <input 
+  type="text" 
+  value={numberAuto} 
+  onChange={(e) => setNumberAuto(e.target.value.toUpperCase())} 
+  required 
+/>
 
 
       
