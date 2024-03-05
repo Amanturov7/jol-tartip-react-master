@@ -37,7 +37,7 @@ const SearchResults = () => {
   return (
     <div className='container'>
 
-      <h2>Результаты поиска по Гос номеру {searchQuery} </h2>
+      <h2>Результаты поиска по Гос номеру {searchQuery.toUpperCase()}</h2>
       <div className="applications-list-container">
         {renderApplications()}
       </div>
