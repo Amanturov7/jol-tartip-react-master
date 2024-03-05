@@ -17,6 +17,7 @@ import About from './Components/About';
 import LoginComponent from './Components/Auth/LoginComponent';
 import SignUpComponent from './Components/Auth/SignUpComponent';
 import UserProfile from './Components/Account/UserProfile';
+import SearchResults from './Components/SearchResults';
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/reviews" element={<Reviews />} />
             <Route path="/violations-list" element={<ViolationsList />} />
             <Route path="/tests" element={<Tests />} />
+            <Route path="/search-results/:searchQuery" element={<SearchResults />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<LoginComponent />} />
             <Route path="/signup" element={<SignUpComponent />} />

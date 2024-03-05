@@ -655,3 +655,8 @@ a {
   margin-left: 30px; /* Расстояние между изображением и текстом */
   width: 450px;
 }
+.success-message {
+  color: green;
+  font-size: 1.2rem;
+  margin-top: 10px;
+}
