@@ -2,64 +2,73 @@ import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
 import Axios from 'axios';
 import 'leaflet/dist/leaflet.css';
-import { useNavigate   } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 
 const MapComponent = () => {
   const [applications, setApplications] = useState([]);
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
-  const fetchData = async () => {
-    try {
-      const applicationsResponse = await Axios.get('http://localhost:8080/rest/applications/points');
-      setApplications(applicationsResponse.data);
-
-      const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/points');
-      setReviews(reviewsResponse.data);
-    } catch (error) {
-      console.error('Error fetching data:', error.message);
-    }
-  };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const applicationsResponse = await Axios.get('http://localhost:8080/rest/applications/points');
+        setApplications(applicationsResponse.data);
+
+        const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/points');
+        setReviews(reviewsResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error.message);
+      }
+    };
+
     fetchData();
   }, []);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    const kyrgyzstanBounds = [
+      [39.19, 69.25], // Юго-запад
+      [43.5, 80.26]   // Северо-восток (немного увеличенная верхняя часть)
+    ];
 
-  useEffect(() => {
-    const map = L.map('map').setView([42.8746, 74.5698], 13);
-
-    // Light Map Tile Layer
-    const lightMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© OpenStreetMap contributors',
+    const map = L.map('map', {
+      center: [42.8746, 74.5698], // Координаты Бишкека
+      zoom: 13,
+      maxBounds: kyrgyzstanBounds, // Установите границы для карты
+      minZoom: 7.45,
+      maxZoom: 18,
+      bounceAtZoomLimits: false // Отключить анимацию отталкивания карты при выходе за пределы
     });
 
-    // Dark Map Tile Layer
-    const darkMap = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© OpenStreetMap contributors',
-    });
+    const baseMaps = {
+      'Light Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }),
+      'Dark Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }),
+      'Base Map': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }),
+      'OpenStreetMap Hot': L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }),
+      'Local Tiles': L.tileLayer('http://localhost:8080/rest/tiles/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }),
+      '2GIS': L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}', {
+        subdomains: '0123',
+        attribution: '© 2GIS',
+      })
+    };
 
-    const baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-    }).addTo(map);
+    const overlayMaps = {
+      'Нарушения': L.layerGroup(),
+      'Отзывы': L.layerGroup()
+    };
 
-    const openStreetMapHot = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-    });
-
-    const dgis = L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}', {
-      subdomains: '0123',
-      attribution: '© 2GIS',
-    });
-
-
-
-    lightMap.addTo(map);
-    darkMap.addTo(map);
-    openStreetMapHot.addTo(map);
-    dgis.addTo(map);
+    L.control.layers(baseMaps, overlayMaps).addTo(map);
 
     const blueIcon = new L.Icon({
       iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
@@ -90,23 +99,15 @@ const MapComponent = () => {
           <br>
           нажмите чтобы перейти к нарушению
           `;
-       
+
         const marker = L.marker([lat, lon], { icon: blueIcon }).addTo(applicationLayer).bindPopup(`Нарушение №  ${app.id} <br>${popupContent}`);
-    
-        marker.on('mouseover', function(e) {
-          this.openPopup();
-        });
-    
-        marker.on('mouseout', function(e) {
-          this.closePopup();
-        });
 
         marker.on('click', () => {
           navigate(`/applications/${app.id}`);
         });
       }
     });
-    
+
     const reviewLayer = L.layerGroup().addTo(map);
     reviews.forEach((review) => {
       const { lat, lon } = review;
@@ -118,53 +119,27 @@ const MapComponent = () => {
           <br>
           нажмите чтобы перейти к отзыву
           `;
-      
+
         const marker = L.marker([lat, lon], { icon: greenIcon })
           .addTo(reviewLayer)
           .bindPopup(`Отзыв №  ${review.id} <br>${popupContent}`);
-    
-        marker.on('mouseover', function(e) {
-          this.openPopup();
-        });
-    
-        marker.on('mouseout', function(e) {
-          this.closePopup();
-        });
 
         marker.on('click', () => {
           navigate(`/reviews/${review.id}`);
         });
       }
     });
-    
 
-
-    const layerControl = L.control.layers(
-      {
-        'Light Map': lightMap,
-        'Dark Map': darkMap,
-        'Base Map': baseMap,
-        'OpenStreetMap Hot': openStreetMapHot,
-        '2GIS': dgis
-      },
-      {
-        'Нарушения': applicationLayer,
-        'Отзывы': reviewLayer
-      }
-    ).addTo(map);
-    layerControl.setPosition('topright'); // Установите позицию слоя в правый верхний угол
-   
     return () => {
       map.remove();
     };
   }, [applications, reviews]);
 
   return (
- <div style={{ position: 'relative', height: '95vh', width: '100%' }}>
+    <div style={{ position: 'relative', height: '95vh', width: '100%' }}>
       <div id="map" style={{ height: '100%', width: '100%' }}></div>
-    </div> 
-    
-    );
+    </div>
+  );
 };
 
 export default MapComponent;
