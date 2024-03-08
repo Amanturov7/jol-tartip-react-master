@@ -36,12 +36,15 @@ const MapComponent = () => {
       center: [42.8746, 74.5698], // Координаты Бишкека
       zoom: 13,
       maxBounds: kyrgyzstanBounds, // Установите границы для карты
-      minZoom: 7.45,
-      maxZoom: 18,
+      minZoom: 8,
+      maxZoom: 15,
       bounceAtZoomLimits: false // Отключить анимацию отталкивания карты при выходе за пределы
     });
 
     const baseMaps = {
+      'Local map': L.tileLayer('http://localhost:8080/rest/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors',
+      }).addTo(map),
       'Light Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors',
       }),
@@ -52,9 +55,6 @@ const MapComponent = () => {
         attribution: '© OpenStreetMap contributors',
       }),
       'OpenStreetMap Hot': L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors',
-      }),
-      'Local Tiles': L.tileLayer('http://localhost:8080/rest/tiles/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
       }),
       '2GIS': L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}', {
@@ -69,9 +69,18 @@ const MapComponent = () => {
     };
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);
-
+    // eslint-disable-next-line
     const blueIcon = new L.Icon({
       iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41],
+    });
+
+    const redIcon = new L.Icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png',
       shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
       iconSize: [25, 41],
       iconAnchor: [12, 41],
@@ -100,10 +109,18 @@ const MapComponent = () => {
           нажмите чтобы перейти к нарушению
           `;
 
-        const marker = L.marker([lat, lon], { icon: blueIcon }).addTo(applicationLayer).bindPopup(`Нарушение №  ${app.id} <br>${popupContent}`);
+        const marker = L.marker([lat, lon], { icon: redIcon }).addTo(applicationLayer).bindPopup(`Нарушение №  ${app.id} <br>${popupContent}`);
 
         marker.on('click', () => {
           navigate(`/applications/${app.id}`);
+        });
+
+        marker.on('mouseover', function () {
+          this.openPopup();
+        });
+
+        marker.on('mouseout', function () {
+          this.closePopup();
         });
       }
     });
@@ -127,12 +144,21 @@ const MapComponent = () => {
         marker.on('click', () => {
           navigate(`/reviews/${review.id}`);
         });
+
+        marker.on('mouseover', function () {
+          this.openPopup();
+        });
+
+        marker.on('mouseout', function () {
+          this.closePopup();
+        });
       }
     });
 
     return () => {
       map.remove();
     };
+    // eslint-disable-next-line
   }, [applications, reviews]);
 
   return (
