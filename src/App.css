@@ -38,13 +38,11 @@
 }
 
 
-/* styles.css */
 .container {
   margin: auto;
   width: 1200px;
 }
 
-/* styles.css */
 .table-container {
   margin-top: 20px;
 }
@@ -156,12 +154,12 @@ th {
 }
 
 .attributes {
-  margin-left: 20px; /* Adjust the margin as needed */
+  margin-left: 20px; 
 }
 
 
 .burger {
-  display: none; /* Начинаем с скрытия кнопки бургера */
+  display: none; 
   cursor: pointer;
   flex-direction: column;
   justify-content: space-between;
@@ -247,9 +245,8 @@ th {
 }
 
 
-/* Добавляем отступ для элементов, следующих за навбаром */
 body {
-  padding-top: 70px; /* Высота навбара */
+  padding-top: 70px;
 }
 
 .button-navbar {
@@ -292,10 +289,9 @@ footer {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 999; /* Устанавливаем z-index, чтобы футер был поверх других элементов */
+  z-index: 999; 
 }
 
-/* Остальные стили футера остаются без изменений */
 
 h3 {
   font-size: 18px;
@@ -416,18 +412,6 @@ a:hover {
 
 
 
-/* ApplicationsList.css */
-/* .applications-list-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.application-box {
-  margin: 10px;
-  padding: 10px;
-  width: 200px; 
-} */
 
 .table-mode table {
   width: 100%;
@@ -484,16 +468,16 @@ border-radius: 5px;
 .dropdown-filter  {
   margin-right: 10px;
   padding: 10px;
-  border: 2px solid #ccc; /* добавляем границу */
-  border-radius: 5px; /* закругляем углы */
-  background-color: #fff; /* цвет фона */
-  font-size: 12px; /* размер шрифта */
-  color: #333; /* цвет текста */
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff; 
+  font-size: 12px;
+  color: #333; 
 }
 
 .dropdown-filter:focus {
-  outline: none; /* убираем рамку при фокусе */
-  border-color: #2c8fb9; /* изменяем цвет границы при фокусе */
+  outline: none; 
+  border-color: #2c8fb9; 
 }
 
 .filter {
@@ -501,7 +485,7 @@ border-radius: 5px;
   align-items: center;
   padding: 10px;
   border-radius: 5px;
-  font-size: 12px; /* размер шрифта */
+  font-size: 12px;
 
 }
 
@@ -509,7 +493,7 @@ border-radius: 5px;
   margin-right: 10px;
   border-radius: 5px;
   font-size: 12px!important;
-  border: 2px solid #ccc!important; /* добавляем границу */
+  border: 2px solid #ccc!important; 
 
 }
 
@@ -543,12 +527,10 @@ body {
   color: var(--text-color-light);
 }
 
-/* Дополнительные стили для ссылок и других элементов */
 a {
   color: var(--link-color-light);
 }
 
-/* Дополнительные стили для темного режима */
 .dark-mode {
   --background-color: var(--background-color-dark);
   --text-color: var(--text-color-dark);
@@ -578,18 +560,16 @@ a {
 
 
 
-/* Стили для затемнения фона */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* полупрозрачный черный цвет */
-  z-index: 1000; /* задаем высокий уровень z-index */
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1000; 
 }
 
-/* Стили для модального окна */
 .modal {
   position: fixed;
   top: 50%;
@@ -598,11 +578,10 @@ a {
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  z-index: 1001; /* выше, чем z-index затемнения фона */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* тень */
+  z-index: 1001; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Стили для кнопки закрытия модального окна */
 .modal-close-button {
   position: absolute;
   top: 10px;
@@ -617,7 +596,7 @@ a {
 
 
 .search-container {
-  position: relative; /* Позиционирование относительно контейнера */
+  position: relative;
   display: flex;
   align-items: center;
   align-items: center;
@@ -632,31 +611,72 @@ a {
 .gosnomer-image {
   width: 200px;
   height: auto;
-  margin-left: 50px; /* Изменено на margin-left */
+  margin-left: 50px; 
 }
 
 .search-input {
-  width: 300px; /* Увеличение ширины поля ввода */
-  height: 30px; /* Увеличение ширины поля ввода */
+  width: 300px; 
+  height: 30px; 
 
-  padding: 15px; /* Увеличение отступов внутри поля ввода */
-  font-size: 30px!important; /* Увеличение размера шрифта */
+  padding: 15px; 
+  font-size: 30px!important;
   text-transform: uppercase;
 }
 
 
 .submit {
   margin-left: 10px;
-  height: 50px; /* Увеличение ширины поля ввода */
+  height: 50px; 
 
 }
 
 .search-label {
-  margin-left: 30px; /* Расстояние между изображением и текстом */
+  margin-left: 30px; 
   width: 450px;
 }
 .success-message {
   color: green;
   font-size: 1.2rem;
   margin-top: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+thead th {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 2px solid #ddd;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table-title{
+  text-align: left; 
+
+}
+tbody td {
+  padding: 10px 12px;
+  text-align: center;
+}
+
+tbody td:first-child,
+thead th:first-child {
+  padding-left: 20px;
+}
+
+tbody td:last-child,
+thead th:last-child {
+  padding-right: 20px;
 }

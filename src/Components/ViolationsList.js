@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import "../App.css"
 const ViolationsList = () => {
   const [violations, setViolations] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false); 
@@ -84,7 +84,6 @@ const ViolationsList = () => {
       <h2>Список штрафов ПДД</h2>
       {isAdmin && (
         <div>
-                     <h4> Создать тип нарушения</h4> 
 
           <form onSubmit={handleSubmit} className="form-container">
             <div className="form-group">
@@ -132,6 +131,7 @@ const ViolationsList = () => {
   
         </div>
       )}
+
       <table>
         <thead>
           <tr>
@@ -146,7 +146,7 @@ const ViolationsList = () => {
         <tbody>
           {violations.map((violation) => (
             <tr key={violation.id}>
-              <td>{violation.title}</td>
+              <td className='table-title'>{violation.title}</td>
               <td>{violation.statya}</td>
               <td>{violation.part}</td>
               <td>{violation.description}</td>
