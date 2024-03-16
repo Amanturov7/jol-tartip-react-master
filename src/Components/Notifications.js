@@ -25,7 +25,7 @@ const Notifications = () => {
             <th>ID</th>
             <th>Описание</th>
             <th>Дата создания</th>
-            {/* Добавьте другие заголовки столбцов по вашему усмотрению */}
+       
           </tr>
         </thead>
         <tbody>
@@ -34,7 +34,6 @@ const Notifications = () => {
     <td>{notification.id}</td>
     <td>{notification.description}</td>
     <td>{notification.createdDate}</td>
-    {/* Other cells */}
   </tr>
 ))}
 

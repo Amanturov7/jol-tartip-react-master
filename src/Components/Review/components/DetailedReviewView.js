@@ -8,9 +8,8 @@ const DetailedReviewView = () => {
   const navigate = useNavigate();
   const [review, setReview] = useState(null);
   const [attachmentUrl, setAttachmentUrl] = useState(null);
-  const [userData, setUserData] = useState(null); // Состояние для хранения данных о текущем пользователе
+  const [userData, setUserData] = useState(null); 
   const handleGoBack = () => {
-    // Использование объекта navigate для перехода назад
     navigate(-1);
   };
   useEffect(() => {
@@ -19,7 +18,6 @@ const DetailedReviewView = () => {
         const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
         setReview(response.data);
 
-        // Request to get the attachment
         const attachmentResponse = await Axios.get(`http://localhost:8080/rest/attachments/download/reviews/${id}`, {
           responseType: 'blob',
         });
@@ -33,7 +31,6 @@ const DetailedReviewView = () => {
 
     fetchReview();
 
-    // Получение данных о текущем пользователе
     const token = sessionStorage.getItem('token');
     if (token) {
       Axios.defaults.headers.common['Authorization'] = token;
@@ -41,7 +38,7 @@ const DetailedReviewView = () => {
         params: { token: token }
       })
         .then(response => {
-          setUserData(response.data); // Установка данных о текущем пользователе в состояние
+          setUserData(response.data); 
         })
         .catch(error => {
           console.error('Ошибка при получении данных о пользователе:', error);
@@ -53,7 +50,6 @@ const DetailedReviewView = () => {
   const handleStatusAccept = async () => {
     try {
       await Axios.put(`http://localhost:8080/rest/reviews/update/status/accept/${id}`);
-      // Обновляем информацию о заявлении после изменения статуса
       const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
       setReview(response.data);
     } catch (error) {
@@ -65,7 +61,6 @@ const DetailedReviewView = () => {
   const handleStatusProtocol = async () => {
     try {
       await Axios.put(`http://localhost:8080/rest/reviews/update/status/protocol/${id}`);
-      // Обновляем информацию о заявлении после изменения статуса
       const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
       setReview(response.data);
     } catch (error) {
@@ -86,11 +81,9 @@ const DetailedReviewView = () => {
     return <div className='container'>Loading...</div>;
   }
 
-  // Проверка, является ли текущий пользователь владельцем отзыва
   const isOwner = userData && userData.id === review.userId;
 
 
-    // Проверяем роль пользователя
     const isEmployee = userData && userData.role === 'EMPLOYEE';
 
   return (
@@ -109,7 +102,6 @@ const DetailedReviewView = () => {
       )}
       <MapDetailedView lat={review.lat} lon={review.lon} />
 
-      {/* Отображение кнопки "Удалить" только для владельца отзыва */}
       {isOwner && (
         <button type="button" className='button-red' onClick={handleDelete}>
           Удалить

@@ -29,16 +29,16 @@ const MapComponent = () => {
   useEffect(() => {
     const kyrgyzstanBounds = [
       [39.19, 69.25], // Юго-запад
-      [43.5, 80.26]   // Северо-восток (немного увеличенная верхняя часть)
+      [43.5, 80.26]   // Северо-восток
     ];
 
     const map = L.map('map', {
       center: [42.8746, 74.5698], // Координаты Бишкека
       zoom: 13,
-      maxBounds: kyrgyzstanBounds, // Установите границы для карты
+      maxBounds: kyrgyzstanBounds, 
       minZoom: 8,
       maxZoom: 15,
-      bounceAtZoomLimits: false // Отключить анимацию отталкивания карты при выходе за пределы
+      bounceAtZoomLimits: false 
     });
 
     const baseMaps = {

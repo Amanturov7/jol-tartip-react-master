@@ -43,7 +43,6 @@ const Home = () => {
       const response = await Axios.get(`http://localhost:8080/rest/applications/by-gos-number?gosNumber=${searchQuery}`);
       const searchResults = response.data;
       if (searchResults.length > 0) {
-        // Перенаправить на страницу результатов поиска с передачей параметра маршрута
         navigate(`/search-results/${searchQuery}`);
       } else {
         setErrorMessage('Нарушений нет! Ура!');

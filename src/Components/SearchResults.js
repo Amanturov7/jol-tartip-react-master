@@ -7,7 +7,6 @@ const SearchResults = () => {
   const [searchResults, setSearchResults] = useState([]);
   const navigate = useNavigate();
   const handleGoBack = () => {
-    // Использование объекта navigate для перехода назад
     navigate(-1);
   };
   useEffect(() => {

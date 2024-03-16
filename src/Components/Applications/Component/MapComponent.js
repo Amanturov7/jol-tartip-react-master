@@ -33,15 +33,13 @@ const MapComponent = ({ onCoordinateSelect, setPlace }) => {
       );
       addressDetails = response.data.address;
 
-      // Извлекаем необходимые компоненты адреса
       const street = addressDetails.road || addressDetails.pedestrian || addressDetails.footway || '';
       const houseNumber = addressDetails.house_number || '';
       const crossroads = addressDetails.crossroads || '';
 
-      // Формируем окончательный адрес
       const finalAddress = `${street} ${houseNumber}, ${crossroads}`;
 
-      setPlace(finalAddress.trim()); // Устанавливаем адрес в поле place
+      setPlace(finalAddress.trim()); 
     } catch (error) {
       console.error('Error fetching address:', error.message);
     }

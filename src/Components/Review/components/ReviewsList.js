@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-import '../../../App.css'; // Импорт стилей
+import '../../../App.css'; 
 
 const ReviewsList = () => {
   const [reviews, setReviews] = useState([]);

@@ -3,9 +3,8 @@ import axios from 'axios';
 
 const ViolationsList = () => {
   const [violations, setViolations] = useState([]);
-  const [isAdmin, setIsAdmin] = useState(false); // Флаг для определения роли SUPER_ADMIN
+  const [isAdmin, setIsAdmin] = useState(false); 
 
-  // Переменные состояния для полей создания нарушения
   const [title, setTitle] = useState('');
   const [statya, setStatya] = useState('');
   const [part, setPart] = useState('');
@@ -26,7 +25,6 @@ const ViolationsList = () => {
 
     fetchViolations();
 
-    // Получение информации о текущем пользователе
     const fetchUserData = async () => {
       try {
         const token = sessionStorage.getItem('token');
@@ -37,15 +35,11 @@ const ViolationsList = () => {
             }
           });
 
-          // Получаем данные о пользователе из ответа
           const userData = response.data;
 
-          // Проверяем роль пользователя
           if (userData.role === 'SUPER_ADMIN') {
-            // Устанавливаем флаг isAdmin в true
             setIsAdmin(true);
           } else {
-            // Устанавливаем флаг isAdmin в false
             setIsAdmin(false);
           }
         }
@@ -78,7 +72,6 @@ const ViolationsList = () => {
           }
         });
 
-        // Обработка успешного создания нарушения
         console.log('Нарушение успешно создано:', response.data);
       }
     } catch (error) {

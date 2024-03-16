@@ -37,7 +37,7 @@ const NavbarComponent = () => {
 
     sessionStorage.removeItem('token');
     navigate('/');
-    setIsMenuOpen(false); // Закрываем бургер-меню при выходе
+    setIsMenuOpen(false); 
   };
   return (
     <nav className="navbar">
@@ -154,7 +154,7 @@ l0 -337 33 -34 c18 -18 37 -49 42 -68 12 -42 13 -350 1 -403 -12 -48 -52 -91
               onClick={() => {
                 handleSignOut();
                 setIsMenuOpen(false);
-                navigate('/'); // Замените 'history' на ваш объект истории маршрутизации
+                navigate('/');
               }}
             >
               Выйти
@@ -170,7 +170,7 @@ l0 -337 33 -34 c18 -18 37 -49 42 -68 12 -42 13 -350 1 -403 -12 -48 -52 -91
 
               onClick={() => {
                 setIsMenuOpen(false);
-                navigate('/login'); // Замените 'history' на ваш объект истории маршрутизации
+                navigate('/login'); 
               }}
             >
               Войти
@@ -180,7 +180,7 @@ l0 -337 33 -34 c18 -18 37 -49 42 -68 12 -42 13 -350 1 -403 -12 -48 -52 -91
 
               onClick={() => {
                 setIsMenuOpen(false);
-                navigate('/signup'); // Замените 'history' на ваш объект истории маршрутизации
+                navigate('/signup'); 
               }}
             >
               Регистрация

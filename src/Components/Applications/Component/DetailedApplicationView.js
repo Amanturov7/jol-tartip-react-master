@@ -11,7 +11,6 @@ const DetailedApplicationView = () => {
   const [attachmentUrl, setAttachmentUrl] = useState(null);
   const [userData, setUserData] = useState(null);
   const handleGoBack = () => {
-    // Использование объекта navigate для перехода назад
     navigate(-1);
   };
   useEffect(() => {
@@ -38,7 +37,6 @@ const DetailedApplicationView = () => {
     if (token) {
       Axios.defaults.headers.common['Authorization'] = token;
 
-      // Отправляем запрос к серверу для получения данных о пользователе
       Axios.get('http://localhost:8080/rest/user/user', {
         params: { token: token }
       })
@@ -63,7 +61,6 @@ const DetailedApplicationView = () => {
   const handleStatusAccept = async () => {
     try {
       await Axios.put(`http://localhost:8080/rest/applications/update/status/accept/${id}`);
-      // Обновляем информацию о заявлении после изменения статуса
       const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
       setApplication(response.data);
     } catch (error) {
@@ -75,7 +72,6 @@ const DetailedApplicationView = () => {
   const handleStatusProtocol = async () => {
     try {
       await Axios.put(`http://localhost:8080/rest/applications/update/status/protocol/${id}`);
-      // Обновляем информацию о заявлении после изменения статуса
       const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
       setApplication(response.data);
     } catch (error) {
@@ -87,10 +83,8 @@ const DetailedApplicationView = () => {
     return <div className='container'>Loading...</div>;
   }
 
-  // Проверяем, является ли пользователь владельцем записи
   const isOwner = userData && userData.id === application.userId;
 
-  // Проверяем роль пользователя
   const isEmployee = userData && userData.role === 'EMPLOYEE';
 
   return (

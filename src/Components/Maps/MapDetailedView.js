@@ -6,7 +6,6 @@ const MapDetailedView = ({ lat, lon }) => {
   useEffect(() => {
     const map = L.map('map').setView([lat, lon], 13);
 
-    // Инициализация слоев карты и маркеров
       // eslint-disable-next-line 
     const baseMap = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '© OpenStreetMap contributors',

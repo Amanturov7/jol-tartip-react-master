@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MapComponent from '../../Applications/Component/MapComponent';
-import Modal from '../../Modal'; // Импортируем компонент модального окна
+import Modal from '../../Modal'; 
 const ReviewForm = () => {
   // eslint-disable-next-line 
   const [lat, setLat] = useState(0);

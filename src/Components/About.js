@@ -1,11 +1,8 @@
-// Импорт React
 import React from 'react';
 
-// Создание компонента
 class About extends React.Component {
   render() {
     return (
-      // Класс контейнера для стилизации
       <div className="container">
         <h2>О нас</h2>
         <p>
@@ -24,5 +21,4 @@ class About extends React.Component {
   }
 }
 
-// Экспорт компонента для использования в других частях приложения
 export default About;
