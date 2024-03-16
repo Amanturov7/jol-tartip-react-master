@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 
-import '../../../App.css'; // Import styles
+import '../../../App.css'; 
 import './ApplicationList.css';
 
 const ApplicationsList = ({ onReportClick }) => {
@@ -68,13 +68,10 @@ const ApplicationsList = ({ onReportClick }) => {
   const handleFilterChange = (event) => {
     const value = event.target.value;
     setSelectedFilter(value);
-    setPageNumber(1); // Reset page number when filter changes
+    setPageNumber(1); 
   };
 
-  // const handleResetFilter = () => {
-  //   setSelectedFilter('');
-  //   setPageNumber(1); // Reset page number when filter is reset
-  // };
+
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -146,7 +143,6 @@ const ApplicationsList = ({ onReportClick }) => {
                         </option>
                     ))}
                 </select>
-                {/* <button className="button-reset" onClick={handleResetFilter}>&times;</button> */}
             </div>
             <div className="filter">
                 <input

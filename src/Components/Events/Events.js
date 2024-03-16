@@ -9,7 +9,7 @@ const Events = () => {
   const [selectedCoordinate, setSelectedCoordinate] = useState({ lat: 0, lon: 0 });
   const [isMapVisible, setIsMapVisible] = useState(false);
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
-  const [userId, setUserId] = useState(0); // Установка userId по умолчанию
+  const [userId, setUserId] = useState(0);
   const [newEvent, setNewEvent] = useState({
     title: '',
     description: '',
@@ -19,7 +19,7 @@ const Events = () => {
     lat: 0,
     lon: 0,
     typeEventId: '',
-    userId: 0, 
+    userId: 1, 
   });
 
   const [eventTypes, setEventTypes] = useState([]); 
@@ -33,7 +33,6 @@ const Events = () => {
             params: {
               'token': `${token}`
             }
-            
           });
           setUserId(response.data.id);
         }
@@ -52,7 +51,7 @@ const Events = () => {
     try {
       const response = await Axios.get(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
       const address = response.data.display_name;
-      setNewEvent({ ...newEvent, lat, lon, address }); // Обновляем новое событие с полученным адресом
+      setNewEvent({ ...newEvent, lat, lon, address });
     } catch (error) {
       console.error('Error fetching address:', error.message);
     }
@@ -94,7 +93,7 @@ const Events = () => {
     try {
       const response = await Axios.post('http://localhost:8080/rest/events/create', {
         ...newEvent,
-        userId: userId // Включаем userId в теле запроса
+        userId: userId 
       });
       setEvents([...events, response.data]);
       setNewEvent({
@@ -108,7 +107,7 @@ const Events = () => {
         typeEventId: '',
         userId: userId 
       });
-      setPlace(''); // Сброс текста в поле address
+      setPlace('');
     } catch (error) {
       console.error('Error creating event:', error.message);
     }
@@ -155,7 +154,6 @@ const Events = () => {
           <input type="text" disabled value={place} onChange={(e) => setPlace(e.target.value)} required />
           <button type="button" onClick={handleShowMapModal}>Указать адрес</button>
 
-          {/* Модальное окно для карты */}
           <Modal isOpen={isMapModalOpen} onClose={handleCloseMapModal}>
             <div>
               <h2>Геопозиция</h2>

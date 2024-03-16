@@ -64,7 +64,7 @@ function UserProfile() {
         },
       });
 
-      fetchAvatar(userData.id); // Обновляем аватар после успешной загрузки
+      fetchAvatar(userData.id);
     } catch (error) {
       console.error('Ошибка при загрузке аватара:', error);
     }
@@ -73,7 +73,7 @@ function UserProfile() {
   const handleAvatarDelete = async () => {
     try {
       await axios.delete(`http://localhost:8080/rest/user/${userData.id}/avatar`);
-      setAvatar(null); // Удаляем текущий аватар изображения после успешного удаления
+      setAvatar(null);
     } catch (error) {
       console.error('Ошибка при удалении аватара:', error);
     }

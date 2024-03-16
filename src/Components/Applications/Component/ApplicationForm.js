@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MapComponent from './MapComponent';
-import Modal from '../../Modal'; // Импортируем компонент модального окна
+import Modal from '../../Modal';
 
 const ApplicationForm = ({ onCancel }) => {
   const [title, setTitle] = useState('');
@@ -14,7 +14,7 @@ const ApplicationForm = ({ onCancel }) => {
   const [file, setFile] = useState(null);
   const [districtId, setDistrictId] = useState('');
   const [typeViolationsId, setTypeViolationsId] = useState('');
-  const [userId, setUserId] = useState(1); // Установка userId по умолчанию
+  const [userId, setUserId] = useState(1); 
   const [violationsList, setViolationsList] = useState([]);
     // eslint-disable-next-line 
   const [regions, setRegions] = useState([]);
@@ -26,7 +26,6 @@ const ApplicationForm = ({ onCancel }) => {
   const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   useEffect(() => {
-    // Загрузка регионов при монтировании компонента
     const fetchRegions = async () => {
       try {
         const response = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
@@ -39,7 +38,6 @@ const ApplicationForm = ({ onCancel }) => {
     fetchRegions();
   }, []);
 
-  // Загрузка списка нарушений при монтировании компонента
   useEffect(() => {
     const fetchViolations = async () => {
       try {
@@ -53,7 +51,6 @@ const ApplicationForm = ({ onCancel }) => {
     fetchViolations();
   }, []);
 
-  // Фильтрация районов по выбранному региону
   useEffect(() => {
     const fetchDistrictsByRegionId = async () => {
       try {
@@ -69,7 +66,6 @@ const ApplicationForm = ({ onCancel }) => {
     }
   }, [regionId]);
 
-  // Загрузка данных пользователя при монтировании компонента
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -91,7 +87,6 @@ const ApplicationForm = ({ onCancel }) => {
   }, []);
 
 
-  // Обработчик выбора файла
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
 
@@ -109,29 +104,24 @@ const ApplicationForm = ({ onCancel }) => {
     }
   };
 
-  // Обработчик открытия модального окна для карты
   const handleShowMapModal = () => {
     setIsMapModalOpen(true);
   };
 
-  // Обработчик закрытия модального окна для карты
   const handleCloseMapModal = () => {
     setIsMapModalOpen(false);
   };
 
-  // Обработчик выбора координат на карте
   const handleCoordinateSelect = ({ lat, lon }) => {
     setSelectedCoordinate({ lat, lon });
   };
 
-  // Обработчик сохранения выбранных координат
   const handleSaveCoordinates = () => {
     setIsMapVisible(false);
-    handleCloseMapModal(); // Закрываем модальное окно после сохранения координат
+    handleCloseMapModal(); 
 
   };
 
-  // Обработчик отправки формы
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!file) {
@@ -259,7 +249,6 @@ const ApplicationForm = ({ onCancel }) => {
       </div>
 
 
-      {/* Модальное окно для карты */}
       <Modal isOpen={isMapModalOpen} onClose={handleCloseMapModal}>
   <div>
     <h2>Геопозиция</h2>
