@@ -103,7 +103,7 @@ const Home = () => {
         {renderApplications()}
       </div>
 
-      <h2>Недавние события</h2>
+      <h2>Недавние отзывы</h2>
       <div className="applications-list-container">
         {renderReviews()}
       </div>
