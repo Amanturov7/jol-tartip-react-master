@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const MapComponent = () => {
   const [applications, setApplications] = useState([]);
+  const [events, setEvents] = useState([]);
+
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
@@ -18,6 +20,8 @@ const MapComponent = () => {
 
         const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/points');
         setReviews(reviewsResponse.data);
+        const eventsResponse = await Axios.get('http://localhost:8080/rest/events/points');
+        setEvents(eventsResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error.message);
       }
@@ -155,11 +159,45 @@ const MapComponent = () => {
       }
     });
 
+  
+
+
+
+  const eventLayer = L.layerGroup().addTo(map);
+  events.forEach((event) => {
+    const { lat, lon } = event;
+    if (lat && lon) {
+      const popupContent = `
+        Описание: ${event.description}<br>
+        Дата: ${event.createdDate}<br>
+        Статус: ${event.statusName}<br>
+        <br>
+        нажмите чтобы перейти к событию
+      `;
+      const marker = L.marker([lat, lon], { icon: blueIcon })
+        .addTo(eventLayer)
+        .bindPopup(`Событие № ${event.id} <br>${popupContent}`);
+
+      marker.on('click', () => {
+        navigate(`/events/${event.id}`);
+      });
+
+      marker.on('mouseover', function () {
+        this.openPopup();
+      });
+
+      marker.on('mouseout', function () {
+        this.closePopup();
+      });
+    }
+  });
+
     return () => {
       map.remove();
     };
     // eslint-disable-next-line
-  }, [applications, reviews]);
+  }, [applications, reviews, events]);
+
 
   return (
     <div style={{ position: 'relative', height: '95vh', width: '100%' }}>
