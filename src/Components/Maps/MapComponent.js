@@ -69,7 +69,9 @@ const MapComponent = () => {
 
     const overlayMaps = {
       'Нарушения': L.layerGroup(),
-      'Отзывы': L.layerGroup()
+      'Отзывы': L.layerGroup(),
+      'События': L.layerGroup()
+
     };
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);

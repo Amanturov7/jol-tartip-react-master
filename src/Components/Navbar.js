@@ -75,6 +75,9 @@ const NavbarComponent = () => {
             <Link to="/about" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               О нас
             </Link>
+            <Link to="/monitoring" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
+              Мониторинг
+            </Link>
             {isAuthenticated() ? (
             <Link
                 to="/notifications"

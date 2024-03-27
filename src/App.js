@@ -18,6 +18,7 @@ import LoginComponent from './Components/Auth/LoginComponent';
 import SignUpComponent from './Components/Auth/SignUpComponent';
 import UserProfile from './Components/Account/UserProfile';
 import SearchResults from './Components/SearchResults';
+import Monitoring from './Components/monitoring';
 
 export default function App() {
   return (
@@ -40,6 +41,8 @@ export default function App() {
             <Route path="/applications/:id" element={<DetailedApplicationView />} />
             <Route path="/reviews/:id" element={<DetailedReviewView />} />
             <Route path="/account" element={<UserProfile />} />
+            <Route path="/monitoring" element={<Monitoring />} />
+
 
           </Route>
           <Route path="/maps/*" element={<MapComponent />} />
