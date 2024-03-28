@@ -5,7 +5,7 @@ import Events from './Components/Events/Events';
 import Notifications from './Components/Notifications';
 import Reviews from './Components/Review/Reviews';
 import ViolationsList from './Components/ViolationsList';
-import Tests from './Components/Tests';
+import Tests from './Components/Tests/Tests';
 import Home from './Components/Home';
 
 import Navbar from './Components/Navbar';
