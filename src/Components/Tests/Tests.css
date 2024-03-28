@@ -1,7 +1,4 @@
-.container {
-    width: 80%;
-    margin: 0 auto;
-  }
+
   
   .question-container {
     margin-bottom: 20px;
@@ -48,6 +45,5 @@
   .option input[type="radio"]:checked + label {
     border-color: #007bff;
     background-color: #007bff;
-    color: #fff;
   }
   

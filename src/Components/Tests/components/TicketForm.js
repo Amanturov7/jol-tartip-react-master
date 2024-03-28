@@ -8,8 +8,9 @@ const TicketForm = ({ onCancel }) => {
   const [option2, setOption2] = useState('');
   const [option3, setOption3] = useState('');
   const [option4, setOption4] = useState('');
-  const [file, setFile] = useState(null);
-  const [userId, setUserId] = useState(1);
+  const [file, setFile] = useState('');
+  const [userId, setUserId] = useState(0);
+  const [ticketId, setTicketId] = useState(0);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -27,7 +28,7 @@ const TicketForm = ({ onCancel }) => {
         console.error('Error fetching user data:', error.message);
       }
     };
-
+  
     fetchUserData();
   }, []);
 
@@ -54,25 +55,25 @@ const TicketForm = ({ onCancel }) => {
         }
       );
 
+      console.log('Created Ticket:', ticketResponse.data.id);
+
       if (file) {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('dto', JSON.stringify({
           type: 'ticket',
-          originName: file ? file.name : '',
+          originName: file.name,
           description: 'File description',
-          userId: userId,
-          ticketsId: 123, // Здесь исправлено на ticketsId
+          ticketsId: ticketResponse.data.id,
         }));
-      
+
         await Axios.post('http://localhost:8080/rest/attachments/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
         });
       }
-      
-      console.log('Created Ticket:', ticketResponse.data);
+
 
       setQuestion('');
       setCorrectAnswer('');
