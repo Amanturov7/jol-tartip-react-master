@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import './Tests.css'; // Импортируем файл стилей
+import TicketForm from './components/TicketForm';
 
 const Tests = () => {
   const [tests, setTests] = useState([]);
@@ -25,19 +26,18 @@ const Tests = () => {
 
   return (
     <div className='container'>
+
+      <TicketForm />
       <h2>Тесты ПДД</h2>
       {currentImage && (
         <div className="image-container">
-          <img src={currentImage} alt="Question" className="question-image" />
+          <img src={`http://localhost:8080/rest/attachments/download/tickets/${test.id}`} alt="Question" className="question-image" />
         </div>
       )}
       {tests.map((test) => (
         <div key={test.id}>
           <div className="question-container">
-            <p className="question">{"http://localhost:8080/rest/attachments/download/applications/${test.id}"}</p>
-            {test.image && (
-              <button onClick={() => showImage(test.image)}>Показать изображение</button>
-            )}
+            <p className="question"></p>
           </div>
           <div className="options-container">
             <div className="option">
