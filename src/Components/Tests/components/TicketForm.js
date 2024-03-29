@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 
 const TicketForm = ({ onCancel }) => {
@@ -8,8 +8,31 @@ const TicketForm = ({ onCancel }) => {
   const [option2, setOption2] = useState('');
   const [option3, setOption3] = useState('');
   const [option4, setOption4] = useState('');
-  const [file, setFile] = useState('');
+  const [ticketNumber, setTicketNumber] = useState('');
 
+  const [file, setFile] = useState('');
+  const [userId, setUserId] = useState(0);
+  const [ticketId, setTicketId] = useState(0);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = sessionStorage.getItem('token');
+        if (token) {
+          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+            params: {
+              'token': `${token}`
+            }
+          });
+          setUserId(response.data.id);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error.message);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +44,9 @@ const TicketForm = ({ onCancel }) => {
       option2,
       option3,
       option4,
+      ticketNumber,
     };
+
     try {
       const ticketResponse = await Axios.post(
         'http://localhost:8080/rest/tickets/create',
@@ -59,6 +84,8 @@ const TicketForm = ({ onCancel }) => {
       setOption2('');
       setOption3('');
       setOption4('');
+      setTicketNumber(0);
+
       setFile(null);
 
     } catch (error) {
@@ -101,7 +128,9 @@ const TicketForm = ({ onCancel }) => {
         <input type="text" value={option1} onChange={(e) => setOption1(e.target.value)} required />
           <label>Вариант Б</label>
         <input type="text" value={option2} onChange={(e) => setOption2(e.target.value)} required /> 
-        <button type="button" onClick={onCancel}>Отмена</button>
+        <label>Билет №</label>
+        <input type="text" value={ticketNumber} onChange={(e) => setTicketNumber(e.target.value)} required /> 
+
 
         </div>
 
@@ -111,6 +140,7 @@ const TicketForm = ({ onCancel }) => {
              <label>Вариант Г</label>
         <input type="text" value={option4} onChange={(e) => setOption4(e.target.value)} required />
         <button type="submit">Сохранить</button>
+
          </div>
 
 

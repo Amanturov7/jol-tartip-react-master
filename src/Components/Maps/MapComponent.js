@@ -8,9 +8,11 @@ import { useNavigate } from 'react-router-dom';
 const MapComponent = () => {
   const [applications, setApplications] = useState([]);
   const [events, setEvents] = useState([]);
-
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
+  const applicationLayer = L.layerGroup();
+  const reviewLayer = L.layerGroup();
+  const eventLayer = L.layerGroup();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +22,7 @@ const MapComponent = () => {
 
         const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/points');
         setReviews(reviewsResponse.data);
+
         const eventsResponse = await Axios.get('http://localhost:8080/rest/events/points');
         setEvents(eventsResponse.data);
       } catch (error) {
@@ -39,10 +42,10 @@ const MapComponent = () => {
     const map = L.map('map', {
       center: [42.8746, 74.5698], // Координаты Бишкека
       zoom: 13,
-      maxBounds: kyrgyzstanBounds, 
+      maxBounds: kyrgyzstanBounds,
       minZoom: 8,
       maxZoom: 15,
-      bounceAtZoomLimits: false 
+      bounceAtZoomLimits: false
     });
 
     const baseMaps = {
@@ -68,14 +71,13 @@ const MapComponent = () => {
     };
 
     const overlayMaps = {
-      'Нарушения': L.layerGroup(),
-      'Отзывы': L.layerGroup(),
-      'События': L.layerGroup()
-
+      'Нарушения': applicationLayer,
+      'Отзывы': reviewLayer,
+      'События': eventLayer
     };
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);
-    // eslint-disable-next-line
+
     const blueIcon = new L.Icon({
       iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
       shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
@@ -103,7 +105,6 @@ const MapComponent = () => {
       shadowSize: [41, 41],
     });
 
-    const applicationLayer = L.layerGroup().addTo(map);
     applications.forEach((app) => {
       const { lat, lon } = app;
       if (lat && lon) {
@@ -113,7 +114,7 @@ const MapComponent = () => {
           Статус: ${app.statusName}<br>
           <br>
           нажмите чтобы перейти к нарушению
-          `;
+        `;
 
         const marker = L.marker([lat, lon], { icon: redIcon }).addTo(applicationLayer).bindPopup(`Нарушение №  ${app.id} <br>${popupContent}`);
 
@@ -131,7 +132,6 @@ const MapComponent = () => {
       }
     });
 
-    const reviewLayer = L.layerGroup().addTo(map);
     reviews.forEach((review) => {
       const { lat, lon } = review;
       if (lat && lon) {
@@ -141,7 +141,7 @@ const MapComponent = () => {
           Статус: ${review.statusName}<br>
           <br>
           нажмите чтобы перейти к отзыву
-          `;
+        `;
 
         const marker = L.marker([lat, lon], { icon: greenIcon })
           .addTo(reviewLayer)
@@ -161,51 +161,61 @@ const MapComponent = () => {
       }
     });
 
-  
+    events.forEach((event) => {
+      const { lat, lon } = event;
+      if (lat && lon) {
+        const popupContent = `
+          Описание: ${event.description}<br>
+          Дата: ${event.createdDate}<br>
+          Статус: ${event.statusName}<br>
+          <br>
+          нажмите чтобы перейти к событию
+        `;
+        const marker = L.marker([lat, lon], { icon: blueIcon })
+          .addTo(eventLayer)
+          .bindPopup(`Событие № ${event.id} <br>${popupContent}`);
 
+        marker.on('click', () => {
+          navigate(`/events/${event.id}`);
+        });
 
+        marker.on('mouseover', function () {
+          this.openPopup();
+        });
 
-  const eventLayer = L.layerGroup().addTo(map);
-  events.forEach((event) => {
-    const { lat, lon } = event;
-    if (lat && lon) {
-      const popupContent = `
-        Описание: ${event.description}<br>
-        Дата: ${event.createdDate}<br>
-        Статус: ${event.statusName}<br>
-        <br>
-        нажмите чтобы перейти к событию
-      `;
-      const marker = L.marker([lat, lon], { icon: blueIcon })
-        .addTo(eventLayer)
-        .bindPopup(`Событие № ${event.id} <br>${popupContent}`);
-
-      marker.on('click', () => {
-        navigate(`/events/${event.id}`);
-      });
-
-      marker.on('mouseover', function () {
-        this.openPopup();
-      });
-
-      marker.on('mouseout', function () {
-        this.closePopup();
-      });
-    }
-  });
+        marker.on('mouseout', function () {
+          this.closePopup();
+        });
+      }
+    });
 
     return () => {
       map.remove();
     };
-    // eslint-disable-next-line
-  }, [applications, reviews, events]);
 
+  }, [applications, reviews, events, navigate, applicationLayer, reviewLayer, eventLayer]);
 
   return (
     <div style={{ position: 'relative', height: '95vh', width: '100%' }}>
       <div id="map" style={{ height: '100%', width: '100%' }}></div>
+      <div style={{ position: 'absolute', bottom: '40px', right: '10px', backgroundColor: 'white', padding: '5px', borderRadius: '5px', boxShadow: '0 2px 5px rgba(0,0,0,0.2)', zIndex: '999', fontSize: '0.8rem' }}>
+        <div style={{ marginBottom: '5px' }}>
+          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png" alt="Red Marker" style={{ verticalAlign: 'middle', marginRight: '5px', width: '16px', height: 'auto' }} />
+          Нарушения
+        </div>
+        <div style={{ marginBottom: '5px' }}>
+          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png" alt="Green Marker" style={{ verticalAlign: 'middle', marginRight: '5px', width: '16px', height: 'auto' }} />
+          Отзывы
+        </div>
+        <div>
+          <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png" alt="Blue Marker" style={{ verticalAlign: 'middle', marginRight: '5px', width: '16px', height: 'auto' }} />
+          События
+        </div>
+      </div>
     </div>
   );
+  
+
 };
 
 export default MapComponent;

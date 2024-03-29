@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
+import TicketForm from './components/TicketForm';
+// import "../../Components/Tests/Tests.css"
 
 const Tests = () => {
   const [ticketNumbers, setTicketNumbers] = useState([]);
@@ -23,6 +25,7 @@ const Tests = () => {
   return (
     <div className='container'>
       <h2>Тесты ПДД</h2>
+      <TicketForm />
       <div>
         <h3>Выберите номер билета:</h3>
         {error && <p>{error}</p>}

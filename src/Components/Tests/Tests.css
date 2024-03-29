@@ -1,49 +1,29 @@
+.option-checkbox {
+  display: none; /* Скрываем сам чекбокс */
+}
 
-  
-  .question-container {
-    margin-bottom: 20px;
-  }
-  
-  .question {
-    font-size: 18px;
-    margin-bottom: 10px;
-  }
-  
-  .question-image {
-    max-width: 100%;
-    height: auto;
-    margin-top: 10px;
-    display: block; /* Добавлено для отображения как блочный элемент */
-  }
-  
-  .options-container {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px; /* Максимальная ширина для блоков с вариантами ответов */
-  }
-  
-  .option {
-    margin-bottom: 10px;
-  }
-  
-  .option input[type="radio"] {
-    display: none;
-  }
-  
-  .option label {
-    display: block;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .option label:hover {
-    background-color: #f0f0f0;
-  }
-  
-  .option input[type="radio"]:checked + label {
-    border-color: #007bff;
-    background-color: #007bff;
-  }
-  
+.option-checkbox + label {
+  display: inline-block;
+  cursor: pointer;
+  padding-left: 20px; /* Расстояние между галочкой и текстом */
+  position: relative;
+}
+
+.option-checkbox + label:before {
+  content: '';
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid #333; /* Цвет рамки галочки */
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  top: 1px;
+}
+
+.option-checkbox:checked + label:before {
+  content: '\2714'; /* Устанавливаем галочку (✓) */
+  font-size: 14px; /* Размер шрифта галочки */
+  line-height: 14px; /* Высота строки галочки */
+  text-align: center;
+}
