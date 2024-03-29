@@ -19,6 +19,7 @@ import SignUpComponent from './Components/Auth/SignUpComponent';
 import UserProfile from './Components/Account/UserProfile';
 import SearchResults from './Components/SearchResults';
 import Monitoring from './Components/monitoring';
+import TicketQuestions from './Components/Tests/components/TestQuestion';
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
             <Route path="/reviews/:id" element={<DetailedReviewView />} />
             <Route path="/account" element={<UserProfile />} />
             <Route path="/monitoring" element={<Monitoring />} />
+            <Route path="/tickets/:ticketNumber"  element={<TicketQuestions />} />
 
 
           </Route>

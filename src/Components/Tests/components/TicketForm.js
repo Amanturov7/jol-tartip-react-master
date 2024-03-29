@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Axios from 'axios';
 
 const TicketForm = ({ onCancel }) => {
@@ -9,28 +9,7 @@ const TicketForm = ({ onCancel }) => {
   const [option3, setOption3] = useState('');
   const [option4, setOption4] = useState('');
   const [file, setFile] = useState('');
-  const [userId, setUserId] = useState(0);
-  const [ticketId, setTicketId] = useState(0);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = sessionStorage.getItem('token');
-        if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
-            params: {
-              'token': `${token}`
-            }
-          });
-          setUserId(response.data.id);
-        }
-      } catch (error) {
-        console.error('Error fetching user data:', error.message);
-      }
-    };
-  
-    fetchUserData();
-  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +22,6 @@ const TicketForm = ({ onCancel }) => {
       option3,
       option4,
     };
-
     try {
       const ticketResponse = await Axios.post(
         'http://localhost:8080/rest/tickets/create',
@@ -106,37 +84,36 @@ const TicketForm = ({ onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="ticket-form">
+    <form onSubmit={handleSubmit} className="form-container">
       <div className="form-group">
         <label>Введите текст вопроса</label>
         <input type="text" value={question} onChange={(e) => setQuestion(e.target.value)} required />
-      </div>
-      <div className="form-group">
+
         <label>Правильный ответ</label>
         <input type="text" value={correctAnswer} onChange={(e) => setCorrectAnswer(e.target.value)} required />
-      </div>
-      <div className="form-group">
-        <label>Вариант А</label>
-        <input type="text" value={option1} onChange={(e) => setOption1(e.target.value)} required />
-      </div>
-      <div className="form-group">
-        <label>Вариант Б</label>
-        <input type="text" value={option2} onChange={(e) => setOption2(e.target.value)} required />
-      </div>
-      <div className="form-group">
-        <label>Вариант В</label>
-        <input type="text" value={option3} onChange={(e) => setOption3(e.target.value)} required />
-      </div>
-      <div className="form-group">
-        <label>Вариант Г</label>
-        <input type="text" value={option4} onChange={(e) => setOption4(e.target.value)} required />
+
         <label>Приложить фото для вопроса</label>
         <input type="file" onChange={handleFileChange} />
       </div>
-      <div className="form-actions">
-        <button type="submit">Сохранить</button>
+
+      <div className="form-group">
+        <label>Вариант А</label>
+        <input type="text" value={option1} onChange={(e) => setOption1(e.target.value)} required />
+          <label>Вариант Б</label>
+        <input type="text" value={option2} onChange={(e) => setOption2(e.target.value)} required /> 
         <button type="button" onClick={onCancel}>Отмена</button>
-      </div>
+
+        </div>
+
+      <div className="form-group">
+        <label>Вариант В</label>
+        <input type="text" value={option3} onChange={(e) => setOption3(e.target.value)} required />
+             <label>Вариант Г</label>
+        <input type="text" value={option4} onChange={(e) => setOption4(e.target.value)} required />
+        <button type="submit">Сохранить</button>
+         </div>
+
+
     </form>
   );
 };
