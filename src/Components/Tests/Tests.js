@@ -27,15 +27,17 @@ const Tests = () => {
       <h2>Тесты ПДД</h2>
       <TicketForm />
       <div>
-        <h3>Выберите номер билета:</h3>
+        <br></br>
         {error && <p>{error}</p>}
         {ticketNumbers.map(ticketNumber => (
           <Link 
             key={ticketNumber} 
-            to={`/tickets/${ticketNumber}`} // Перенаправляем на страницу с вопросами для выбранного билета
+            to={`/tickets/${ticketNumber}`} 
+            className='blue-button'
             style={{ cursor: 'pointer', marginRight: '10px' }}
           >
-            Билет {ticketNumber}
+                    <button type="submit">Билет {ticketNumber}</button>
+            
           </Link>
         ))}
       </div>

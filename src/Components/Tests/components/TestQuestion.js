@@ -75,6 +75,12 @@ const TicketQuestions = () => {
       <div>
         {questions.map(question => (
           <div key={question.id} className="question-container">
+{questionImages[question.id] ? (
+  <img className="question-image" src={questionImages[question.id]} alt={`Вопрос ${question.id}`} />
+) : (
+  <img className="question-image" src={require('../../../images/unnamed.png')} alt={`Вопрос ${question.id}`} />
+)}
+
             <p className="question">Вопрос {question.id}, {question.question}</p>
 
             <div className="options-container">
@@ -113,8 +119,6 @@ const TicketQuestions = () => {
                 </li>
               </ul>
             </div>
-
-            {questionImages[question.id] && <img className="question-image" src={questionImages[question.id]} alt={`Вопрос ${question.id}`} />}
           </div>
         ))}
       </div>
