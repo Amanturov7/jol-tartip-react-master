@@ -58,11 +58,12 @@ const NavbarComponent = () => {
             <Link to="/reviews" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Отзывы
             </Link>
+            {isAuthenticated() ? (
 
             <Link to="/events" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               События
             </Link>      
-      
+            ): null}
             <Link to="/violations-list" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Штрафы
             </Link>
@@ -75,9 +76,11 @@ const NavbarComponent = () => {
             <Link to="/about" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               О нас
             </Link>
+            {isAuthenticated() ? (
             <Link to="/monitoring" className="navbar-link" onClick={() => setIsMenuOpen(false)}>
               Мониторинг
             </Link>
+             ): null}
             {isAuthenticated() ? (
             <Link
                 to="/notifications"

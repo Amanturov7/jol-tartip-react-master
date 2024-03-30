@@ -112,10 +112,10 @@ const Notifications = () => {
           </div>
         </form>
         
-        <h3>Список уведомлений</h3>
         <table>
           <thead>
             <tr>
+            <th>Тип уведомления</th>
               <th>Описание</th>
               <th>Дата создания</th>
             </tr>
@@ -123,6 +123,7 @@ const Notifications = () => {
           <tbody>
             {notifications.map(notification => (
               <tr key={notification.id || Math.random()}>
+                <td>{notification.notificationName}</td>
                 <td>{notification.description}</td>
                 <td>{notification.createdDate}</td>
               </tr>
