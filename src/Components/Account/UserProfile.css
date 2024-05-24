@@ -1,0 +1,83 @@
+.user-profile {
+    display: flex;
+    justify-content: flex-start; /* Aligns everything to the left */
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .avatar-section {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 10px;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns items to the left */
+  }
+  
+  .img-box img {
+    width: 150px!important; 
+    height: 150px!important;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+  }
+  
+  .img-box {
+    width: 150px!important; 
+    height: 150px!important;
+  }
+  
+  .user-data p {
+    font-size: 1.2em; /* Increases the font size for user data */
+    margin: 5px 0;
+  }
+  
+  /* Custom file input style */
+  .custom-file-input-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-top: 10px;
+  }
+  
+  .custom-file-input {
+    display: none; /* Hide the default file input */
+  }
+  
+  .custom-file-input-label {
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+    color: #333;
+    display: inline-block;
+  }
+  
+  .custom-file-input-label:hover {
+    background-color: #e2e6ea;
+  }
+  
+  .button-container {
+    display: flex;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 10px;
+  }
+  
+  .button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #0056b3;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
