@@ -6,12 +6,13 @@
   }
   
   .avatar-section {
-    border: 1px solid #ccc;
+    max-width: 1200px;
+    margin:  auto;
     padding: 20px;
-    border-radius: 10px;
-    width: 60%;
-    display: flex;
-    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     align-items: flex-start; /* Aligns items to the left */
   }
   
@@ -24,8 +25,8 @@
   }
   
   .img-box {
-    width: 150px!important; 
-    height: 150px!important;
+    max-height: 400px!important; 
+    max-width: 400px!important;
   }
   
   .user-data p {
@@ -35,9 +36,11 @@
   
   /* Custom file input style */
   .custom-file-input-wrapper {
-    position: relative;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     display: inline-block;
     margin-top: 10px;
+    padding: 20px;
   }
   
   .custom-file-input {
@@ -68,15 +71,10 @@
     padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
     color: white;
     cursor: pointer;
   }
-  
-  .button:hover {
-    background-color: #0056b3;
-  }
-  
+ 
   h2 {
     margin-bottom: 20px;
   }

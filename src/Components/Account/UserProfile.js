@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserProfile.css'; // Importing the CSS file
-
+import defaultAvatar from '../../images/demo-avatar.jpg'
 function UserProfile() {
   const [userData, setUserData] = useState(null);
   const [avatar, setAvatar] = useState(null);
@@ -9,7 +9,6 @@ function UserProfile() {
   const [newAvatar, setNewAvatar] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [editedUserData, setEditedUserData] = useState({});
-  const defaultAvatar = 'path/to/default/avatar.png'; // Replace with the path to your default avatar image
 
   useEffect(() => {
     const token = sessionStorage.getItem('token');
@@ -117,32 +116,12 @@ function UserProfile() {
     <div className="container">
       {userData ? (
         <>
-          <div className="avatar-section">
-            <h2> @{userData.username}</h2>
+          <div className="form-container">
             <div className="img-box">
+            <h2> @{userData.username}</h2>
+
               <img src={avatar || defaultAvatar} alt="Аватар пользователя" />
-            </div>
-            <div className="user-data">
-              {editMode ? (
-                <>
-                  <p>Имя: <input type="text" name="username" value={editedUserData.username} onChange={handleInputChange} /></p>
-                  <p>Роль: <input type="text" name="role" value={editedUserData.role} onChange={handleInputChange} /></p>
-                  <p>№: <input type="text" name="id" value={editedUserData.id} disabled /></p>
-                  <div className="button-container">
-                    <button className="button" onClick={handleSave}>Сохранить</button>
-                    <button className="button" onClick={handleCancel}>Отменить</button>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <p>Имя: <input type="text" name="username" value={editedUserData.username} disabled /></p>
-                  <p>Роль: <input type="text" name="role" value={editedUserData.role} disabled /></p>
-                  <p>№: <input type="text" name="id" value={editedUserData.id} disabled /></p>
-                  <button className="button" onClick={handleEditToggle}>Изменить</button>
-                </>
-              )}
-            </div>
-            <div className="custom-file-input-wrapper">
+              <div className="custom-file-input-wrapper">
               <input
                 type="file"
                 accept="image/*"
@@ -151,14 +130,86 @@ function UserProfile() {
                 onChange={handleAvatarChange}
               />
               <label className="custom-file-input-label" htmlFor="fileInput">
-                Выбрать файл
+                Выбрать Аватарку
               </label>
+              <div className="button-container">
+              <button className="button" onClick={handleAvatarUpload}>Загрузить </button>
+              <button className="button" onClick={handleAvatarDelete}>Удалить </button>
             </div>
-            <div className="button-container">
-              <button className="button" onClick={handleAvatarUpload}>Загрузить аватарку</button>
-              <button className="button" onClick={handleAvatarDelete}>Удалить аватарку</button>
             </div>
-          </div>
+           
+            </div>
+            
+              {editMode ? (
+                <>
+                               <div className="form-group">
+                               <h3>ID</h3>
+                   <input type="text" name="id" value={editedUserData.id} disabled />
+                  <h3>Логин</h3>
+                  <input type="text" name="username" value={editedUserData.username}  />
+                  <h3>Роль</h3>
+                  <input type="text" name="role" value={editedUserData.role} disabled />
+                  <h3>Дата регистрации</h3>
+                  <input type="text" name="signupDate" value={editedUserData.signupDate} disabled />
+                  <h3>Email</h3>
+                   <input type="text" name="email" value={editedUserData.email}  />
+                  
+                  
+
+                   </div>
+                   <div className="form-group">
+                <h3>Паспорт серия №</h3>
+                  <input type="text" name="passportSerial" value={editedUserData.passportSerial}  />
+                  <h3>ИНН</h3>
+                   <input type="text" name="inn" value={editedUserData.inn}  />
+                   <h3>Номер телефона</h3>
+                   <input type="text" name="phone" value={editedUserData.phone}  />
+                   <h3>Адрес</h3>
+                   <input type="text" name="address" value={editedUserData.address}  />
+                   <div className="button-container">
+                    <button className="button" onClick={handleSave}>Сохранить</button>
+                    <button className="button" onClick={handleCancel}>Отменить</button>
+                  </div>
+                   </div>
+            
+                  
+                  
+                </>
+              ) : (
+                <>
+                                <div className="form-group">
+                                <h3>ID</h3>
+                   <input type="text" name="id" value={editedUserData.id} disabled />
+                  <h3>Логин</h3>
+                  <input type="text" name="username" value={editedUserData.username} disabled />
+                  <h3>Роль</h3>
+                  <input type="text" name="role" value={editedUserData.role} disabled />
+                  <h3>Дата регистрации</h3>
+                  <input type="text" name="signupDate" value={editedUserData.signupDate} disabled />
+                  <h3>Email</h3>
+                   <input type="text" name="email" value={editedUserData.email} disabled />
+                  
+
+                   </div>
+                   <div className="form-group">
+                   <h3>Паспорт серия №</h3>
+                  <input type="text" name="passportSerial" value={editedUserData.passportSerial} disabled/>
+                  <h3>ИНН</h3>
+                   <input type="text" name="inn" value={editedUserData.inn}  disabled/>
+                   <h3>Номер телефона</h3>
+                   <input type="text" name="phone" value={editedUserData.phone} disabled />
+                   <h3>Адрес</h3>
+                   <input type="text" name="address" value={editedUserData.address} disabled />
+           
+                   <button className="button" onClick={handleEditToggle}>Изменить</button>
+
+                   </div>
+                </>
+                
+              )}
+            </div>
+        
+        
         </>
       ) : (
         <p>Данные пользователя не найдены.</p>
