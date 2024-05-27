@@ -16,7 +16,7 @@
     align-items: flex-start; /* Aligns items to the left */
   }
   
-  .img-box img {
+  .img-box-profile img {
     width: 150px!important; 
     height: 150px!important;
     border-radius: 50%;
@@ -24,7 +24,7 @@
     margin-bottom: 20px;
   }
   
-  .img-box {
+  .img-box-profile {
     max-height: 400px!important; 
     max-width: 400px!important;
   }

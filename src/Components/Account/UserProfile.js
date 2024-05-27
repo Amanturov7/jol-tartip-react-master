@@ -117,7 +117,7 @@ function UserProfile() {
       {userData ? (
         <>
           <div className="form-container">
-            <div className="img-box">
+            <div className="img-box-profile ">
             <h2> @{userData.username}</h2>
 
               <img src={avatar || defaultAvatar} alt="Аватар пользователя" />
