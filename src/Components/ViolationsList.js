@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import  config  from './Config';
 import "../App.css"
 const ViolationsList = () => {
   const [violations, setViolations] = useState([]);
@@ -16,7 +17,7 @@ const ViolationsList = () => {
   useEffect(() => {
     const fetchViolations = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/rest/violations/all');
+        const response = await axios.get(`${config.BASE_URL}/rest/violations/all`);
         setViolations(response.data);
       } catch (error) {
         console.error('Error fetching violations:', error.message);
@@ -29,7 +30,7 @@ const ViolationsList = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await axios.get('http://localhost:8080/rest/user/user', {
+          const response = await axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }
@@ -58,7 +59,7 @@ const ViolationsList = () => {
     try {
       const token = sessionStorage.getItem('token');
       if (token) {
-        const response = await axios.post('http://localhost:8080/rest/violations/create', {
+        const response = await axios.post(`${config.BASE_URL}/rest/violations/create`, {
           title,
           statya,
           part,

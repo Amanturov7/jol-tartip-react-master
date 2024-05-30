@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import '../Tests.css'; // Проверьте, что путь к вашему CSS файлу указан корректно
-
+import config from '../../Config'
 const TicketQuestions = () => {
   const { ticketNumber } = useParams();
   const [questions, setQuestions] = useState([]);
@@ -16,12 +16,12 @@ const TicketQuestions = () => {
   useEffect(() => {
     const fetchQuestionsByNumber = async () => {
       try {
-        const response = await Axios.get(`http://localhost:8080/rest/tickets/byNumber/${ticketNumber}`);
+        const response = await Axios.get(`${config.BASE_URL}/rest/tickets/byNumber/${ticketNumber}`);
         setQuestions(response.data);
 
         const imagePromises = response.data.map(async question => {
           try {
-            const imageResponse = await Axios.get(`http://localhost:8080/rest/attachments/download/tickets/${question.id}`, {
+            const imageResponse = await Axios.get(`${config.BASE_URL}/rest/attachments/download/tickets/${question.id}`, {
               responseType: 'blob'
             });
             const imageUrl = URL.createObjectURL(imageResponse.data);

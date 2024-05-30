@@ -4,6 +4,7 @@ import Axios from 'axios';
 
 import '../../../App.css'; 
 import './ApplicationList.css';
+import  config  from '../../Config';
 
 const ApplicationsList = ({ onReportClick }) => {
   const [applications, setApplications] = useState([]);
@@ -22,7 +23,7 @@ const ApplicationsList = ({ onReportClick }) => {
 
   const fetchApplications = async () => {
     try {
-      let url = `http://localhost:8080/rest/applications/all?page=${pageNumber}`;
+      let url = `${config.BASE_URL}/rest/applications/all?page=${pageNumber}`;
 
 
       if (selectedFilter) {
@@ -52,7 +53,7 @@ const ApplicationsList = ({ onReportClick }) => {
 
   const fetchFilterOptions = async () => {
     try {
-      const response = await Axios.get('http://localhost:8080/rest/violations/all');
+      const response = await Axios.get(`${config.BASE_URL}/rest/violations/all`);
       setFilterOptions(response.data);
     } catch (error) {
       console.error('Error fetching filter options:', error.message);
@@ -102,7 +103,7 @@ const ApplicationsList = ({ onReportClick }) => {
   const renderApplications = () => {
       return applications.map((application) => (
         <Link to={`/applications/${application.id}`} key={application.id} className="application-box">
-          <img src={`http://localhost:8080/rest/attachments/download/applications/${application.id}`} alt={`Application ${application.id}`} />
+          <img src={`${config.BASE_URL}/rest/attachments/download/applications/${application.id}`} alt={`Application ${application.id}`} />
           <div> Нарушение № {application.id}</div>
           <div>{application.title}</div>
         </Link>

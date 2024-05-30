@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './LoginComponent.css'; // Подключаем файл стилей
+import  config  from '../Config';
 
 const LoginComponent = () => {
   const [loginData, setLoginData] = useState({ login: '', password: '' });
@@ -15,7 +16,7 @@ const LoginComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8080/auth/authenticate', loginData);
+      const response = await axios.post(`${config.BASE_URL}/auth/authenticate`, loginData);
       console.log('Login successful:', response.data);
 
       sessionStorage.setItem("token", response.data.token);

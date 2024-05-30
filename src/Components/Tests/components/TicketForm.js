@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-
+import config from '../../Config'
 const TicketForm = ({ onCancel }) => {
   const [question, setQuestion] = useState('');
   const [correctAnswer, setCorrectAnswer] = useState('');
@@ -19,7 +19,7 @@ const TicketForm = ({ onCancel }) => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }
@@ -49,7 +49,7 @@ const TicketForm = ({ onCancel }) => {
 
     try {
       const ticketResponse = await Axios.post(
-        'http://localhost:8080/rest/tickets/create',
+        '`${config.BASE_URL}/rest/tickets/create',
         newTicket,
         {
           headers: {
@@ -70,7 +70,7 @@ const TicketForm = ({ onCancel }) => {
           ticketsId: ticketResponse.data.id,
         }));
 
-        await Axios.post('http://localhost:8080/rest/attachments/upload', formData, {
+        await Axios.post(`${config.BASE_URL}/rest/attachments/upload`, formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

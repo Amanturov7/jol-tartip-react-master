@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import MapDetailedView from '../../Maps/MapDetailedView';
-
+import config from '../../Config'
 const DetailedReviewView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -15,10 +15,10 @@ const DetailedReviewView = () => {
   useEffect(() => {
     const fetchReview = async () => {
       try {
-        const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
+        const response = await Axios.get(`${config.BASE_URL}/rest/reviews/${id}`);
         setReview(response.data);
 
-        const attachmentResponse = await Axios.get(`http://localhost:8080/rest/attachments/download/reviews/${id}`, {
+        const attachmentResponse = await Axios.get(`${config.BASE_URL}/rest/attachments/download/reviews/${id}`, {
           responseType: 'blob',
         });
         const blob = new Blob([attachmentResponse.data]);
@@ -34,7 +34,7 @@ const DetailedReviewView = () => {
     const token = sessionStorage.getItem('token');
     if (token) {
       Axios.defaults.headers.common['Authorization'] = token;
-      Axios.get('http://localhost:8080/rest/user/user', {
+      Axios.get(`${config.BASE_URL}/rest/user/user`, {
         params: { token: token }
       })
         .then(response => {
@@ -49,8 +49,8 @@ const DetailedReviewView = () => {
 
   const handleStatusAccept = async () => {
     try {
-      await Axios.put(`http://localhost:8080/rest/reviews/update/status/accept/${id}`);
-      const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
+      await Axios.put(`${config.BASE_URL}/rest/reviews/update/status/accept/${id}`);
+      const response = await Axios.get(`${config.BASE_URL}/rest/reviews/${id}`);
       setReview(response.data);
     } catch (error) {
       console.error('Error updating status:', error.message);
@@ -60,8 +60,8 @@ const DetailedReviewView = () => {
   
   const handleStatusProtocol = async () => {
     try {
-      await Axios.put(`http://localhost:8080/rest/reviews/update/status/protocol/${id}`);
-      const response = await Axios.get(`http://localhost:8080/rest/reviews/${id}`);
+      await Axios.put(`${config.BASE_URL}/rest/reviews/update/status/protocol/${id}`);
+      const response = await Axios.get(`${config.BASE_URL}/rest/reviews/${id}`);
       setReview(response.data);
     } catch (error) {
       console.error('Error updating status:', error.message);
@@ -70,7 +70,7 @@ const DetailedReviewView = () => {
 
   const handleDelete = async () => {
     try {
-      await Axios.delete(`http://localhost:8080/rest/reviews/delete/${id}`);
+      await Axios.delete(`${config.BASE_URL}/rest/reviews/delete/${id}`);
       navigate('/reviews'); 
     } catch (error) {
       console.error('Error deleting review:', error.message);

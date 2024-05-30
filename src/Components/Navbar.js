@@ -1,5 +1,7 @@
 import React, { useState,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import  config  from './Config';
+
 import Axios from 'axios';
 const NavbarComponent = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const NavbarComponent = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }

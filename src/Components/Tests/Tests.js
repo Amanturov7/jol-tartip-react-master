@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import TicketForm from './components/TicketForm';
+import config from '../Config'
 // import "../../Components/Tests/Tests.css"
 
 const isAuthenticated = () => {
@@ -16,7 +17,7 @@ const Tests = () => {
   useEffect(() => {
     const fetchTicketNumbers = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/tickets/uniqueNumbers');
+        const response = await Axios.get(`${config.BASE_URL}/rest/tickets/uniqueNumbers`);
         setTicketNumbers(response.data);
       } catch (error) {
         setError('Ошибка при загрузке номеров билетов');

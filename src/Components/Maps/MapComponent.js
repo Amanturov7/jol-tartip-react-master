@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import L from 'leaflet';
 import Axios from 'axios';
 import 'leaflet/dist/leaflet.css';
-
+import config from '../Config'
 import { useNavigate } from 'react-router-dom';
 
 const MapComponent = () => {
@@ -17,13 +17,13 @@ const MapComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const applicationsResponse = await Axios.get('http://localhost:8080/rest/applications/points');
+        const applicationsResponse = await Axios.get(`${config.BASE_URL}/rest/applications/points`);
         setApplications(applicationsResponse.data);
 
-        const reviewsResponse = await Axios.get('http://localhost:8080/rest/reviews/points');
+        const reviewsResponse = await Axios.get(`${config.BASE_URL}/rest/reviews/points`);
         setReviews(reviewsResponse.data);
 
-        const eventsResponse = await Axios.get('http://localhost:8080/rest/events/points');
+        const eventsResponse = await Axios.get(`${config.BASE_URL}/rest/events/points`);
         setEvents(eventsResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error.message);
@@ -49,7 +49,7 @@ const MapComponent = () => {
     });
 
     const baseMaps = {
-      'Local map': L.tileLayer('http://localhost:8080/rest/{z}/{x}/{y}.png', {
+      'Local map': L.tileLayer('`${config.BASE_URL}/rest/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
       }).addTo(map),
       'Light Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {

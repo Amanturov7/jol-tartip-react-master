@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 import MapDetailedView from '../../Maps/MapDetailedView';
+import  config from '../../Config';
 
 const DetailedApplicationView = () => {
   const { id } = useParams();
@@ -16,10 +17,10 @@ const DetailedApplicationView = () => {
   useEffect(() => {
     const fetchApplication = async () => {
       try {
-        const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
+        const response = await Axios.get(`${config.BASE_URL}/rest/applications/${id}`);
         setApplication(response.data);
 
-        const attachmentResponse = await Axios.get(`http://localhost:8080/rest/attachments/download/applications/${id}`, {
+        const attachmentResponse = await Axios.get(`${config.BASE_URL}/rest/attachments/download/applications/${id}`, {
           responseType: 'blob',
         });
         const blob = new Blob([attachmentResponse.data]);
@@ -37,7 +38,7 @@ const DetailedApplicationView = () => {
     if (token) {
       Axios.defaults.headers.common['Authorization'] = token;
 
-      Axios.get('http://localhost:8080/rest/user/user', {
+      Axios.get(`${config.BASE_URL}/rest/user/user`, {
         params: { token: token }
       })
         .then(response => {
@@ -51,7 +52,7 @@ const DetailedApplicationView = () => {
 
   const handleDelete = async () => {
     try {
-      await Axios.delete(`http://localhost:8080/rest/applications/delete/${id}`);
+      await Axios.delete(`${config.BASE_URL}/rest/applications/delete/${id}`);
       navigate('/report');
     } catch (error) {
       console.error('Error deleting application:', error.message);
@@ -60,8 +61,8 @@ const DetailedApplicationView = () => {
 
   const handleStatusAccept = async () => {
     try {
-      await Axios.put(`http://localhost:8080/rest/applications/update/status/accept/${id}`);
-      const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
+      await Axios.put(`${config.BASE_URL}/rest/applications/update/status/accept/${id}`);
+      const response = await Axios.get(`${config.BASE_URL}/rest/applications/${id}`);
       setApplication(response.data);
     } catch (error) {
       console.error('Error updating status:', error.message);
@@ -71,8 +72,8 @@ const DetailedApplicationView = () => {
   
   const handleStatusProtocol = async () => {
     try {
-      await Axios.put(`http://localhost:8080/rest/applications/update/status/protocol/${id}`);
-      const response = await Axios.get(`http://localhost:8080/rest/applications/${id}`);
+      await Axios.put(`${config.BASE_URL}/rest/applications/update/status/protocol/${id}`);
+      const response = await Axios.get(`${config.BASE_URL}/rest/applications/${id}`);
       setApplication(response.data);
     } catch (error) {
       console.error('Error updating status:', error.message);

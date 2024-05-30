@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MapComponent from '../../Applications/Component/MapComponent';
 import Modal from '../../Modal'; 
+import config from '../../Config'
 const ReviewForm = () => {
   // eslint-disable-next-line 
   const [lat, setLat] = useState(0);
@@ -43,7 +44,7 @@ const ReviewForm = () => {
     const type = e.target.value;
     setReviewType(type);
 
-    Axios.get(`http://localhost:8080/rest/common-reference/by-type/${getTypeReferenceType(type)}`)
+    Axios.get(`${config.BASE_URL}/rest/common-reference/by-type/${getTypeReferenceType(type)}`)
       .then((response) => {
         setOptions(response.data);
       })
@@ -72,7 +73,7 @@ const ReviewForm = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }
@@ -162,7 +163,7 @@ const ReviewForm = () => {
     };
   
     try {
-      const response = await Axios.post('http://localhost:8080/rest/reviews/create', { ...newReview, ...reviewTypeFields }, {
+      const response = await Axios.post(`${config.BASE_URL}/rest/reviews/create`, { ...newReview, ...reviewTypeFields }, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -181,7 +182,7 @@ const ReviewForm = () => {
         })
       );
 
-      await Axios.post('http://localhost:8080/rest/attachments/upload', formData, {
+      await Axios.post(`${config.BASE_URL}/rest/attachments/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

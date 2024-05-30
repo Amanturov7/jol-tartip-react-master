@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
+import  config  from './Config';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -15,7 +16,7 @@ const Notifications = () => {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/notifications/all');
+        const response = await Axios.get(`${config.BASE_URL}/rest/notifications/all`);
         setNotifications(response.data);
       } catch (error) {
         console.error('Error fetching notifications:', error.message);
@@ -28,7 +29,7 @@ const Notifications = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }
@@ -51,7 +52,7 @@ const Notifications = () => {
 
     const fetchNotificationTypes = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/common-reference/by-type/008');
+        const response = await Axios.get(`${config.BASE_URL}/rest/common-reference/by-type/008`);
         setNotificationTypes(response.data);
       } catch (error) {
         console.error('Error fetching notification types:', error.message);
@@ -65,8 +66,8 @@ const Notifications = () => {
     e.preventDefault();
     try {
       const dataToSend = { ...formData, userId: userId };
-      await Axios.post('http://localhost:8080/rest/notifications/save', dataToSend);
-      const response = await Axios.get('http://localhost:8080/rest/notifications/all');
+      await Axios.post(`${config.BASE_URL}/rest/notifications/save`, dataToSend);
+      const response = await Axios.get(`${config.BASE_URL}/rest/notifications/all`);
       setNotifications(response.data);
       setFormData({ description: '', notificationTypeId: '' });
     } catch (error) {

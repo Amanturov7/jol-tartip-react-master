@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserProfile.css'; // Importing the CSS file
 import defaultAvatar from '../../images/demo-avatar.jpg'
+import  config  from '../Config';
+
 function UserProfile() {
   const [userData, setUserData] = useState(null);
   const [avatar, setAvatar] = useState(null);
@@ -16,7 +18,7 @@ function UserProfile() {
     if (token) {
       axios.defaults.headers.common['Authorization'] = `${token}`;
 
-      axios.get('http://localhost:8080/rest/user/user', {
+      axios.get(`${config.BASE_URL}/rest/user/user`, {
         params: {
           token: token
         }
@@ -37,7 +39,7 @@ function UserProfile() {
   }, []);
 
   const fetchAvatar = (userId) => {
-    axios.get(`http://localhost:8080/rest/attachments/download/avatar/user/${userId}`, {
+    axios.get(`${config.BASE_URL}/rest/attachments/download/avatar/user/${userId}`, {
       responseType: 'arraybuffer'
     })
     .then(response => {
@@ -63,7 +65,7 @@ function UserProfile() {
       const formData = new FormData();
       formData.append('file', newAvatar);
 
-      await axios.post(`http://localhost:8080/rest/user/${userData.id}/avatar`, formData, {
+      await axios.post(`${config.BASE_URL}/rest/user/${userData.id}/avatar`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -77,7 +79,7 @@ function UserProfile() {
 
   const handleAvatarDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8080/rest/user/${userData.id}/avatar`);
+      await axios.delete(`${config.BASE_URL}/rest/user/${userData.id}/avatar`);
       setAvatar(null);
     } catch (error) {
       console.error('Ошибка при удалении аватара:', error);
@@ -95,7 +97,7 @@ function UserProfile() {
 
   const handleSave = async () => {
     try {
-      await axios.put(`http://localhost:8080/rest/user/${userData.id}`, editedUserData);
+      await axios.put(`${config.BASE_URL}/rest/user/${userData.id}`, editedUserData);
       setUserData(editedUserData);
       setEditMode(false);
     } catch (error) {

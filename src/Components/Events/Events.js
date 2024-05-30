@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MapComponent from '../Applications/Component/MapComponent';
 import Modal from '../../Components/Modal'; // Импортируем компонент модального окна
-
+import config from '../Config'
 const Events = () => {
   const [events, setEvents] = useState([]);
   const [place, setPlace] = useState('');
@@ -29,7 +29,7 @@ const Events = () => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }
@@ -76,7 +76,7 @@ const Events = () => {
 
   const fetchEventTypes = async () => {
     try {
-      const eventTypeResponse = await Axios.get('http://localhost:8080/rest/common-reference/by-type/006');
+      const eventTypeResponse = await Axios.get(`${config.BASE_URL}/rest/common-reference/by-type/006`);
       setEventTypes(eventTypeResponse.data);
     } catch (error) {
       console.error('Error fetching event types:', error.message);
@@ -91,7 +91,7 @@ const Events = () => {
   
 
     try {
-      const response = await Axios.post('http://localhost:8080/rest/events/create', {
+      const response = await Axios.post(`${config.BASE_URL}/rest/events/create`, {
         ...newEvent,
         userId: userId 
       });

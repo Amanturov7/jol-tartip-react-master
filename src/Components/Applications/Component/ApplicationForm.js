@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import MapComponent from './MapComponent';
 import Modal from '../../Modal';
+import  config  from '../../Config';
 
 const ApplicationForm = ({ onCancel }) => {
   const [title, setTitle] = useState('');
@@ -28,7 +29,7 @@ const ApplicationForm = ({ onCancel }) => {
   useEffect(() => {
     const fetchRegions = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/common-reference/by-type/001');
+        const response = await Axios.get(`${config.BASE_URL}/rest/common-reference/by-type/001`);
         setRegions(response.data);
       } catch (error) {
         console.error('Error fetching regions:', error.message);
@@ -41,7 +42,7 @@ const ApplicationForm = ({ onCancel }) => {
   useEffect(() => {
     const fetchViolations = async () => {
       try {
-        const response = await Axios.get('http://localhost:8080/rest/violations/all');
+        const response = await Axios.get(`${config.BASE_URL}/rest/violations/all`);
         setViolationsList(response.data);
       } catch (error) {
         console.error('Error fetching violations:', error.message);
@@ -54,7 +55,7 @@ const ApplicationForm = ({ onCancel }) => {
   useEffect(() => {
     const fetchDistrictsByRegionId = async () => {
       try {
-        const response = await Axios.get(`http://localhost:8080/rest/common-reference/parent/${regionId}`);
+        const response = await Axios.get(`${config.BASE_URL}/rest/common-reference/parent/${regionId}`);
         setFilteredDistricts(response.data);
       } catch (error) {
         console.error('Error fetching districts:', error.message);
@@ -71,7 +72,7 @@ const ApplicationForm = ({ onCancel }) => {
       try {
         const token = sessionStorage.getItem('token');
         if (token) {
-          const response = await Axios.get('http://localhost:8080/rest/user/user', {
+          const response = await Axios.get(`${config.BASE_URL}/rest/user/user`, {
             params: {
               'token': `${token}`
             }
@@ -156,7 +157,7 @@ const ApplicationForm = ({ onCancel }) => {
 
     try {
       const applicationResponse = await Axios.post(
-        'http://localhost:8080/rest/applications/create',
+        `${config.BASE_URL}/rest/applications/create`,
         newApplication,
         {
           headers: {
@@ -178,7 +179,7 @@ const ApplicationForm = ({ onCancel }) => {
         })
       );
 
-      await Axios.post('http://localhost:8080/rest/attachments/upload', formData, {
+      await Axios.post(`${config.BASE_URL}/rest/attachments/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
