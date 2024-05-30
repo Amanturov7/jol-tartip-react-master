@@ -3,30 +3,39 @@ import L from 'leaflet';
 import Axios from 'axios';
 import 'leaflet/dist/leaflet.css';
 import config from '../Config'
+import sosIcocs from '../../images/sos.png'
 import { useNavigate } from 'react-router-dom';
 
 const MapComponent = () => {
   const [applications, setApplications] = useState([]);
   const [events, setEvents] = useState([]);
+  const [sos, setSos] = useState([]);
+
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
   const applicationLayer = L.layerGroup();
   const reviewLayer = L.layerGroup();
   const eventLayer = L.layerGroup();
+  const sosLayer = L.layerGroup();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const applicationsResponse = await Axios.get(`${config.BASE_URL}/rest/applications/points`);
         setApplications(applicationsResponse.data);
+    
+        const eventsResponse = await Axios.get(`${config.BASE_URL}/rest/events/points`);
+        setEvents(eventsResponse.data);
+
+        const sosResponse = await Axios.get(`${config.BASE_URL}/rest/sos/points`);
+        setSos(sosResponse.data);
 
         const reviewsResponse = await Axios.get(`${config.BASE_URL}/rest/reviews/points`);
         setReviews(reviewsResponse.data);
 
-        const eventsResponse = await Axios.get(`${config.BASE_URL}/rest/events/points`);
-        setEvents(eventsResponse.data);
+    
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching  data:', error.message);
       }
     };
 
@@ -49,7 +58,7 @@ const MapComponent = () => {
     });
 
     const baseMaps = {
-      'Local map': L.tileLayer('`${config.BASE_URL}/rest/{z}/{x}/{y}.png', {
+      'Local map': L.tileLayer(`${config.BASE_URL}/rest/{z}/{x}/{y}.png`, {
         attribution: '© OpenStreetMap contributors',
       }).addTo(map),
       'Light Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -73,7 +82,9 @@ const MapComponent = () => {
     const overlayMaps = {
       'Нарушения': applicationLayer,
       'Отзывы': reviewLayer,
-      'События': eventLayer
+      'События': eventLayer,
+      'SOS': sosLayer
+
     };
 
     L.control.layers(baseMaps, overlayMaps).addTo(map);
@@ -105,6 +116,14 @@ const MapComponent = () => {
       shadowSize: [41, 41],
     });
 
+
+    const sosIcon = new L.Icon({
+      iconUrl: sosIcocs,
+      iconSize: [45, 30],
+      // iconAnchor: [12, 41],
+      // popupAnchor: [1, -34],
+      // shadowSize: [41, 41],
+    });
     applications.forEach((app) => {
       const { lat, lon } = app;
       if (lat && lon) {
@@ -189,11 +208,39 @@ const MapComponent = () => {
       }
     });
 
+
+
+    sos.forEach((sos) => {
+      const { lat, lon } = sos;
+      if (lat && lon) {
+        const popupContent = `
+          Описание: ${sos.description}<br>
+          Дата: ${sos.created}<br>
+          Тип сигнала: ${sos.typeSosName}<br>
+          Номер телефона: ${sos.phone}<br>
+          <br>
+          нажмите чтобы перейти к событию
+        `;
+        const marker = L.marker([lat, lon], { icon: sosIcon })
+          .addTo(sosLayer)
+          .bindPopup(`!!!SOS!!! № ${sos.id} <br>${popupContent}`);
+
+  
+        marker.on('mouseover', function () {
+          this.openPopup();
+        });
+
+        marker.on('mouseout', function () {
+          this.closePopup();
+        });
+      }
+    });
+
     return () => {
       map.remove();
     };
 
-  }, [applications, reviews, events, navigate, applicationLayer, reviewLayer, eventLayer]);
+  }, [applications, reviews, events,sos, navigate, applicationLayer, reviewLayer, eventLayer,sosLayer]);
 
   return (
     <div style={{ position: 'relative', height: '95vh', width: '100%' }}>
@@ -210,6 +257,10 @@ const MapComponent = () => {
         <div>
           <img src="https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png" alt="Blue Marker" style={{ verticalAlign: 'middle', marginRight: '5px', width: '16px', height: 'auto' }} />
           События
+        </div>
+        <div>
+          <img src={sosIcocs} alt="SOS" style={{ verticalAlign: 'middle', marginRight: '5px', width: '16px', height: 'auto' }} />
+          SOS
         </div>
       </div>
     </div>
