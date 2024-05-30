@@ -16,7 +16,7 @@ const SignUpComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${config.BASE_URL}/auth/signup`, signUpData);
+      const response = await axios.post(`${config.BASE_URL}/rest/auth/signup`, signUpData);
       console.log('Sign up successful:', response.data);
       // Перенаправляем пользователя на страницу авторизации
       navigate('/login'); // Перенаправляем на страницу с маршрутом '/login'

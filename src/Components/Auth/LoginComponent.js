@@ -16,7 +16,7 @@ const LoginComponent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${config.BASE_URL}/auth/authenticate`, loginData);
+      const response = await axios.post(`${config.BASE_URL}/rest/auth/authenticate`, loginData);
       console.log('Login successful:', response.data);
 
       sessionStorage.setItem("token", response.data.token);
