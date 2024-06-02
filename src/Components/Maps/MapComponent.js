@@ -53,26 +53,26 @@ const MapComponent = () => {
       zoom: 13,
       maxBounds: kyrgyzstanBounds,
       minZoom: 8,
-      maxZoom: 15,
+      maxZoom: 18,
       bounceAtZoomLimits: false
     });
 
     const baseMaps = {
-      'Local map': L.tileLayer(`${config.BASE_URL}/rest/{z}/{x}/{y}.png`, {
+      'Base Map': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
-      }).addTo(map),
+      }),
       'Light Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors',
       }),
       'Dark Map': L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
         attribution: '© OpenStreetMap contributors',
       }),
-      'Base Map': L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      'Local map': L.tileLayer(`${config.BASE_URL}/rest/{z}/{x}/{y}.png`, {
         attribution: '© OpenStreetMap contributors',
       }),
       'OpenStreetMap Hot': L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors',
-      }),
+      }).addTo(map),
       '2GIS': L.tileLayer('https://tile{s}.maps.2gis.com/tiles?x={x}&y={y}&z={z}', {
         subdomains: '0123',
         attribution: '© 2GIS',
@@ -119,7 +119,7 @@ const MapComponent = () => {
 
     const sosIcon = new L.Icon({
       iconUrl: sosIcocs,
-      iconSize: [45, 30],
+      iconSize: [45, 36],
       // iconAnchor: [12, 41],
       // popupAnchor: [1, -34],
       // shadowSize: [41, 41],

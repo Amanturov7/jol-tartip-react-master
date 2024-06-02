@@ -92,13 +92,13 @@ const ApplicationForm = ({ onCancel }) => {
     const selectedFile = e.target.files[0];
 
     if (selectedFile) {
-      const allowedFileTypes = ['image/jpeg', 'image/png', 'video/mp4'];
+      const allowedFileTypes = ['image/jpeg', 'image/jpg','image/png'];
       const fileType = selectedFile.type;
 
       if (allowedFileTypes.includes(fileType)) {
         setFile(selectedFile);
       } else {
-        alert('Файл не поддерживается. Выберите jpeg, jpg, png, mp4');
+        alert('Файл не поддерживается. Выберите jpeg, jpg, png');
         e.target.value = null;
         setFile(null);
       }
